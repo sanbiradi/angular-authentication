@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth/auth.service';
 @Component({
@@ -6,21 +6,23 @@ import { AuthService } from './auth/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  Logined: boolean = false;
+export class AppComponent implements OnInit, OnChanges {
+  
+
   constructor(private authService: AuthService, private router: Router) {
-   
+    
   }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   title = 'angular-assignment';
 
   ngOnInit(): void {
-    console.log(this.Logined);
-    this.Logined = this.authService.isLoggedIn();
+    // console.log(this.LogOut, this.authService.getCurrentUser());
+    // if (Object.keys(this.authService.getCurrentUser()).length === 0)
+    //   this.LogOut = false;
+    // else this.LogOut = true;
+    // console.log(this.LogOut, this.authService.getCurrentUser());
   }
-    
-  logout() {
-    if (this.authService.logout()) this.router.navigate(['/auth/login']);
-    this.Logined = false;
-  }
+
+ 
 }

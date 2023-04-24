@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -10,7 +10,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
-
+  
   validationerr?: boolean;
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     this.validationerr = this.authService.login(this.email, this.password)
       ? false
       : true;
-    console.log(this.validationerr);
+    
     if (this.email !== '' && this.password !== '') {
       if (this.authService.login(this.email, this.password)) {
         this.router.navigate(['/my-profile']);

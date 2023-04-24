@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { VisualizerComponent } from './visualizer/visualizer.component';
+import { AuthModule } from './auth/auth.module';
+import { HeaderComponent } from './auth/header/header.component';
+
+
+
 
 @NgModule({
-  declarations: [AppComponent, VisualizerComponent],
+  declarations: [AppComponent],
   imports: [
     FormsModule,
     AppRoutingModule,
@@ -16,7 +19,9 @@ import { VisualizerComponent } from './visualizer/visualizer.component';
     AuthModule,
     HomeModule,
     ReactiveFormsModule,
+  
   ],
+  
   providers: [],
   bootstrap: [AppComponent],
 })
