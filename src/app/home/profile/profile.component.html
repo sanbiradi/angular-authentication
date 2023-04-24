@@ -4,9 +4,6 @@
       <div class="col-auto">
         <h1>Profile Information</h1>
       </div>
-      <div class="col d-flex align-items-center flex-row-reverse">
-        <button class="btn btn-danger btn-sm" (click)="logout()">Logout</button>
-      </div>
     </div>
     <hr>
     <p>Name: {{ user.fullName }}</p>
@@ -15,8 +12,10 @@
     <p>Is Email Verified: {{ user.isEmailVerified }}</p>
     <p>Company Name: {{ user.companyName }}</p>
   </div>
-
   <div *ngIf="!user">
     <h4 class="text-danger text-center">Please log in to view your profile.</h4>
   </div>
+
 </div>
+
+

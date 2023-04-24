@@ -5,9 +5,10 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './home/home.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VisualizerComponent } from './visualizer/visualizer.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, VisualizerComponent],
   imports: [
     FormsModule,
     AppRoutingModule,

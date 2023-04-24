@@ -48,7 +48,7 @@ export class AuthService {
       fullName,
       companyName,
       role,
-      isEmailVerified,
+      isEmailVerified
     });
     localStorage.setItem('users', JSON.stringify(users));
     return true;
