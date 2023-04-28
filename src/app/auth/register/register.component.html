@@ -1,4 +1,5 @@
 <app-header></app-header>
+<div class="col-6 offset-3">
 <div class="card shadow-sm p-4">
   <div class="card-text">
     <h2 class="fs-3">Register an Account</h2>
@@ -43,7 +44,7 @@
       <div class="form-group mb-4">
         <div class="row">
           <div class="col-3">
-            <label for="fullName" class="fs-6">fullName</label>
+            <label for="fullName" class="fs-6">full Name</label>
           </div>
           <div class="col">
             <input
@@ -74,7 +75,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group mb-4">
+      <!-- <div class="form-group mb-4">
         <div class="row">
           <div class="col-3">
             <label for="role" class="fs-6">Employment role</label>
@@ -90,7 +91,7 @@
             />
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="row" *ngIf="validationerr">
         <h6 class="text-danger fw-100 mt-3">
           Please enter valid information!
@@ -101,9 +102,10 @@
           class="btn btn-primary btn-sm ps-3 pe-3 pt-1 pb-1 fs-6"
           type="submit"
         >
-          Login
+          Register
         </button>
       </div>
     </form>
   </div>
+</div>
 </div>

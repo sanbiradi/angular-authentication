@@ -19,28 +19,15 @@ export class RegisterComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(): void {
-    this.validationerr =(
-      this.email &&
-      this.password &&
-      this.fullName &&
-      this.companyName &&
-      this.role)
-        ? false
-        : true;
-    if (
-      this.email &&
-      this.password &&
-      this.fullName &&
-      this.companyName &&
-      this.role
-    ) {
+    this.validationerr = Boolean(
+      this.email && this.password && this.fullName && this.companyName
+    );
+    if (this.validationerr) {
       this.authService.register(
         this.email,
         this.password,
         this.fullName,
-        this.companyName,
-        this.role,
-        this.isEmailVerified
+        this.companyName
       );
       this.router.navigate(['/auth/login']);
     }

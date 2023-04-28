@@ -1,34 +1,54 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { HttpService } from './http.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
-  constructor() {}
 
+export class AuthService {
+  constructor(
+    private httpService: HttpService,
+    private storageService: StorageService
+  ) {}
+  baseUrl = `https://shop-api.ngminds.com`;
   isLoggedIn(): boolean {
     // check if user is logged in by checking local storage
-    return !!localStorage.getItem('currentUser');
+    if(localStorage.getItem('u')){
+      return true
+    }
+    return false;
   }
 
-  login(email: string, password: string): boolean {
-    // check if user exists and password matches from local storage
+  login(email: string, password: string) {
+    let Loginurl = `${this.baseUrl}/auth/login?captcha=false`;
+
+    let body = {
+      email,
+      password,
+    };
     
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const user = users.find(
-      (u: any) => u.email === email && u.password === password
-    );
-    if (user) {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      return true;
-    } else {
-      return false;
-    }
+    return this.httpService.postFetch(Loginurl, body).subscribe((data) => {
+      let newdata = this.convertIntoJsObject(data);
+      if (newdata.token) {
+        this.storageService.set('u', newdata.token);
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  convertIntoJsObject(data: any) {
+    data = JSON.stringify(data);
+    return JSON.parse(data);
   }
 
   logout(): boolean {
     // remove current user from local storage
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('u');
     return true;
   }
 
@@ -36,26 +56,43 @@ export class AuthService {
     email: string,
     password: string,
     fullName: string,
-    companyName: string,
-    role: string,
-    isEmailVerified: boolean
-  ): any {
+    companyName: string
+  ) {
+    let registerUrl = `${this.baseUrl}/auth/register?captcha=false`;
     // add new user to local storage
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    users.push({
+
+    const body = {
       email,
       password,
-      fullName,
-      companyName,
-      role,
-      isEmailVerified
-    });
-    localStorage.setItem('users', JSON.stringify(users));
-    return true;
+      name: fullName,
+      company: companyName,
+    };
+
+    let postFetch = this.httpService
+      .postFetch(registerUrl, body)
+      .subscribe((data) => {
+        let newdata = this.convertIntoJsObject(data);
+        if (newdata.token) {
+          this.storageService.set('u', newdata.token);
+          return true;
+        } else {
+          return false;
+        }
+      });
+    
   }
 
-  getCurrentUser(): any {
+  public userdata: any;
+  getCurrentUser():any{
     // get current user from local storage
-    return JSON.parse(localStorage.getItem('currentUser') || '{}');
+    let profileUrl = `${this.baseUrl}/auth/self`;
+    let userToken = JSON.parse(localStorage.getItem('u') || ``);
+    if (userToken) {
+      this.httpService.secureGet(profileUrl, userToken).subscribe((data) => {
+        this.userdata = data;
+      });
+    } else {
+      return false;
+    }
   }
 }
