@@ -11,25 +11,31 @@ import { HttpService } from 'src/app/auth/http.service';
 export class ProfileComponent implements OnInit {
   user: any;
   checkLogin?: boolean = false;
+  u: any;
+  token?: string = '';
+
   baseUrl = `https://shop-api.ngminds.com`;
   constructor(
     private authService: AuthService,
     private router: Router,
     private httpService: HttpService
   ) {
-    let token = JSON.parse(localStorage.getItem('u') || '""');
-    if (token) {
-        this.httpService
-        .secureGet(`${this.baseUrl}/auth/self`, token)
-        .subscribe((data) => {
-          this.user = data;
-        }); 
-        console.log(this.user);
-    }
+    this.fetchData();
   }
 
-  ngOnInit(): void {
-   
+  ngOnInit(): void {}
+  fetchData() {
+    setTimeout(() => {
+      this.u = localStorage.getItem('u') || '';
+      this.token = JSON.parse(this.u);
+      if (this.token) {
+        this.httpService
+          .secureGet(`${this.baseUrl}/auth/self`, this.token)
+          .subscribe((data) => {
+            this.user = data;
+          });
+      }
+    }, 1500);
   }
   logout() {
     if (this.authService.logout()) {

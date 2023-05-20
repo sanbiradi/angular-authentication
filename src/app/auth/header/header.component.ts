@@ -10,7 +10,9 @@ import { AuthService } from '../auth.service';
 export class HeaderComponent {
   constructor(private authService: AuthService, private router: Router) {
     this.LogOut = this.authService.isLoggedIn();
-   
+    if(this.LogOut){
+      this.router.navigate(['/my-profile']);
+    }
   }
   @Input() LogOut?:boolean;
   logout() {

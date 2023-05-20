@@ -1,10 +1,13 @@
-<app-header></app-header>
 
-<div class="card shadow-sm p-5">
-  <div *ngIf="!user; else loadingTemplate">
-    <img src="assets/loading.gif" alt="" />
-  </div>
+<div *ngIf="!user; else loadingTemplate">
+  <img src="assets/loading.gif" alt="" />
+</div>
+
+ 
   <ng-template #loadingTemplate>
+    <app-header></app-header>
+    <div class="card shadow-sm p-5">
+    
     <div class="row justify-content-center mb-4">
       <div class="col-auto">
         <h1>Profile Information</h1>
@@ -16,10 +19,11 @@
     <p>Role: {{ user?.role }}</p>
     <p>Is Email Verified: {{ user?.isEmailVerified }}</p>
     <p>Company Name: {{ user?._org.name }}</p>
+  </div>
   </ng-template>
-  <!-- <div *ngIf="checkLogin">
+  <div *ngIf="checkLogin">
     <h4 class="text-danger text-center">
       Please log in to view your profile.
     </h4>
-  </div> -->
-</div>
+  </div>
+

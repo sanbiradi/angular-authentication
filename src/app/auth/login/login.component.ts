@@ -10,21 +10,20 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
-  
-  validationerr?: boolean;
+  validationerr?: string;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
-  login() {
-    this.validationerr = this.authService.login(this.email, this.password)
-      ? false
-      : true;
-    
+ login() {
+
+   
     if (this.email !== '' && this.password !== '') {
       if (this.authService.login(this.email, this.password)) {
         this.router.navigate(['/my-profile']);
-      }
+      } 
+    }else{
+      this.validationerr =  `empty`;
     }
   }
 }

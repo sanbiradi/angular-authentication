@@ -23,8 +23,6 @@ export class HttpService{
     return this.http.get<User>(url, { headers });
   }
 
-
-
   //send a request to a server
   public postFetch(url: string, body: Object):Observable<User>{
     return this.http.post<User>(url, body, { responseType: 'json' });
