@@ -59,4 +59,14 @@ export class HttpService {
   }
 
 
+
+  updateUserInfo(url:any, body:any, token:any):Observable<any>{
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+      })
+    };
+    return this.http.patch(url,body,options);
+  }
+
 }

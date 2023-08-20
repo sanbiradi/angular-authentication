@@ -129,15 +129,15 @@ export class AuthService {
   }
 
   deleteUser(id: any): any {
-    let token = this.getCurrentToken();
-    let url = `${this.baseUrl}/users/${id}`;
-    console.log(id, url, token);
-    this.httpService.deleteRequest(url, token).subscribe(response => {
-      console.log("user has been deleted!", response)
-      this.router.navigate(["/manage-user"]);
-    }, error => {
-      console.log(error)
-    });
+      let token = this.getCurrentToken();
+      let url = `${this.baseUrl}/users/${id}`;
+      console.log(id, url, token);
+      this.httpService.deleteRequest(url, token).subscribe(response => {
+        this.router.navigate(["/auth/login"]);
+        this.router.navigate(["/manage-user"]);
+      }, error => {
+        console.log(error)
+      });
   }
 
 

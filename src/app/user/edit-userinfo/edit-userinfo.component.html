@@ -1,68 +1,76 @@
 <app-header></app-header>
-<div class="col-7 offset-3">
-    <div class="card shadow-sm p-4">
-        <div class="card-text">
-            <h2 class="fs-3">Create an User Account</h2>
-        </div>
-        <br />
-        <div class="card-text">
-            <form (ngSubmit)="onSubmit()">
-                <div class="form-group mb-4 mb-4">
-                    <div class="row">
-                        <div class="col-3">
-                            <label for="email" class="fs-6">Email</label>
-                        </div>
-                        <div class="col">
-                            <input type="email" class="form-control form-control-sm" id="email" [(ngModel)]="email"
-                                name="email" required />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group mb-4">
-                    <div class="row">
-                        <div class="col-3">
-                            <label for="Password" class="fs-6">Password</label>
-                        </div>
-                        <div class="col">
-                            <input type="Password" class="form-control form-control-sm" id="Password"
-                                [(ngModel)]="password" name="Password" required />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group mb-4">
-                    <div class="row">
-                        <div class="col-3">
-                            <label for="fullName" class="fs-6">full Name</label>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control form-control-sm" id="fullName" [(ngModel)]="fullName"
-                                name="fullName" required />
-                        </div>
-                    </div>
-                </div>
 
-                <!-- <div class="form-group mb-4">
-                    <div class="row">
-                        <div class="col-3">
-                            <label for="role" class="fs-6">Employment role</label>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control form-control-sm" id="role" [(ngModel)]="role"
-                                name="role" required />
+<div *ngIf="isloading; else elseupdateform">
+    <h3>Loading...</h3>
+</div>
+<ng-template #elseupdateform>
+    
+    <div class="col-7 offset-3">
+        <a routerLink="/manage-user" >Go back</a>
+        <div class="card shadow-sm p-4">
+            <div class="card-text">
+                <h2 class="fs-3">Update an User info</h2>
+            </div>
+            <br />
+            <div class="card-text">
+                <form (ngSubmit)="onSubmit()">
+                    <div class="form-group mb-4 mb-4">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="email" class="fs-6">Email</label>
+                            </div>
+                            <div class="col">
+                                <input type="email" class="form-control form-control-sm" id="email" [(ngModel)]="user.email"
+                                    name="email" required />
+                            </div>
                         </div>
                     </div>
-                </div> -->
-                <!-- <div class="row" *ngIf="validationerr">
-                    <h6 class="text-danger fw-100 mt-3">
-                        Please enter valid information!
-                    </h6>
-                </div> -->
-                <div class="form-group mt-4">
-                    <button class="btn btn-primary btn-sm ps-3 pe-3 pt-1 pb-1 fs-6" type="submit">
-                        Register
-                    </button>
-                </div>
-            </form>
+                    <!-- <div class="form-group mb-4">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="Password" class="fs-6">Password</label>
+                            </div>
+                            <div class="col">
+                                <input type="Password" class="form-control form-control-sm" id="Password"
+                                    [(ngModel)]="user.password" name="Password" required />
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="form-group mb-4">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="fullName" class="fs-6">full Name</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm" id="fullName"
+                                    [(ngModel)]="user.name" name="fullName" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group mb-4">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="role" class="fs-6">Employment role</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control form-control-sm" id="role" [(ngModel)]="role"
+                                    name="role" required />
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="row" *ngIf="validationerr">
+                        <h6 class="text-danger fw-100 mt-3">
+                            Please enter valid information!
+                        </h6>
+                    </div> -->
+                    <div class="form-group mt-4">
+                        <button class="btn btn-primary btn-sm ps-3 pe-3 pt-1 pb-1 fs-6" type="submit">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</ng-template>

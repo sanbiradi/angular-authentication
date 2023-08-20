@@ -11,9 +11,9 @@ import { HttpService } from 'src/app/auth/http.service';
 export class ListUsersComponent {
 
 
-  users:any=[];
-  u:any;
-  token:any;
+  users: any = [];
+  u: any;
+  token: any;
 
 
 
@@ -26,9 +26,9 @@ export class ListUsersComponent {
     this.fetchData();
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
 
-    
+
   }
 
 
@@ -41,23 +41,29 @@ export class ListUsersComponent {
       if (this.token) {
         this.httpService
           .secureGet(`${this.baseUrl}/users`, this.token)
-          .subscribe((data:any) => {
+          .subscribe((data: any) => {
             this.users.push(data);
-            console.log(data)
-            console.log(this.users);
+            // console.log(data)
+            // console.log(this.users);
           });
       }
-      
+
     }, 1500);
   }
 
   // delete profile
-  deleteUser(id:string):any{
-    this.authService.deleteUser(id);
+  deleteUser(event: any, id: any): any {
+
+    if (confirm('Are you sure you want to delete this data.')) {
+      event.target.innerText = `Deleting...`;
+      this.authService.deleteUser(id);
+      event.target.innerText = `Deleted`;
+      this.router.navigateByUrl("/manage-user");
+    }
   }
 
   // update user
-  updateUser(id:string):any{
+  updateUser(id: string): any {
     this.router.navigate([`/edit-user/${id}`]);
   }
 }

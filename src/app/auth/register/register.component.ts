@@ -29,7 +29,7 @@ export class RegisterComponent {
         this.fullName,
         this.companyName
       );
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/']);
     }
   }
 }

@@ -29,7 +29,6 @@ export class ProfileComponent implements OnInit {
   isActive?:boolean=true;
   toggleClass(){
     this.isActive = !this.isActive;
-    
   }
 
 
