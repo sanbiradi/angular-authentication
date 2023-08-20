@@ -10,13 +10,14 @@ import { AuthService } from '../auth.service';
 export class HeaderComponent {
   constructor(private authService: AuthService, private router: Router) {
     this.LogOut = this.authService.isLoggedIn();
-    if(this.LogOut){
-      this.router.navigate(['/my-profile']);
-    }
+    // if(this.LogOut){
+    //   this.router.navigate(['/auth/login']);
+    // }
   }
   @Input() LogOut?:boolean;
   logout() {
-    if (this.authService.logout()) this.router.navigate(['/auth/login']);
+    if (this.authService.logout())
+    this.router.navigate(['/auth/login']);
     this.LogOut = false;
   }
 }

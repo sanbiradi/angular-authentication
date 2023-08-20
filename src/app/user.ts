@@ -3,4 +3,5 @@ export interface User {
   password: string;
   name: string;
   company: string;
+  role:string;
 }

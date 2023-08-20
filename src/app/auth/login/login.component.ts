@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
    
     if (this.email !== '' && this.password !== '') {
       if (this.authService.login(this.email, this.password)) {
-        this.router.navigate(['/my-profile']);
+        this.router.navigate(['/home']);
       } 
     }else{
       this.validationerr =  `empty`;

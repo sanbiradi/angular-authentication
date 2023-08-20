@@ -1,0 +1,36 @@
+<div class="container">
+    <app-header></app-header>
+    <div class="container">
+        <h2>User List</h2>
+        <div class="d-flex flex-row-reverse">
+
+          <a class="btn btn-primary" href="/create-user">Create User</a>
+        </div>
+        <hr class="hr">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Company Name</th>
+              <th>Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users[0]?.results" class="">
+
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user._org.name }}</td>
+              <td>{{ user.role }}</td>
+              <td>
+                <button class="btn btn-primary btn-sm me-3" (click)="updateUser(user._id)">Edit</button>
+                <button class="btn btn-danger btn-sm" (click)="deleteUser(user._id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+</div>  

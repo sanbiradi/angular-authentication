@@ -9,10 +9,37 @@ import { HttpService } from 'src/app/auth/http.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  user: any;
+  user?: any;
+  userD: any;
   checkLogin?: boolean = false;
   u: any;
   token?: string = '';
+
+  // update company profile
+  email: string = '';
+  password: string = '';
+  fullName: string = '';
+  companyName: string = '';
+  role: string = '';
+  isEmailVerified: boolean = true;
+  validationerr?: boolean;
+
+
+  // toggle class
+  isActive?:boolean=true;
+  toggleClass(){
+    this.isActive = !this.isActive;
+    
+  }
+
+
+  onSubmit(): void {
+    // this.validationerr = Boolean(
+    //   this.email && this.role && this.companyName
+    // );
+    this.authService.updateProfile(this.user);
+   
+  }
 
   baseUrl = `https://shop-api.ngminds.com`;
   constructor(
@@ -23,7 +50,13 @@ export class ProfileComponent implements OnInit {
     this.fetchData();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { 
+    
+  }
+
+
+
+  // profile informations fetching 
   fetchData() {
     setTimeout(() => {
       this.u = localStorage.getItem('u') || '';
@@ -35,6 +68,7 @@ export class ProfileComponent implements OnInit {
             this.user = data;
           });
       }
+      
     }, 1500);
   }
   logout() {
