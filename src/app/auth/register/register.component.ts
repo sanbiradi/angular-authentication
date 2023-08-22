@@ -24,36 +24,24 @@ export class RegisterComponent {
 
   onSubmit(): any {
 
-    if (this.email &&
-      this.password &&
-      this.fullName &&
-      this.companyName) {
-      let registerUrl = `${this.baseUrl}/auth/register?captcha=false`;
-      // add new user to local storage
+    let registerUrl = `${this.baseUrl}/auth/register?captcha=false`;
+    // add new user to local storage
 
-      const body = {
-        email: this.email,
-        password: this.password,
-        name: this.fullName,
-        company: this.companyName,
-      };
+    const body = {
+      email: this.email,
+      password: this.password,
+      name: this.fullName,
+      company: this.companyName,
+    };
 
-      let postFetch = this.httpService
-        .postFetch(registerUrl, body)
-        .subscribe((data) => {
-          let newdata = this.authService.convertIntoJsObject(data);
-          if (newdata.token) {
-            this.storageService.set('u', newdata.token);
-            return true;
-          } else {
-            return false;
-          }
-        }, error => {
-          this.myerrors = error;
-        });
-    } else {
-      this.myerrors = 'All fields are required!'
-    }
-
+    this.httpService
+      .postFetch(registerUrl, body)
+      .subscribe((data) => {
+        let newdata = this.authService.convertIntoJsObject(data);
+        this.storageService.set('u', newdata.token);
+        this.router.navigate(['/manage-user']);
+      }, error => {
+        this.myerrors = error;
+      });
   }
 }

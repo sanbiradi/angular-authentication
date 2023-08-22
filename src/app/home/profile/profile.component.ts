@@ -47,8 +47,10 @@ export class ProfileComponent {
     this.httpService.updateCompanyInfo(url, userToken, body).subscribe(
       response => {
         // Handle successful response
+        this.toggleClass();
         console.log('Profile updated successfully:', response);
-        this.router.navigate(['/manage-user']);
+        this.isActive = !this.isActive;
+        //this.router.navigate(['/manage-user']);
       },
       error => {
         this.myerror = error;
