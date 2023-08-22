@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, pipe, throwError } from 'rxjs';
 import { User } from '../user';
 
 @Injectable({
@@ -23,8 +23,26 @@ export class HttpService {
   }
 
   //send a request to a server
-  public postFetch(url: string, body: Object): Observable<User> {
-    return this.http.post<User>(url, body, { responseType: 'json' });
+  public postFetch(url: string, body: Object): Observable<any> {
+    return this.http.post<User>(url, body, { responseType: 'json' }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occurred';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side errors
+      errorMessage = `${error.error.message}`;
+    } else {
+      // Server-side errors
+      // errorMessage = `Error Code: ${error.status}\nMessage: ${error.error.message}`;
+      errorMessage = `${error.error.message}`;
+    }
+    // You can customize how you display the error message here (e.g., using a toaster service)
+    // You can also emit an event or update a variable to display the error in a component.
+    // console.log(errorMessage);
+    return throwError(errorMessage);
   }
 
 
@@ -35,7 +53,9 @@ export class HttpService {
         'Authorization': `Bearer ${token}`,
       })
     };
-    return this.http.post<User>(url, body,options)
+    return this.http.post<User>(url, body,options).pipe(
+      catchError(this.handleError)
+    );
   }
 
   public updateCompanyInfo(url: string, token: string, body: any): Observable<any> {

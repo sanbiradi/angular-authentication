@@ -8,19 +8,18 @@ import { UnauthorisedComponent } from './unauthorised/unauthorised.component';
 import { CreateuserComponent } from './user/createuser/createuser.component';
 import { ListUsersComponent } from './user/list-users/list-users.component';
 import { EditUserinfoComponent } from './user/edit-userinfo/edit-userinfo.component';
+import { AuthGuard } from './auth/auth-guard.service';
 // import { VisualizerComponent } from './auth/visualizer/visualizer.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'manage-user', component: ListUsersComponent },
-  { path: 'edit-user/:id', component: EditUserinfoComponent },
-
-  // { path: 'visualizer', component: VisualizerComponent,},
-  { path: 'company-settings', component: ProfileComponent },
-  { path: 'create-user', component: CreateuserComponent },
+  { path: 'home', component: HomeComponent , canActivate:[AuthGuard]},
+  { path: 'manage-user', component: ListUsersComponent ,canActivate:[AuthGuard]},
+  { path: 'edit-user/:id', component: EditUserinfoComponent,canActivate:[AuthGuard] },
+  { path: 'company-settings', component: ProfileComponent ,canActivate:[AuthGuard]},
+  { path: 'create-user', component: CreateuserComponent ,canActivate:[AuthGuard]},
   { path:'unauthorized', component: UnauthorisedComponent},
   { path: '**', redirectTo: '/unauthorized' },
 ];

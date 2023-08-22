@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { HttpService } from '../http.service';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-register',
@@ -14,22 +16,44 @@ export class RegisterComponent {
   companyName: string = '';
   role: string = '';
   isEmailVerified: boolean = true;
-  validationerr?: boolean;
+  myerrors?: any;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  baseUrl = `https://shop-api.ngminds.com`;
 
-  onSubmit(): void {
-    this.validationerr = Boolean(
-      this.email && this.password && this.fullName && this.companyName
-    );
-    if (this.validationerr) {
-      this.authService.register(
-        this.email,
-        this.password,
-        this.fullName,
-        this.companyName
-      );
-      this.router.navigate(['/']);
+  constructor(private authService: AuthService, private storageService: StorageService, private router: Router, private httpService: HttpService) { }
+
+  onSubmit(): any {
+
+    if (this.email &&
+      this.password &&
+      this.fullName &&
+      this.companyName) {
+      let registerUrl = `${this.baseUrl}/auth/register?captcha=false`;
+      // add new user to local storage
+
+      const body = {
+        email: this.email,
+        password: this.password,
+        name: this.fullName,
+        company: this.companyName,
+      };
+
+      let postFetch = this.httpService
+        .postFetch(registerUrl, body)
+        .subscribe((data) => {
+          let newdata = this.authService.convertIntoJsObject(data);
+          if (newdata.token) {
+            this.storageService.set('u', newdata.token);
+            return true;
+          } else {
+            return false;
+          }
+        }, error => {
+          this.myerrors = error;
+        });
+    } else {
+      this.myerrors = 'All fields are required!'
     }
+
   }
 }

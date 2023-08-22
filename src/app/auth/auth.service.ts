@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 import { HttpService } from './http.service';
 import { StorageService } from './storage.service';
@@ -13,7 +13,7 @@ export class AuthService {
   constructor(
     private httpService: HttpService,
     private storageService: StorageService,
-    private router:Router
+    private router: Router
   ) { }
   baseUrl = `https://shop-api.ngminds.com`;
   isLoggedIn(): boolean {
@@ -24,24 +24,6 @@ export class AuthService {
     return false;
   }
 
-  login(email: string, password: string) {
-    let Loginurl = `${this.baseUrl}/auth/login?captcha=false`;
-
-    let body = {
-      email,
-      password,
-    };
-
-    return this.httpService.postFetch(Loginurl, body).subscribe((data) => {
-      let newdata = this.convertIntoJsObject(data);
-      if (newdata.token) {
-        this.storageService.set('u', newdata.token);
-        return true;
-      } else {
-        return false;
-      }
-    });
-  }
 
   convertIntoJsObject(data: any) {
     data = JSON.stringify(data);
@@ -54,35 +36,7 @@ export class AuthService {
     return true;
   }
 
-  register(
-    email: string,
-    password: string,
-    fullName: string,
-    companyName: string
-  ) {
-    let registerUrl = `${this.baseUrl}/auth/register?captcha=false`;
-    // add new user to local storage
-
-    const body = {
-      email,
-      password,
-      name: fullName,
-      company: companyName,
-    };
-
-    let postFetch = this.httpService
-      .postFetch(registerUrl, body)
-      .subscribe((data) => {
-        let newdata = this.convertIntoJsObject(data);
-        if (newdata.token) {
-          this.storageService.set('u', newdata.token);
-          return true;
-        } else {
-          return false;
-        }
-      });
-
-  }
+  
 
   public userdata: any;
   getCurrentUser(): any {
@@ -129,34 +83,18 @@ export class AuthService {
   }
 
   deleteUser(id: any): any {
-      let token = this.getCurrentToken();
-      let url = `${this.baseUrl}/users/${id}`;
-      console.log(id, url, token);
-      this.httpService.deleteRequest(url, token).subscribe(response => {
-        this.router.navigate(["/auth/login"]);
-        this.router.navigate(["/manage-user"]);
-      }, error => {
-        console.log(error)
-      });
-  }
-
-
-
-
-  // create User
-  createUser(userInfo: any) {
-    let url = `${this.baseUrl}/users`;
-    console.log("api call")
     let token = this.getCurrentToken();
-    this.httpService.createUserRequest(url, userInfo, token).subscribe((response: any) => {
-      console.log("user has been created!", response)
+    let url = `${this.baseUrl}/users/${id}`;
+    console.log(id, url, token);
+    this.httpService.deleteRequest(url, token).subscribe(response => {
+      this.router.navigate(["/auth/login"]);
       this.router.navigate(["/manage-user"]);
-    }, (error: any) => {
+    }, error => {
       console.log(error)
     });
-  
-
   }
+
+ 
 
 
 }

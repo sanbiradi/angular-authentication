@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
+import { HttpService } from 'src/app/auth/http.service';
 
 
 @Component({
@@ -12,24 +14,39 @@ export class CreateuserComponent implements OnInit {
   password: string = '';
   fullName: string = '';
   role: string = '';
-  validationerr?: Boolean;
-
-
-  constructor(private authService: AuthService) {
+  myerrors?: any;
+  baseUrl = `https://shop-api.ngminds.com`;
+  constructor(private authService: AuthService, private httpService: HttpService, private router: Router) {
 
   }
   ngOnInit() {
 
   }
-  onSubmit(): any {
-    // console.log({ email: this.email, password: this.password, name: this.fullName, rol: this.role });
-    let userInfo = { email: this.email, password: this.password, name: this.fullName , role:"user"};
-    this.authService.createUser(userInfo);
-    this.validationerr = Boolean(
-      this.email && this.password && this.fullName && this.role
-    );
-    if (this.validationerr) {
-     
+
+  // create User
+  onSubmit() {
+
+
+    let url = `${this.baseUrl}/users`;
+    console.log("api call")
+    let userInfo = {
+      email: this.email,
+      password: this.password,
+      name: this.fullName,
+      role: this.role
     }
+    let token = this.authService.getCurrentToken();
+    this.httpService.createUserRequest(url, userInfo, token).subscribe((response: any) => {
+
+      this.router.navigate(["/manage-user"]);
+    }, (error: any) => {
+      this.myerrors = error;
+    });
+
+
+
+
+
   }
+
 }

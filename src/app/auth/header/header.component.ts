@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -7,17 +7,24 @@ import { AuthService } from '../auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
+ 
+  LogIn?:boolean;
+
   constructor(private authService: AuthService, private router: Router) {
-    this.LogOut = this.authService.isLoggedIn();
-    // if(this.LogOut){
+    this.LogIn = this.authService.isLoggedIn();
+    // if(this.LogIn===false){
     //   this.router.navigate(['/auth/login']);
     // }
   }
-  @Input() LogOut?:boolean;
+  ngOnInit(): void {
+    this.LogIn = this.authService.isLoggedIn();
+  }
+ 
   logout() {
-    if (this.authService.logout())
-    this.router.navigate(['/auth/login']);
-    this.LogOut = false;
+    if (this.authService.logout()){
+      this.LogIn= false;
+      this.router.navigate(['/auth/login']);
+    }
   }
 }
