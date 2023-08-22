@@ -35,6 +35,9 @@
           <div class="card-text">
             <form (ngSubmit)="onSubmit()">
               <div class="form-group mb-3">
+                <div class="alert alert-danger  p-1 text-center" role="alert" *ngIf="myerror">
+                  {{myerror}}
+                </div>
                 <div class="row">
                   <div class="col-3">
                     <label for="email" class="fs-6">Email</label>
@@ -66,11 +69,7 @@
                 </div>
               </div>
 
-              <div class="row" *ngIf="validationerr">
-                <h6 class="text-danger fw-100 mt-3">
-                  Please enter valid information!
-                </h6>
-              </div>
+           
               <div class="form-group mt-4">
                 <button class="btn btn-primary btn-sm fs-6" type="submit" (click)="onSubmit()">
                   Update

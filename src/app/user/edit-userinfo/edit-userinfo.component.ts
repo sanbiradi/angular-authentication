@@ -23,6 +23,7 @@ u?:any;
 token?:any;
 users?:any;
 baseUrl = `https://shop-api.ngminds.com`;
+myerrors:any; 
 
   constructor(private router:Router,private route:ActivatedRoute,private httpService:HttpService, private authService:AuthService){
 
@@ -30,7 +31,6 @@ baseUrl = `https://shop-api.ngminds.com`;
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get("id");
     this.fetchData(this.id);
-  
   }
 
   
@@ -50,35 +50,20 @@ baseUrl = `https://shop-api.ngminds.com`;
            this.user= this.users.results.find((item:any)=>item._id===id);
           });
       }
-
-     
-  
   }
 
-
-
-  
-
-
   onSubmit(): any {
-    console.log({ email: this.user.email, name: this.user.name});
+    
     // let userInfo = { email: this.email, password: this.password, name: this.fullName , role:"user"};
     // // this.authService.createUser(userInfo);
     let url = `${this.baseUrl}/users/${this.id}`
-   let userInfo = { email: this.user.email, name: this.user.name};
-   let token = this.authService.getCurrentToken();
-   this.httpService.updateUserInfo(url,userInfo,token).subscribe((data:any)=>{
-    console.log(data);
+    let userInfo = { email: this.user.email, name: this.user.name};
+    let token = this.authService.getCurrentToken();
+    this.httpService.updateUserInfo(url,userInfo,token).subscribe((data:any)=>{
     this.router.navigate(["/manage-user"]);
    },error=>{
-    console.log(error);
+    this.myerrors = error;
    });
-    // this.validationerr = Boolean(
-    //   this.email && this.password && this.fullName && this.role
-    // );
-    // if (this.validationerr) {
-     
-    // }
   }
   
 

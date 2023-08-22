@@ -62,26 +62,7 @@ export class AuthService {
     }
   }
 
-  updateProfile(userData: any): any {
-    let userToken = this.getCurrentToken();
-    let url = `${this.baseUrl}/users/org`;
-    let body = {
-      "email": userData.email,
-      "name": userData._org.name
-    }
-    console.log(userData, body);
-    this.httpService.updateCompanyInfo(url, userToken, body).subscribe(
-      response => {
-        // Handle successful response
-        console.log('Profile updated successfully:', response);
-      },
-      error => {
-        // Handle error
-        console.error('Error updating profile:', error);
-      }
-    );
-  }
-
+  
   deleteUser(id: any): any {
     let token = this.getCurrentToken();
     let url = `${this.baseUrl}/users/${id}`;

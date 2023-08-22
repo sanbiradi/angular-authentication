@@ -8,9 +8,9 @@ import { HttpService } from 'src/app/auth/http.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent {
   user?: any;
-  userD: any;
+  
   checkLogin?: boolean = false;
   u: any;
   token?: string = '';
@@ -22,37 +22,39 @@ export class ProfileComponent implements OnInit {
   companyName: string = '';
   role: string = '';
   isEmailVerified: boolean = true;
-  validationerr?: boolean;
+  myerror: any;
 
 
+  constructor(private authService: AuthService, private router: Router, private httpService: HttpService) {
+    this.fetchData();
+  }
   // toggle class
-  isActive?:boolean=true;
-  toggleClass(){
+  isActive?: boolean = true;
+  toggleClass() {
     this.isActive = !this.isActive;
   }
 
-
-  onSubmit(): void {
-    // this.validationerr = Boolean(
-    //   this.email && this.role && this.companyName
-    // );
-    this.authService.updateProfile(this.user);
-   
-  }
-
   baseUrl = `https://shop-api.ngminds.com`;
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private httpService: HttpService
-  ) {
-    this.fetchData();
-  }
 
-  ngOnInit(): void { 
-    
-  }
+  onSubmit(): any {
+    let userToken = this.authService.getCurrentToken();
+    let url = `${this.baseUrl}/users/org`;
+    let body = {
+      "email": this.user.email,
+      "name": this.user._org.name
+    }
 
+    this.httpService.updateCompanyInfo(url, userToken, body).subscribe(
+      response => {
+        // Handle successful response
+        console.log('Profile updated successfully:', response);
+        this.router.navigate(['/manage-user']);
+      },
+      error => {
+        this.myerror = error;
+      }
+    );
+  }
 
 
   // profile informations fetching 
@@ -67,9 +69,11 @@ export class ProfileComponent implements OnInit {
             this.user = data;
           });
       }
-      
+
     }, 1500);
   }
+
+
   logout() {
     if (this.authService.logout()) {
       this.router.navigate(['/auth/login']);

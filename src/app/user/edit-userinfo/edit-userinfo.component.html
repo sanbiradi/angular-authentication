@@ -8,6 +8,9 @@
     <div class="col-7 offset-3">
         <a routerLink="/manage-user" >Go back</a>
         <div class="card shadow-sm p-4">
+            <div class="alert alert-danger  p-1 text-center" role="alert" *ngIf="myerrors">
+                {{myerrors}}
+              </div>
             <div class="card-text">
                 <h2 class="fs-3">Update an User info</h2>
             </div>

@@ -37,7 +37,6 @@ export class CreateuserComponent implements OnInit {
     }
     let token = this.authService.getCurrentToken();
     this.httpService.createUserRequest(url, userInfo, token).subscribe((response: any) => {
-
       this.router.navigate(["/manage-user"]);
     }, (error: any) => {
       this.myerrors = error;
