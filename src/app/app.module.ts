@@ -11,6 +11,8 @@ import { CreateuserComponent } from './user/createuser/createuser.component';
 import { ListUsersComponent } from './user/list-users/list-users.component';
 import { EditUserinfoComponent } from './user/edit-userinfo/edit-userinfo.component';
 import { SettingsComponent } from './settings/settings/settings.component';
+import { settingsRoutingModule } from './settings/settings-routing.module';
+import { SettingsModule } from './settings/settings.module';
 
 
 
@@ -20,13 +22,14 @@ import { SettingsComponent } from './settings/settings/settings.component';
   declarations: [AppComponent, UnauthorisedComponent, CreateuserComponent, ListUsersComponent, EditUserinfoComponent, SettingsComponent],
   imports: [
     FormsModule,
+    settingsRoutingModule,
     AppRoutingModule,
     BrowserModule,
     AuthModule,
     HomeModule,
     ReactiveFormsModule,
-    HttpClientModule
-  
+    HttpClientModule,
+    SettingsModule
   ],
   
   providers: [],

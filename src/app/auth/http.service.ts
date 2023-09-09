@@ -58,6 +58,20 @@ export class HttpService {
     );
   }
 
+
+  public createPostRequest(url: string, body: Object, token: any): Observable<any>{
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      })
+    };
+    console.log(options)
+    return this.http.post<User>(url, body,options).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   public updateCompanyInfo(url: string, token: string, body: any): Observable<any> {
     const options = {
       headers: new HttpHeaders({

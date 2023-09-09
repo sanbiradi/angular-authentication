@@ -9,7 +9,9 @@ import { CreateuserComponent } from './user/createuser/createuser.component';
 import { ListUsersComponent } from './user/list-users/list-users.component';
 import { EditUserinfoComponent } from './user/edit-userinfo/edit-userinfo.component';
 import { AuthGuard } from './auth/auth-guard.service';
+import { settingsRoutingModule } from './settings/settings-routing.module';
 import { SettingsComponent } from './settings/settings/settings.component';
+import { ChangePasswordComponent } from './settings/change-password/change-password.component';
 // import { VisualizerComponent } from './auth/visualizer/visualizer.component';
 
 const routes: Routes = [
@@ -18,10 +20,10 @@ const routes: Routes = [
   { path: 'auth/register', component: RegisterComponent },
   { path: 'home', component: HomeComponent , canActivate:[AuthGuard]},
   { path: 'manage-user', component: ListUsersComponent ,canActivate:[AuthGuard]},
-  { path: 'edit-user/:id', component: EditUserinfoComponent,canActivate:[AuthGuard] },
-  { path: 'settings', component: SettingsComponent ,canActivate:[AuthGuard]},
+  { path: 'edit-user/:id', component: EditUserinfoComponent,canActivate:[AuthGuard] },  
   { path: 'user-profile', component: ProfileComponent ,canActivate:[AuthGuard]},
   { path: 'create-user', component: CreateuserComponent ,canActivate:[AuthGuard]},
+  
   { path:'unauthorized', component: UnauthorisedComponent},
   { path: '**', redirectTo: '/unauthorized' },
 ];
@@ -39,7 +41,7 @@ const routes: Routes = [
 // { path: 'comment', loadChildren: () => import('./comment/comment.module').then(m => m.CommentModule) },
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [settingsRoutingModule, RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
