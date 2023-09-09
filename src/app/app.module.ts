@@ -10,14 +10,14 @@ import { UnauthorisedComponent } from './unauthorised/unauthorised.component';
 import { CreateuserComponent } from './user/createuser/createuser.component';
 import { ListUsersComponent } from './user/list-users/list-users.component';
 import { EditUserinfoComponent } from './user/edit-userinfo/edit-userinfo.component';
-// import { HomeComponent } from './home/home.component';
+import { SettingsComponent } from './settings/settings/settings.component';
 
 
 
 
 
 @NgModule({
-  declarations: [AppComponent, UnauthorisedComponent, CreateuserComponent, ListUsersComponent, EditUserinfoComponent],
+  declarations: [AppComponent, UnauthorisedComponent, CreateuserComponent, ListUsersComponent, EditUserinfoComponent, SettingsComponent],
   imports: [
     FormsModule,
     AppRoutingModule,

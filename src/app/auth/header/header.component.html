@@ -1,4 +1,4 @@
-<div class="container-fluid shadow-sm">
+<div class="container shadow-sm">
   <header
     class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
     <div class="col-md-3 mb-2 mb-md-0">
@@ -8,14 +8,16 @@
         </svg>
       </a>
     </div>
-    <a href="/" class="nav-link px-2">Home</a>
     <div *ngIf="LogIn; else showmenu">
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <li>
           <a href="/manage-user" class="nav-link px-2">Manage user</a>
         </li>
         <li>
-          <a href="/company-settings" class="nav-link px-2">Settings</a>
+          <a href="/user-profile" class="nav-link px-2">Profile</a>
+        </li>
+        <li>
+          <a href="/settings" class="nav-link px-2">Settings</a>
         </li>
         <div class="mt-2 ms-2">
           <button class="btn btn-danger btn-sm" (click)="logout()">Logout</button>

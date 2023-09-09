@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { HttpService } from '../http.service';
 import { StorageService } from '../storage.service';
+import { ReCaptchaV3Service } from 'ngx-captcha';
+
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
+
+
   email: string = '';
   password: string = '';
   fullName: string = '';
@@ -17,31 +21,43 @@ export class RegisterComponent {
   role: string = '';
   isEmailVerified: boolean = true;
   myerrors?: any;
-
+  siteKey!: any;
   baseUrl = `https://shop-api.ngminds.com`;
+  constructor(private authService: AuthService, private storageService: StorageService, private router: Router, private httpService: HttpService, private reCaptchaV3Service: ReCaptchaV3Service) {
 
-  constructor(private authService: AuthService, private storageService: StorageService, private router: Router, private httpService: HttpService) { }
+
+  }
+  ngOnInit(): void {
+    this.siteKey = '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI';
+  }
 
   onSubmit(): any {
 
-    let registerUrl = `${this.baseUrl}/auth/register?captcha=false`;
-    // add new user to local storage
+    this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
+      let registerUrl = `${this.baseUrl}/auth/register`;
+      // add new user to local storage
 
-    const body = {
-      email: this.email,
-      password: this.password,
-      name: this.fullName,
-      company: this.companyName,
-    };
+      const body = {
+        email: this.email,
+        password: this.password,
+        name: this.fullName,
+        company: this.companyName,
+        captcha: token
+      };
+      
+      this.httpService
+        .postFetch(registerUrl, body)
+        .subscribe((data) => {
+          let newdata = this.authService.convertIntoJsObject(data);
+          this.storageService.set('u', newdata.token);
+          this.router.navigate(['/manage-user']);
+        }, error => {
+          this.myerrors = error;
+        });
 
-    this.httpService
-      .postFetch(registerUrl, body)
-      .subscribe((data) => {
-        let newdata = this.authService.convertIntoJsObject(data);
-        this.storageService.set('u', newdata.token);
-        this.router.navigate(['/manage-user']);
-      }, error => {
-        this.myerrors = error;
-      });
+    }, {
+      useGlobalDomain: false
+    })
+
   }
 }

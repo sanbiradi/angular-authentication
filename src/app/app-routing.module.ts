@@ -9,6 +9,7 @@ import { CreateuserComponent } from './user/createuser/createuser.component';
 import { ListUsersComponent } from './user/list-users/list-users.component';
 import { EditUserinfoComponent } from './user/edit-userinfo/edit-userinfo.component';
 import { AuthGuard } from './auth/auth-guard.service';
+import { SettingsComponent } from './settings/settings/settings.component';
 // import { VisualizerComponent } from './auth/visualizer/visualizer.component';
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent , canActivate:[AuthGuard]},
   { path: 'manage-user', component: ListUsersComponent ,canActivate:[AuthGuard]},
   { path: 'edit-user/:id', component: EditUserinfoComponent,canActivate:[AuthGuard] },
-  { path: 'company-settings', component: ProfileComponent ,canActivate:[AuthGuard]},
+  { path: 'settings', component: SettingsComponent ,canActivate:[AuthGuard]},
+  { path: 'user-profile', component: ProfileComponent ,canActivate:[AuthGuard]},
   { path: 'create-user', component: CreateuserComponent ,canActivate:[AuthGuard]},
   { path:'unauthorized', component: UnauthorisedComponent},
   { path: '**', redirectTo: '/unauthorized' },

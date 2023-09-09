@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="form-group mb-4">
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-3">
             <label for="companyName" class="fs-6">Company Name</label>
           </div>
@@ -78,6 +78,8 @@
             />
           </div>
         </div>
+        
+     
       </div>
       <!-- <div class="form-group mb-4">
         <div class="row">
@@ -105,6 +107,10 @@
           Register
         </button>
       </div>
+      <ngx-invisible-recaptcha #captchaElem
+      [siteKey]="siteKey" 
+      >
+    </ngx-invisible-recaptcha>
     </form>
   </div>
 </div>

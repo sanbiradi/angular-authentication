@@ -1,12 +1,12 @@
 <app-header></app-header>
-<div class="col-6 offset-3">
+<div class="login-page col-6 offset-3" >
   <div class="card shadow-sm p-4">
     <div class="card-text">
       <h2 class="fs-3">Login</h2>
     </div>
     <br />
     <div class="card-text">
-      <form (ngSubmit)="login()">
+      <form (ngSubmit)="login()" action="login">
         <div class="form-group mb-4">
           <div class="alert alert-danger  p-1 text-center" role="alert" *ngIf="myerror">
             {{myerror}}
@@ -53,6 +53,10 @@
             Login
           </button>
         </div>
+        <ngx-invisible-recaptcha #captchaElem
+        [siteKey]="siteKey" 
+        >
+      </ngx-invisible-recaptcha>
       </form>
     </div>
   </div>
