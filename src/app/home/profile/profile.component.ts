@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HttpService } from 'src/app/auth/http.service';
+import { ReCaptchaV3Service } from 'ngx-captcha';
 
 @Component({
   selector: 'app-my-profile',
@@ -10,10 +11,12 @@ import { HttpService } from 'src/app/auth/http.service';
 })
 export class ProfileComponent {
   user?: any;
-  
+
   checkLogin?: boolean = false;
   u: any;
   token?: string = '';
+
+  siteKey!: string
 
   // update company profile
   email: string = '';
@@ -25,8 +28,9 @@ export class ProfileComponent {
   myerror: any;
 
 
-  constructor(private authService: AuthService, private router: Router, private httpService: HttpService) {
+  constructor(private reCaptchaV3Service: ReCaptchaV3Service, private authService: AuthService, private router: Router, private httpService: HttpService) {
     this.fetchData();
+    this.siteKey = '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI';
   }
   // toggle class
   isActive?: boolean = true;
@@ -47,15 +51,16 @@ export class ProfileComponent {
     this.httpService.updateCompanyInfo(url, userToken, body).subscribe(
       response => {
         // Handle successful response
-        this.toggleClass();
-        console.log('Profile updated successfully:', response);
-        this.isActive = !this.isActive;
+        
+        // console.log('Profile updated successfully:', response);
+        this.isActive = true;
         //this.router.navigate(['/manage-user']);
       },
       error => {
         this.myerror = error;
       }
     );
+  
   }
 
 
@@ -78,7 +83,27 @@ export class ProfileComponent {
 
   logout() {
     if (this.authService.logout()) {
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/login']);
     }
+  }
+
+
+  socialLogin() {
+    this.reCaptchaV3Service.execute(this.siteKey, 'login', (captcha) => {
+      let Loginurl = `${this.baseUrl}/auth/login/google`;
+      let tokenLocal = this.authService.getCurrentToken();
+      let body = {
+        token: tokenLocal,
+        captcha: captcha
+      };
+      console.log(body);
+      this.httpService.postFetch(Loginurl, body).subscribe((data) => {
+        console.log(data);
+      }, error => {
+        console.log(error);
+      })
+    }, {
+      useGlobalDomain: false
+    });
   }
 }

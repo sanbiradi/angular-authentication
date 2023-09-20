@@ -16,27 +16,29 @@ export class LoginComponent implements OnInit {
   myerror!: any;
   siteKey: any;
   baseUrl = `https://shop-api.ngminds.com`;
-  captcha:any;
+  captcha: any;
   constructor(private reCaptchaV3Service: ReCaptchaV3Service, private authService: AuthService, private router: Router, private httpService: HttpService, private storageService: StorageService) { }
   ngOnInit(): void {
     this.siteKey = '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI';
   }
   login() {
-  
+
 
     if (this.email && this.password) {
-  
+
       this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
-        
+
         let Loginurl = `${this.baseUrl}/auth/login`;
         let body = {
           email: this.email,
           password: this.password,
-          captcha:token
+          captcha: token
         };
+
         this.httpService.postFetch(Loginurl, body).subscribe((data: any) => {
           let newdata = this.authService.convertIntoJsObject(data);
           this.storageService.set('u', newdata.token);
+          console.log(data);
           this.router.navigate(['/']);
         }, error => {
           // console.log(error);
@@ -49,5 +51,19 @@ export class LoginComponent implements OnInit {
       this.myerror = 'Email and password is required';
     }
 
+  }
+
+
+
+  loginWithGoogle() {
+    this.reCaptchaV3Service.execute(this.siteKey, 'login', (captcha) => {
+      let Loginurl = `${this.baseUrl}/auth/login/google`;
+      let body = {
+        // token: ,
+        captcha: captcha
+      };
+    }, {
+      useGlobalDomain: false
+    });
   }
 }

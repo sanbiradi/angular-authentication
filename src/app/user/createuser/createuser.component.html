@@ -1,59 +1,56 @@
 <app-header></app-header>
-<div class="col-7 offset-3">
-    <div class="card shadow-sm p-4">
+<div class="col-5 mt-3 mx-auto">
+    <div class="card  p-4">
         <div class="card-text">
-            <h2 class="fs-3">Create an User Account</h2>
+            <h4 class="fs-4">Create an User Account</h4>
         </div>
-        <br />
+        <hr>
         <div class="card-text">
             <form (ngSubmit)="onSubmit()">
                 <div class="alert alert-danger  p-1 text-center" role="alert" *ngIf="myerrors">
                     {{myerrors}}
-                  </div>
+                </div>
                 <div class="form-group mb-4 mb-4">
                     <div class="row">
-                        <div class="col-3">
-                            <label for="email" class="fs-6">Email</label>
-                        </div>
+
                         <div class="col">
-                            <input type="email" class="form-control form-control-sm" id="email" [(ngModel)]="email"
+                            <input type="email" class="form-control " placeholder="Email" id="email" [(ngModel)]="email"
                                 name="email" required />
                         </div>
                     </div>
                 </div>
                 <div class="form-group mb-4">
                     <div class="row">
-                        <div class="col-3">
-                            <label for="Password" class="fs-6">Password</label>
-                        </div>
+
                         <div class="col">
-                            <input type="Password" class="form-control form-control-sm" id="Password"
+                            <input type="Password" class="form-control" placeholder="Password" id="Password"
                                 [(ngModel)]="password" name="Password" required />
                         </div>
                     </div>
                 </div>
                 <div class="form-group mb-4">
                     <div class="row">
-                        <div class="col-3">
-                            <label for="fullName" class="fs-6">full Name</label>
-                        </div>
+
                         <div class="col">
-                            <input type="text" class="form-control form-control-sm" id="fullName" [(ngModel)]="fullName"
-                                name="fullName" required />
+                            <input type="text" class="form-control" placeholder="Fullname" id="fullName"
+                                [(ngModel)]="fullName" name="fullName" required />
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group mb-4">
-                    <div class="row">
-                        <div class="col-3">
-                            <label for="role" class="fs-6">Employment role</label>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control form-control-sm" id="role" [(ngModel)]="role"
-                                name="role" required />
-                        </div>
-                    </div>
+
+                    Role: <dl></dl>
+                    <label class="me-2">
+                        <input type="radio" name="role" value="user" [(ngModel)]="role">
+                        User
+                    </label>
+
+                    <label>
+                        <input type="radio" name="role" value="admin" [(ngModel)]="role">
+                        Admin
+                    </label>
+
                 </div>
                 <!-- <div class="row" *ngIf="validationerr">
                     <h6 class="text-danger fw-100 mt-3">
@@ -61,8 +58,8 @@
                     </h6>
                 </div> -->
                 <div class="form-group mt-4">
-                    <button class="btn btn-primary btn-sm ps-3 pe-3 pt-1 pb-1 fs-6" type="submit">
-                        Add User
+                    <button class="btn btn-primary ps-3 pe-3 pt-1 pb-1 fs-6" type="submit">
+                        Create user
                     </button>
                 </div>
             </form>

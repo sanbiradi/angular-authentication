@@ -13,7 +13,7 @@ id?:any;
 // email: string = '';
 // password: string = '';
 // fullName: string = '';
-// role: string = '';
+role!: string;
 // validationerr?: Boolean;
 isloading:boolean = true;
 
@@ -31,14 +31,11 @@ myerrors:any;
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get("id");
     this.fetchData(this.id);
+
   }
 
-  
-
-
-   // profile informations fetching 
+     // profile informations fetching 
    fetchData(id:any) {
-   
       this.u = localStorage.getItem('u') || '';
       this.token = JSON.parse(this.u);
       if (this.token) {
@@ -48,6 +45,7 @@ myerrors:any;
             this.users = data;
             this.isloading  = false;   
            this.user= this.users.results.find((item:any)=>item._id===id);
+           this.role = this.user.role;
           });
       }
   }
@@ -59,16 +57,22 @@ myerrors:any;
     let url = `${this.baseUrl}/users/${this.id}`
     let userInfo = { email: this.user.email, name: this.user.name};
     let token = this.authService.getCurrentToken();
+ 
     this.httpService.updateUserInfo(url,userInfo,token).subscribe((data:any)=>{
     this.router.navigate(["/manage-user"]);
    },error=>{
     this.myerrors = error;
    });
+   this.updateUserRole(this.id,this.role,token);
   }
-  
 
-
-  
-
-
+  updateUserRole(id:string,role:string,token:string){
+    let url = `${this.baseUrl}/users/role/${this.id}`;
+    let body = {
+      "role":this.role
+    }
+    this.httpService.updateUserInfo(url,body,token).subscribe((data)=>{
+      console.log(data);
+    },error=>this.myerrors=error);
+  }
 }

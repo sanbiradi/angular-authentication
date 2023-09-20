@@ -10,29 +10,23 @@ import { UnauthorisedComponent } from './unauthorised/unauthorised.component';
 import { CreateuserComponent } from './user/createuser/createuser.component';
 import { ListUsersComponent } from './user/list-users/list-users.component';
 import { EditUserinfoComponent } from './user/edit-userinfo/edit-userinfo.component';
-import { SettingsComponent } from './settings/settings/settings.component';
-import { settingsRoutingModule } from './settings/settings-routing.module';
-import { SettingsModule } from './settings/settings.module';
-
-
-
+import { UtilityModule } from './utility.module';
 
 
 @NgModule({
-  declarations: [AppComponent, UnauthorisedComponent, CreateuserComponent, ListUsersComponent, EditUserinfoComponent, SettingsComponent],
+  declarations: [AppComponent, UnauthorisedComponent, CreateuserComponent, ListUsersComponent, EditUserinfoComponent],
   imports: [
-    FormsModule,
-    settingsRoutingModule,
-    AppRoutingModule,
-    BrowserModule,
     AuthModule,
     HomeModule,
+    FormsModule,
+    BrowserModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SettingsModule
+    UtilityModule
   ],
-  
   providers: [],
-  bootstrap: [AppComponent],
+ 
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

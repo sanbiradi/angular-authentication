@@ -7,15 +7,11 @@ import { User } from '../user';
   providedIn: 'root',
 })
 export class HttpService {
-
-
   constructor(private http: HttpClient) {
-
   }
 
   //send a secure get request
   public secureGet(url: string, token: String): Observable<User> {
-  
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Authorization', `Bearer ${token}`);
@@ -24,11 +20,22 @@ export class HttpService {
 
   //send a request to a server
   public postFetch(url: string, body: Object): Observable<any> {
-    return this.http.post<User>(url, body, { responseType: 'json' }).pipe(
+    return this.http.post<any>(url, body, { responseType: 'json' }).pipe(
       catchError(this.handleError)
     );
+
+
   }
 
+
+  //send a request to a server
+  public postUrl(url: string): Observable<any> {
+    return this.http.post<any>(url, { responseType: 'json' }).pipe(
+      catchError(this.handleError)
+    );
+
+    
+  }
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred';
     if (error.error instanceof ErrorEvent) {
@@ -53,21 +60,21 @@ export class HttpService {
         'Authorization': `Bearer ${token}`,
       })
     };
-    return this.http.post<User>(url, body,options).pipe(
+    return this.http.post<User>(url, body, options).pipe(
       catchError(this.handleError)
     );
   }
 
 
-  public createPostRequest(url: string, body: Object, token: any): Observable<any>{
+  public createPostRequest(url: string, body: Object, token: any): Observable<any> {
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
-      })
+      }
+      ), Credential: true
     };
     console.log(options)
-    return this.http.post<User>(url, body,options).pipe(
+    return this.http.post<any>(url, body, options).pipe(
       catchError(this.handleError)
     );
   }
@@ -79,28 +86,28 @@ export class HttpService {
         'Authorization': `Bearer ${token}`,
       })
     };
-    console.log('update company profile', url, token, body)
+    // console.log('update company profile', url, token, body)
     return this.http.patch(url, body, options).pipe(catchError(this.handleError));
 
   }
-  public deleteRequest(url:string,token:string):Observable<any>{
+  
+  public deleteRequest(url: string, token: string): Observable<any> {
     const options = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${token}`,
       })
     };
-    return this.http.delete(url,options);
+    return this.http.delete(url, options);
   }
 
-
-
-  updateUserInfo(url:any, body:any, token:any):Observable<any>{
+  updateUserInfo(url: any, body: any, token: any): Observable<any> {
     const options = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${token}`,
       })
     };
-    return this.http.patch(url,body,options).pipe(catchError(this.handleError));
-  }
+    return this.http.patch(url, body, options).pipe(catchError(this.handleError));
+  }  
 
+  
 }

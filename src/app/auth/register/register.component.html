@@ -1,87 +1,55 @@
 <app-header></app-header>
-<div class="col-7 offset-2">
-<div class="card shadow-sm p-4">
-  <div class="card-text">
-    <h2 class="fs-3">Register an Account</h2>
-  </div>
-  <br />
-  <div class="card-text">
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-group mb-4 mb-4">
-        <div class="alert alert-danger  p-1 text-center" role="alert" *ngIf="myerrors">
-          {{myerrors}}
-        </div>
-        <div class="row">
-          <div class="col-3">
-            <label for="email" class="fs-6">Email</label>
+<div class="col-5 mx-auto mt-3">
+  <div class="card shadow-sm p-5">
+    <div class="card-text">
+      <h2 class="fs-3">Register an Account</h2>
+    </div>
+    <br />
+    <div class="card-text">
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group mb-4 mb-4">
+          <div class="alert alert-danger  p-1 text-center" role="alert" *ngIf="myerrors">
+            {{myerrors}}
           </div>
-          <div class="col">
-            <input
-              type="email"
-              class="form-control form-control-sm"
-              id="email"
-              [(ngModel)]="email"
-              name="email"
-              required
-            />
-      
+          <div class="row">
+
+            <div class="col">
+              <input type="email" class="form-control  bg-body-tertiary " id="email" [(ngModel)]="email" name="email" placeholder="Email"
+                required />
+
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group mb-4">
-        <div class="row">
-          <div class="col-3">
-            <label for="Password" class="fs-6">Password</label>
-          </div>
-          <div class="col">
-            <input
-              type="Password"
-              class="form-control form-control-sm"
-              id="Password"
-              [(ngModel)]="password"
-              name="Password"
-              required
-            />
+        <div class="form-group mb-4">
+          <div class="row">
+
+            <div class="col">
+              <input type="Password" class="form-control bg-body-tertiary " id="Password" [(ngModel)]="password" name="Password"
+                placeholder="Password" required />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group mb-4">
-        <div class="row">
-          <div class="col-3">
-            <label for="fullName" class="fs-6">full Name</label>
-          </div>
-          <div class="col">
-            <input
-              type="text"
-              class="form-control form-control-sm"
-              id="fullName"
-              [(ngModel)]="fullName"
-              name="fullName"
-              required
-            />
+        <div class="form-group mb-4">
+          <div class="row">
+
+            <div class="col">
+              <input type="text" class="form-control bg-body-tertiary  " id="fullName" [(ngModel)]="fullName" name="fullName"
+                placeholder="Full name" required />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group mb-4">
-        <div class="row mb-3">
-          <div class="col-3">
-            <label for="companyName" class="fs-6">Company Name</label>
+        <div class="form-group mb-4">
+          <div class="row mb-3">
+
+            <div class="col">
+              <input type="text" class="form-control bg-body-tertiary " id="companyName" [(ngModel)]="companyName"
+                placeholder="Company name" name="companyName" required />
+            </div>
           </div>
-          <div class="col">
-            <input
-              type="text"
-              class="form-control form-control-sm"
-              id="companyName"
-              [(ngModel)]="companyName"
-              name="companyName"
-              required
-            />
-          </div>
+
+
         </div>
-        
-     
-      </div>
-      <!-- <div class="form-group mb-4">
+        <!-- <div class="form-group mb-4">
         <div class="row">
           <div class="col-3">
             <label for="role" class="fs-6">Employment role</label>
@@ -89,7 +57,7 @@
           <div class="col">
             <input
               type="text"
-              class="form-control form-control-sm"
+              class="form-control  "
               id="role"
               [(ngModel)]="role"
               name="role"
@@ -98,20 +66,15 @@
           </div>
         </div>
       </div> -->
-      
-      <div class="form-group mt-4">
-        <button
-          class="btn btn-primary btn-sm ps-3 pe-3 pt-1 pb-1 fs-6"
-          type="submit"
-        >
-          Register
-        </button>
-      </div>
-      <ngx-invisible-recaptcha #captchaElem
-      [siteKey]="siteKey" 
-      >
-    </ngx-invisible-recaptcha>
-    </form>
+
+        <div class="form-group mt-4">
+          <button class="btn btn-primary" type="submit">
+            Register
+          </button>
+        </div>
+        <ngx-invisible-recaptcha #captchaElem [siteKey]="siteKey">
+        </ngx-invisible-recaptcha>
+      </form>
+    </div>
   </div>
-</div>
 </div>

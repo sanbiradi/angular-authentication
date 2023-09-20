@@ -9,22 +9,27 @@ import { CreateuserComponent } from './user/createuser/createuser.component';
 import { ListUsersComponent } from './user/list-users/list-users.component';
 import { EditUserinfoComponent } from './user/edit-userinfo/edit-userinfo.component';
 import { AuthGuard } from './auth/auth-guard.service';
-import { settingsRoutingModule } from './settings/settings-routing.module';
-import { SettingsComponent } from './settings/settings/settings.component';
-import { ChangePasswordComponent } from './settings/change-password/change-password.component';
+import { ForgotpasswordComponent } from './auth/forgotpassword/forgotpassword.component';
+import { ChangepasswordComponent } from './auth/changepassword/changepassword.component';
+import { ResetPasswordGuard } from './reset-password.guard';
 // import { VisualizerComponent } from './auth/visualizer/visualizer.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'auth/login', component: LoginComponent },
-  { path: 'auth/register', component: RegisterComponent },
-  { path: 'home', component: HomeComponent , canActivate:[AuthGuard]},
-  { path: 'manage-user', component: ListUsersComponent ,canActivate:[AuthGuard]},
-  { path: 'edit-user/:id', component: EditUserinfoComponent,canActivate:[AuthGuard] },  
-  { path: 'user-profile', component: ProfileComponent ,canActivate:[AuthGuard]},
-  { path: 'create-user', component: CreateuserComponent ,canActivate:[AuthGuard]},
-  
-  { path:'unauthorized', component: UnauthorisedComponent},
+  { path: 'login', component: LoginComponent },
+  { path: 'forgotpassword', component: ForgotpasswordComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'auth/reset-password', component: ChangepasswordComponent, canActivate:[ResetPasswordGuard]},
+
+
+  // after login routes
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'manage-user', component: ListUsersComponent, canActivate: [AuthGuard] },
+  { path: 'edit-user/:id', component: EditUserinfoComponent, canActivate: [AuthGuard] },
+  { path: 'user-profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'create-user', component: CreateuserComponent, canActivate: [AuthGuard] },
+  { path: 'unauthorized', component: UnauthorisedComponent },
+  // {path:'auth/verify-email?:token', component:}
   { path: '**', redirectTo: '/unauthorized' },
 ];
 
@@ -41,7 +46,7 @@ const routes: Routes = [
 // { path: 'comment', loadChildren: () => import('./comment/comment.module').then(m => m.CommentModule) },
 
 @NgModule({
-  imports: [settingsRoutingModule, RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

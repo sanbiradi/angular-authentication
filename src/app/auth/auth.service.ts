@@ -68,7 +68,7 @@ export class AuthService {
     let url = `${this.baseUrl}/users/${id}`;
     console.log(id, url, token);
     this.httpService.deleteRequest(url, token).subscribe(response => {
-      this.router.navigate(["/auth/login"]);
+      this.router.navigate(["/login"]);
       this.router.navigate(["/manage-user"]);
     }, error => {
       console.log(error)

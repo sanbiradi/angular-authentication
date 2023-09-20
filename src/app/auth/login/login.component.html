@@ -1,6 +1,6 @@
 <app-header></app-header>
-<div class="login-page col-6 offset-3" >
-  <div class="card shadow-sm p-4">
+<div class="login-page col-4 mt-3 offset-4" >
+  <div class="card shadow-sm p-5">
     <div class="card-text">
       <h2 class="fs-3">Login</h2>
     </div>
@@ -12,16 +12,15 @@
             {{myerror}}
           </div>
           <div class="row">
-            <div class="col-2">
-              <label for="email" class="fs-6">Email</label>
-            </div>
+           
             <div class="col">
               <input
                 type="email"
-                class="form-control form-control-sm"
+                class="form-control bg-body-tertiary                "
                 id="email"
                 [(ngModel)]="email"
                 name="email"
+                placeholder="Email"
                 required
               />
            
@@ -30,29 +29,43 @@
         </div>
         <div class="form-group">
           <div class="row">
-            <div class="col-2">
-              <label for="Password" class="fs-6">Password</label>
-            </div>
+           
             <div class="col">
               <input
                 type="Password"
-                class="form-control form-control-sm"
+                class="form-control bg-body-tertiary  "
                 id="Password"
                 [(ngModel)]="password"
                 name="Password"
                 required
+                placeholder="Password"
               />
             </div>
           </div>
+          <div class="row mt-1">
+            <div class="col text-end">
+              <!-- <div class="d-flex justify-content-end"> -->
+                <a class="text-muted ms-2" href="/forgotpassword" >Forgot password?</a>
+              </div>
+              <!-- </div> -->
+          </div>
+          
+          <div class="row mt-2 pe-3 ps-3">
+              <button
+              class="btn btn-primary "
+              type="submit"
+            >
+              Login
+            </button>
+         
+          </div>
+          <div class="row mt-2 pe-3 ps-3">
+            <button class="btn btn-outline-primary" type="button" >
+              <span class="d-flex justify-content-center align-items-center"><img src="assets/google.png" alt="" height="25px"><span class="ms-4">Login with google</span></span></button >
+          </div>
+
         </div>
-        <div class="form-group mt-4">
-          <button
-            class="btn btn-primary btn-sm ps-3 pe-3 pt-1 pb-1 fs-6"
-            type="submit"
-          >
-            Login
-          </button>
-        </div>
+       
         <ngx-invisible-recaptcha #captchaElem
         [siteKey]="siteKey" 
         >

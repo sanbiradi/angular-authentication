@@ -6,6 +6,13 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./alert-message.component.scss']
 })
 export class AlertMessageComponent {
-  @Input() message!:string;
+  @Input() message!:string | boolean;
   @Input() type!:boolean;
+  visible = true;
+
+  constructor(){
+    setTimeout(()=>{
+      this.visible = false;
+    },3500)
+  }
 }
