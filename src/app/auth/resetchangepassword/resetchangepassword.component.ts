@@ -5,11 +5,11 @@ import { HttpService } from '../http.service';
 import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-changepassword',
-  templateUrl: './changepassword.component.html',
-  styleUrls: ['./changepassword.component.scss']
+  selector: 'app-resetchangepassword',
+  templateUrl: './resetchangepassword.component.html',
+  styleUrls: ['./resetchangepassword.component.scss']
 })
-export class ChangepasswordComponent implements OnInit {
+export class ResetchangepasswordComponent implements OnInit {
   error!: boolean;
   tokenTrue!: boolean;
 

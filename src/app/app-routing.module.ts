@@ -10,8 +10,10 @@ import { ListUsersComponent } from './user/list-users/list-users.component';
 import { EditUserinfoComponent } from './user/edit-userinfo/edit-userinfo.component';
 import { AuthGuard } from './auth/auth-guard.service';
 import { ForgotpasswordComponent } from './auth/forgotpassword/forgotpassword.component';
-import { ChangepasswordComponent } from './auth/changepassword/changepassword.component';
+import { ResetchangepasswordComponent } from './auth/resetchangepassword/resetchangepassword.component';
 import { ResetPasswordGuard } from './reset-password.guard';
+import { SettingsComponent } from './settings/settings/settings.component';
+import { ChangePasswordComponent } from './settings/change-password/change-password.component';
 // import { VisualizerComponent } from './auth/visualizer/visualizer.component';
 
 const routes: Routes = [
@@ -19,11 +21,16 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'auth/reset-password', component: ChangepasswordComponent, canActivate:[ResetPasswordGuard]},
+  { path: 'auth/reset-password', component: ResetchangepasswordComponent, canActivate: [ResetPasswordGuard] },
 
 
   // after login routes
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  {
+    path: 'settings', component: SettingsComponent, canActivate: [AuthGuard], children: [
+      { path: 'changepassword', component:ChangePasswordComponent, pathMatch:'full'}
+    ]
+  },
   { path: 'manage-user', component: ListUsersComponent, canActivate: [AuthGuard] },
   { path: 'edit-user/:id', component: EditUserinfoComponent, canActivate: [AuthGuard] },
   { path: 'user-profile', component: ProfileComponent, canActivate: [AuthGuard] },

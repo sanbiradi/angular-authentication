@@ -10,11 +10,13 @@ import { UnauthorisedComponent } from './unauthorised/unauthorised.component';
 import { CreateuserComponent } from './user/createuser/createuser.component';
 import { ListUsersComponent } from './user/list-users/list-users.component';
 import { EditUserinfoComponent } from './user/edit-userinfo/edit-userinfo.component';
-import { UtilityModule } from './utility.module';
+import { UtilityModule } from './usablemodules/utility.module';
+import { SettingsComponent } from './settings/settings/settings.component';
+import { ChangePasswordComponent } from './settings/change-password/change-password.component';
 
 
 @NgModule({
-  declarations: [AppComponent, UnauthorisedComponent, CreateuserComponent, ListUsersComponent, EditUserinfoComponent],
+  declarations: [AppComponent, UnauthorisedComponent, CreateuserComponent, ListUsersComponent, EditUserinfoComponent, SettingsComponent, ChangePasswordComponent],
   imports: [
     AuthModule,
     HomeModule,

@@ -7,8 +7,8 @@ import { HeaderComponent } from './header/header.component';
 import { VisualizerComponent } from './visualizer/visualizer.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
-import { UtilityModule } from '../utility.module';
-import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { UtilityModule } from '../usablemodules/utility.module';
+import { ResetchangepasswordComponent } from './resetchangepassword/resetchangepassword.component';
 
 
 
@@ -19,7 +19,7 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
     HeaderComponent,
     VisualizerComponent,
     ForgotpasswordComponent,
-    ChangepasswordComponent
+    ResetchangepasswordComponent
   ],
   imports: [
     CommonModule,
