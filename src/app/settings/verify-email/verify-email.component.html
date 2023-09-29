@@ -1,0 +1,9 @@
+<div *ngIf="success; else showme">
+    <p class="text-primary ">Email verification link send to your relevant email! please check your inbox or spam folder</p>
+</div>
+
+<ng-template #showme>
+    <h4>Account Verification</h4>
+    <app-alert-message [message]="message" [type]="type" *ngIf="message"></app-alert-message>
+    <button class="btn btn-primary mt-2" (click)="sendVerification()">Send Verification</button>
+</ng-template>

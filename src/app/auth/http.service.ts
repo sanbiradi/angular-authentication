@@ -23,19 +23,40 @@ export class HttpService {
     return this.http.post<any>(url, body, { responseType: 'json' }).pipe(
       catchError(this.handleError)
     );
-
-
   }
 
 
+
+  public resetPassword(url: string, token: string,body:Object): Observable<any> {
+    return this.http.post<any>(url, body, { params: { token: token } }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public verifyAccount(url: string, token: string): Observable<any> {
+    return this.http.post<any>(url, null, { params: { token: token } }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public postWithToken(url:string, token:string):Observable<any>{
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      })
+    };
+    return this.http.post<any>(url,null,options).pipe(
+      catchError(this.handleError)
+    )
+  }
   //send a request to a server
   public postUrl(url: string): Observable<any> {
     return this.http.post<any>(url, { responseType: 'json' }).pipe(
       catchError(this.handleError)
     );
-
-    
   }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred';
     if (error.error instanceof ErrorEvent) {
@@ -51,6 +72,7 @@ export class HttpService {
     // console.log(errorMessage);
     return throwError(errorMessage);
   }
+
 
 
   public createUserRequest(url: string, body: Object, token: any): Observable<User> | any {
@@ -90,7 +112,7 @@ export class HttpService {
     return this.http.patch(url, body, options).pipe(catchError(this.handleError));
 
   }
-  
+
   public deleteRequest(url: string, token: string): Observable<any> {
     const options = {
       headers: new HttpHeaders({
@@ -107,7 +129,7 @@ export class HttpService {
       })
     };
     return this.http.patch(url, body, options).pipe(catchError(this.handleError));
-  }  
+  }
 
-  
+
 }

@@ -14,6 +14,8 @@ import { ResetchangepasswordComponent } from './auth/resetchangepassword/resetch
 import { ResetPasswordGuard } from './reset-password.guard';
 import { SettingsComponent } from './settings/settings/settings.component';
 import { ChangePasswordComponent } from './settings/change-password/change-password.component';
+import { VerifyEmailComponent } from './settings/verify-email/verify-email.component';
+import { ValidateEmailComponent } from './settings/validate-email/validate-email.component';
 // import { VisualizerComponent } from './auth/visualizer/visualizer.component';
 
 const routes: Routes = [
@@ -28,29 +30,18 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   {
     path: 'settings', component: SettingsComponent, canActivate: [AuthGuard], children: [
-      { path: 'changepassword', component:ChangePasswordComponent, pathMatch:'full'}
+      { path: 'changepassword', component: ChangePasswordComponent, pathMatch: 'full' },
+      { path: 'verify-account', component: VerifyEmailComponent, pathMatch: 'full'}
     ]
   },
   { path: 'manage-user', component: ListUsersComponent, canActivate: [AuthGuard] },
   { path: 'edit-user/:id', component: EditUserinfoComponent, canActivate: [AuthGuard] },
   { path: 'user-profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'create-user', component: CreateuserComponent, canActivate: [AuthGuard] },
+  { path: 'auth/verify-email', component: ValidateEmailComponent },
   { path: 'unauthorized', component: UnauthorisedComponent },
-  // {path:'auth/verify-email?:token', component:}
   { path: '**', redirectTo: '/unauthorized' },
 ];
-
-//just knowing and learning purpose
-
-// { path: 'employee', component: EmployeeComponent, canActivate:[LoginGuard] },
-// {path:'rooms', loadChildren:()=>import('./rooms/rooms.module').then((m)=>m.RoomsModule),canActivate:[LoginGuard]},
-// //lazy loading without make manual adding module in app.module we perform lazy loading to perform 
-// //adding module while user trying to visit rooms
-
-// { path:'login' , component:LoginComponent},
-// { path: '', redirectTo: '/login', pathMatch: 'full' },
-// { path: 'booking/:id', loadChildren: () => import('./header/booking/booking.module').then(m => m.BookingModule)},
-// { path: 'comment', loadChildren: () => import('./comment/comment.module').then(m => m.CommentModule) },
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

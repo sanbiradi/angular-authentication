@@ -1,15 +1,22 @@
 <app-header></app-header>
 <div class="container mt-4">
     <div class="row">
-        <div class="col-3  lh-lg ">
+        <div class="col-3 lh-lg ">
             <div class="container">
                 <ul class="list-unstyled fs-6 small ">
-                    <li><a routerLink="changepassword" class="text-decoration-none d-block btn btn-secondary  rounded">Change Password</a></li>
+                    <li><a routerLink="changepassword"
+                            class="text-decoration-none mb-2 d-block btn btn-secondary  rounded">Change Password</a>
+                    </li>
+                    <li><a routerLink="verify-account"
+                            class="text-decoration-none d-block btn btn-secondary  rounded">Verify Account</a></li>
                 </ul>
             </div>
         </div>
         <div class="col border rounded">
-            <router-outlet></router-outlet>
+            <div class="container p-4">
+
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
 </div>

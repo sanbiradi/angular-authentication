@@ -13,10 +13,12 @@ import { EditUserinfoComponent } from './user/edit-userinfo/edit-userinfo.compon
 import { UtilityModule } from './usablemodules/utility.module';
 import { SettingsComponent } from './settings/settings/settings.component';
 import { ChangePasswordComponent } from './settings/change-password/change-password.component';
+import { VerifyEmailComponent } from './settings/verify-email/verify-email.component';
+import { ValidateEmailComponent } from './settings/validate-email/validate-email.component';
 
 
 @NgModule({
-  declarations: [AppComponent, UnauthorisedComponent, CreateuserComponent, ListUsersComponent, EditUserinfoComponent, SettingsComponent, ChangePasswordComponent],
+  declarations: [AppComponent, UnauthorisedComponent, CreateuserComponent, ListUsersComponent, EditUserinfoComponent, SettingsComponent, ChangePasswordComponent, VerifyEmailComponent, ValidateEmailComponent],
   imports: [
     AuthModule,
     HomeModule,
