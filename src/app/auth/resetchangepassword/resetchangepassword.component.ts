@@ -28,7 +28,10 @@ export class ResetchangepasswordComponent implements OnInit {
 
     let url = `${this.authService.baseUrl}/auth/verify-email?token=${this.token}`;
     console.log(url);
-    this.httpService.postUrl(url).subscribe((data) => {
+    let body = {
+    }
+
+    this.httpService.postFetch(url, body).subscribe((data) => {
       console.log(data);
     }, error => {
       console.log(error);
