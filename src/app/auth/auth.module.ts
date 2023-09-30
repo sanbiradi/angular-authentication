@@ -9,8 +9,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { UtilityModule } from '../usablemodules/utility.module';
 import { ResetchangepasswordComponent } from './resetchangepassword/resetchangepassword.component';
-
-
+import { GoogleLoginProvider,SocialLoginModule, SocialAuthServiceConfig,GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -20,17 +19,39 @@ import { ResetchangepasswordComponent } from './resetchangepassword/resetchangep
     VisualizerComponent,
     ForgotpasswordComponent,
     ResetchangepasswordComponent
+    
   ],
   imports: [
     CommonModule,
     FormsModule,
     NgxCaptchaModule,
-    UtilityModule
+    SocialLoginModule,
+    UtilityModule,
+    GoogleSigninButtonModule
   ],
   exports:[
     RegisterComponent,
     LoginComponent,
     HeaderComponent,
-  ]
+  ],
+  providers:[
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '893913805202-rg7o6somctq21ike6dk1u0d696t64e0q.apps.googleusercontent.com'
+            )
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
+    ]
 })
 export class AuthModule { }

@@ -17,6 +17,7 @@ import { VerifyEmailComponent } from './settings/verify-email/verify-email.compo
 import { ValidateEmailComponent } from './settings/validate-email/validate-email.component';
 
 
+
 @NgModule({
   declarations: [AppComponent, UnauthorisedComponent, CreateuserComponent, ListUsersComponent, EditUserinfoComponent, SettingsComponent, ChangePasswordComponent, VerifyEmailComponent, ValidateEmailComponent],
   imports: [
@@ -27,10 +28,11 @@ import { ValidateEmailComponent } from './settings/validate-email/validate-email
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    UtilityModule
+    UtilityModule,
   ],
-  providers: [],
- 
+  providers: [
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

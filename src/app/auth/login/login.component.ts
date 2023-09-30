@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import { HttpService } from '../http.service';
 import { StorageService } from '../storage.service';
 import { ReCaptchaV3Service } from 'ngx-captcha';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +18,30 @@ export class LoginComponent implements OnInit {
   siteKey: any;
   baseUrl = `https://shop-api.ngminds.com`;
   captcha: any;
-  constructor(private reCaptchaV3Service: ReCaptchaV3Service, private authService: AuthService, private router: Router, private httpService: HttpService, private storageService: StorageService) { }
+  user!: SocialUser;
+  loggedIn!: boolean;
+  constructor(private gauthService: SocialAuthService, private reCaptchaV3Service: ReCaptchaV3Service, private authService: AuthService, private router: Router, private httpService: HttpService, private storageService: StorageService) { }
   ngOnInit(): void {
     this.siteKey = '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI';
+    this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
+
+      this.gauthService.authState.subscribe((user) => {
+        this.user = user;
+        let url=`${this.authService.baseUrl}/auth/login/google`;
+        let body = {
+          token:this.user.idToken,
+          captcha:token
+        }
+        this.httpService.postFetch(url,body).subscribe(data=>{
+          let newdata = this.authService.convertIntoJsObject(data);
+          this.storageService.set('u', newdata.token);
+          this.router.navigate(['/']);
+        },error=>{
+          this.myerror=error;
+        })
+      });
+    });
+
   }
   login() {
 
@@ -44,6 +66,8 @@ export class LoginComponent implements OnInit {
           // console.log(error);
           this.myerror = error;
         });
+
+
       }, {
         useGlobalDomain: false
       });
@@ -51,21 +75,5 @@ export class LoginComponent implements OnInit {
       this.myerror = 'Email and password is required';
     }
 
-  }
-
-
-
-  loginWithGoogle() {
-    this.reCaptchaV3Service.execute(this.siteKey, 'login', (captcha) => {
-      let Loginurl = `${this.baseUrl}/auth/login/google`;
-      let body = {
-        // token: ,
-        captcha: captcha
-      };
-    }, {
-      useGlobalDomain: false
-    });
-
-    
   }
 }
