@@ -24,10 +24,10 @@ const routes: Routes = [
   { path: 'forgotpassword', component: ForgotpasswordComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'auth/reset-password', component: ResetchangepasswordComponent, canActivate: [ResetPasswordGuard] },
-
-
   // after login routes
+  
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+
   {
     path: 'settings', component: SettingsComponent, canActivate: [AuthGuard], children: [
       { path: 'changepassword', component: ChangePasswordComponent, pathMatch: 'full' },

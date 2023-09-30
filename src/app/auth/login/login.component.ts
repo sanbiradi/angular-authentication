@@ -65,5 +65,7 @@ export class LoginComponent implements OnInit {
     }, {
       useGlobalDomain: false
     });
+
+    
   }
 }
