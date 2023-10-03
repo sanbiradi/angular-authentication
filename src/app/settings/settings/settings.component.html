@@ -4,11 +4,11 @@
         <div class="col-3 lh-lg ">
             <div class="container">
                 <ul class="list-unstyled fs-6 small ">
-                    <li><a routerLink="changepassword"
-                            class="text-decoration-none mb-2 d-block btn btn-secondary  rounded">Change Password</a>
+                    <li class="mb-2 rounded" [routerLinkActive]="'border'"><a routerLink="changepassword"
+                            class="text-decoration-none d-block btn ">Change Password</a>
                     </li>
-                    <li><a routerLink="verify-account"
-                            class="text-decoration-none d-block btn btn-secondary  rounded">Verify Account</a></li>
+                    <li class="rounded" [routerLinkActive]="'border'"><a routerLink="verify-account"
+                            class="text-decoration-none d-block btn ">Verify Account</a></li>
                 </ul>
             </div>
         </div>

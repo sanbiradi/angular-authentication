@@ -32,9 +32,11 @@ export class LoginComponent implements OnInit {
           token:this.user.idToken,
           captcha:token
         }
+
         this.httpService.postFetch(url,body).subscribe(data=>{
           let newdata = this.authService.convertIntoJsObject(data);
           this.storageService.set('u', newdata.token);
+          console.log(newdata);
           this.router.navigate(['/']);
         },error=>{
           this.myerror=error;

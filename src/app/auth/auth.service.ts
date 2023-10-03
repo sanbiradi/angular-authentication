@@ -42,11 +42,14 @@ export class AuthService {
   getCurrentUser(): any {
     // get current user from local storage
     let profileUrl = `${this.baseUrl}/auth/self`;
-    let userToken = JSON.parse(localStorage.getItem('u') || ``);
+    let userToken = this.getCurrentToken();
+    let tempdata;
     if (userToken) {
-      this.httpService.secureGet(profileUrl, userToken).subscribe((data) => {
+    this.httpService.secureGet(profileUrl, userToken).subscribe((data) => {
         this.userdata = data;
+
       });
+  
     } else {
       return false;
     }
