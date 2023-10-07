@@ -5,7 +5,7 @@ import { AuthModule } from "../auth/auth.module";
 import { HomeComponent } from './home.component';
 import { FormsModule } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
-
+import { UtilityModule } from '../usablemodules/utility.module';
 
 
 @NgModule({
@@ -15,14 +15,14 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     ],
     exports: [
         ProfileComponent,
-        HomeComponent
-        
+        HomeComponent  
     ],
     imports: [
       AuthModule,
       CommonModule,
       FormsModule,
       NgxCaptchaModule,
+      UtilityModule
     ]
 })
 export class HomeModule { }

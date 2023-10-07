@@ -1,1 +1,33 @@
-<p>products-page works!</p>
+<app-header></app-header>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between">
+        <h4 class="mb-4 text-muted">Products:</h4>
+        <div>
+            <a href="new-product"
+            class="btn btn-primary">New Product</a>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <!-- Product Card 1 -->
+        <div class="col-lg-3 col-md-1 mb-4">
+            <div class="card border-0">
+                <img src="assets/nike-shoes.webp" class="card-img-top" alt="Product 1" height="300">
+                <div class="card-img-overlay d-flex align-items-start justify-content-end">
+                    <button class="btn btn-primary  text-danger me-2" data-toggle="tooltip" title="Delete">
+                        <img src="assets/update.svg" alt="" height="20px" width="20px">
+                    </button>
+                    <button class="btn btn-danger text-primary ml-2" data-toggle="tooltip" title="Edit">
+                        <img src="assets/delete-icon.svg" alt="" height="20px" width="20px">
+                    </button>
+                </div>
+                <div class="card-body p-0 ">
+                    <h5 class="card-title mt-3">Nike Air Zoom Pegasus 38 Running Shoes</h5>
+                    <p class="card-text">Experience the ultimate in comfort, performance, and style with the Nike Air
+                        Zoom Pegasus 38 Running Shoes. </p>
+                    <p class="card-text">Rs. 2499.00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

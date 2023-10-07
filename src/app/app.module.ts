@@ -16,6 +16,7 @@ import { ChangePasswordComponent } from './settings/change-password/change-passw
 import { VerifyEmailComponent } from './settings/verify-email/verify-email.component';
 import { ValidateEmailComponent } from './settings/validate-email/validate-email.component';
 import { ProductsRoutingModule } from './products/products-routing.module';
+import { ProductsModule } from './products/products.module';
 
 
 
@@ -26,11 +27,12 @@ import { ProductsRoutingModule } from './products/products-routing.module';
     HomeModule,
     FormsModule,
     BrowserModule,
-    AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     UtilityModule,
     ProductsRoutingModule,
+    ProductsModule,
+    AppRoutingModule,
   ],
   providers: [
   ],

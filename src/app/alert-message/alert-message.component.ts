@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./alert-message.component.scss']
 })
 export class AlertMessageComponent {
-  @Input() message!:string | boolean;
+  @Input() message!:String | boolean;
   @Input() type!:boolean;
   visible = true;
 
