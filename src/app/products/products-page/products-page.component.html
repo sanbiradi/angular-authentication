@@ -10,7 +10,7 @@
     <app-alert-message [message]="message" [type]="type" *ngIf="message"></app-alert-message>
     <!-- Product Card 1 -->
     <div class="mb-4 row" *ngIf="!noproducts;else loadingTemplate">
-        <div class="card border-0 col-md-3 col-sm-5 g-4 " role="button" *ngFor="let product of products"
+        <div class="card border-0 col-md-3 g-4 " role="button" *ngFor="let product of products"
            ><div class="card border-0">
             <img src="{{product.images[0].url}}" class="card-img-top" alt="Product 1" height="300">
             <div class="card-img-overlay d-flex align-items-start justify-content-end me-2">

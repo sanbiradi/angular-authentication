@@ -5,7 +5,7 @@
 
 <ng-template #loadingTemplate>
   <app-header></app-header>
-  <div class="card col-5 shadow-sm p-5 m-2 mx-auto">
+  <div class="card col-md-5 border-0 shadow-sm p-5 m-2 mx-auto">
 
     <div class="row justify-content-center mb-2">
       <div class="col-auto">
@@ -22,7 +22,7 @@
     <!-- <p>Email Verified: {{ user?.isEmailVerified }}</p> -->
     <p>Company Name: {{ user?._org.name }}</p>
     <div>
-      <span class="text-muted" role="button" (click)="toggleClass()">Update company name</span>
+      <span class="btn btn-outline-secondary btn-sm" role="button" (click)="toggleClass()">Update company name</span>
     </div>
 
     <div [ngClass]="{'active':isActive}" class="mt-1">

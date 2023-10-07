@@ -1,8 +1,7 @@
 <app-header></app-header>
 <div class="container">
-    <div class="col-md-4 mx-auto">
-       
-        <form (ngSubmit)="onSubmit()" class="mt-5" #productForm="ngForm" enctype="multipart/form-data">
+    <div class="col-md-4 mx-auto py-4">
+        <form (ngSubmit)="onSubmit()" class="mt-3" #productForm="ngForm" enctype="multipart/form-data">
             <app-alert-message  [type]="type" [message]="message" *ngIf="message"></app-alert-message>
             <div class="form-group">
                 <label for="name">Name:</label>
