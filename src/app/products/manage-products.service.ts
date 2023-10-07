@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, filter, throwError } from 'rxjs';
 import { Product } from './product';
 import { AuthService } from '../auth/auth.service';
 
@@ -8,7 +8,7 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root'
 })
 export class ManageProductsService {
-  baseUrl = 'https://shop-api.ngminds.com';
+  baseUrl = this.authService.baseUrl;
   token!: String;
   constructor(private http: HttpClient, private authService: AuthService) {
     this.token = this.authService.getCurrentToken();
@@ -41,24 +41,54 @@ export class ManageProductsService {
         'Authorization': `Bearer ${this.token}`,
       })
     };
-    console.log(url,options,body);
+    console.log(url, options, body);
     return this.http.post<any>(url, body, options).pipe(
       catchError(this.handleError)
     );
   }
 
-  getProducts(filters:any): Observable<any> {
-    
+  getProducts(filters: any): Observable<any> {
+    const params = new HttpParams({ fromObject: filters });
     let url = `${this.baseUrl}/products`;
-
     const options = {
       headers: new HttpHeaders({
-        'Authorization': `Bearer ${this.token}`,
-        'Content-Type': 'application/json'
+        'Authorization': `Bearer ${this.token}`
+      }),
+      params
+    };
+    console.log(options);
+    return this.http.get<any>(url, options).pipe(catchError(this.handleError));
+  }
+
+  deleteProduct(id: String): Observable<any> {
+    let url = `${this.baseUrl}/products/${id}`;
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`
       })
     };
-    return this.http.get<[]>(url, options).pipe(catchError(this.handleError))
+    return this.http.delete<any>(url, options).pipe(catchError(this.handleError));
+  }
+
+  getProductInfo(id: String): Observable<any> {
+    let url = `${this.baseUrl}/products/${id}`;
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`
+      })
+    };
+    return this.http.get<any>(url, options).pipe(catchError(this.handleError));
   }
 
 
+  updateProductDetails(id:String,body:Object):Observable<any>{
+    let url = `${this.baseUrl}/products/${id}`;
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`
+      })
+    };
+    return this.http.patch<any>(url,body,options).pipe(catchError(this.handleError));
+  }
+  
 }
