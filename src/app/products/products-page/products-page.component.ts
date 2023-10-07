@@ -8,9 +8,7 @@ import { ManageProductsService } from '../manage-products.service';
 })
 export class ProductsPageComponent {
   products: any = [];
-  viewedProduct: any = {
-
-  }
+  viewedProduct: any;
   filters: Object = {
     sortBy: "name",
     limit: 10,
@@ -48,6 +46,7 @@ export class ProductsPageComponent {
       this.message = `Product has been deleted successfully!`;
       this.type = true;
       this.loadProducts();
+      this.viewedProduct = false;
     }, error => {
       this.message = error;
       this.type = false;

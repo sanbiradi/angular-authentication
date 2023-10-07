@@ -10,29 +10,32 @@
     <app-alert-message [message]="message" [type]="type" *ngIf="message"></app-alert-message>
     <!-- Product Card 1 -->
     <div class="mb-4 row" *ngIf="!noproducts;else loadingTemplate">
-        <div class="card border-0 col-md-3 g-4 " role="button" *ngFor="let product of products"
-           ><div class="card border-0">
-            <img src="{{product.images[0].url}}" class="card-img-top" alt="Product 1" height="300">
-            <div class="card-img-overlay d-flex align-items-start justify-content-end me-2">
-                <button class="btn btn-primary text-primary me-2 " data-toggle="tooltip" title="Edit" (click)="getProductInfo(product._id)" data-bs-toggle="modal" data-bs-target="#updateModal">
-                    <img src="assets/update.svg" alt="" height="20px" width="20px">
-                </button>
-                <button class="btn btn-danger  text-danger " data-toggle="tooltip" (click)="deleteProduct(product._id)"
-                    title="Delete">
-                    <img src="assets/delete-icon.svg" alt="" height="20px" width="20px">
-                </button>
+        <div class="card border-0 col-md-3 g-4 " *ngFor="let product of products">
+            <div class="card border-0">
+                <img src="{{product.images[0].url}}" class="card-img-top" alt="Product 1" height="300">
+                <div class="card-img-overlay d-flex align-items-start justify-content-end me-2">
+                    <button class="btn btn-primary text-primary me-2 " data-toggle="tooltip" title="Edit"
+                        (click)="getProductInfo(product._id)" data-bs-toggle="modal" data-bs-target="#updateModal">
+                        <img src="assets/update.svg" alt="" height="20px" width="20px">
+                    </button>
+                    <button class="btn btn-danger  text-danger " data-toggle="tooltip"
+                        (click)="deleteProduct(product._id)" title="Delete">
+                        <img src="assets/delete-icon.svg" alt="" height="20px" width="20px">
+                    </button>
+                </div>
             </div>
-           </div>
-           
-            <div class=" hover-color card-body p-0 "  (click)="getProductInfo(product._id)" data-bs-toggle="modal" data-bs-target="#viewModal" >
+
+            <div class=" hover-color card-body p-0 " role="button" (click)="getProductInfo(product._id)"
+                data-bs-toggle="modal" data-bs-target="#viewModal">
                 <h5 class="card-title mt-3">{{product.name}}</h5>
                 <p class="card-text text-muted">{{product.description}}</p>
                 <p class="card-text">Rs. {{product.price}}.00</p>
             </div>
         </div>
     </div>
-  
-    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true" *ngIf="viewedProduct">
+
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true"
+        *ngIf="viewedProduct">
         <div class="modal-dialog">
             <div class="modal-content p-2">
                 <div class="modal-header">
@@ -41,12 +44,12 @@
                 </div>
                 <app-alert-message [message]="message" [type]="type" *ngIf="message"></app-alert-message>
                 <div class="modal-body">
-                    {{viewedProduct|json}}
+
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true" *ngIf="viewedProduct">
+    <!-- <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true" *ngIf="viewedProduct">
         <div class="modal-dialog">
             <div class="modal-content p-2">
                 <div class="modal-header">
@@ -55,8 +58,40 @@
                 </div>
                 <app-alert-message [message]="message" [type]="type" *ngIf="message"></app-alert-message>
                 <div class="modal-body">
-                    {{viewedProduct|json}}
+                 <div>
+                    
+                 </div>
                 </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true" *ngIf="viewedProduct">
+        <div class="modal-dialog">
+            <div class="modal-content p-2">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="viewModalLabel">Product</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <app-alert-message [message]="message" [type]="type" *ngIf="message"></app-alert-message>
+                <div class="card border-0 m-4">
+                    <img src="{{viewedProduct?.images[0]?.url}}" class="card-img-top" alt="Product 1" height="400"
+                        width="200">
+                    <div class="card-img-overlay d-flex align-items-start justify-content-end">
+
+                        <button class="btn btn-danger  text-danger" data-toggle="tooltip"
+                            (click)="deleteProduct(viewedProduct._id)" title="Delete">
+                            <img src="assets/delete-icon.svg" alt="" height="20px" width="20px">
+                        </button>
+                    </div>
+
+                    <div class="card-body p-0 ">
+                        <h5 class="card-title mt-3">{{viewedProduct.name}}</h5>
+                        <p class="card-text text-muted">{{viewedProduct.description}}</p>
+                        <p class="card-text">Rs. {{viewedProduct.price}}.00</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

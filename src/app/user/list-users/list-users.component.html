@@ -13,27 +13,25 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Company Name</th>
-          <th>Role</th>
-          <th>Actions</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Company Name</th>
+          <th scope="col">Role</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
-
-
       <tbody>
         <div *ngIf="!users; else loadingTemplate" class="d-flex justify-content-center align-items-center">
           <img src="assets/loading.gif" alt="" />
         </div>
         <ng-template #loadingTemplate>
           <tr *ngFor="let user of users[0]?.results" class="my-row">
-            <td>{{ user.name }}</td>
+            <td scope="row">{{ user.name }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user._org.name }}</td>
-            <td>{{ user.role }}</td>
+            <td>{{ user.role }}</td>  
             <td>
-              <button class="btn btn-primary btn-sm me-3" (click)="updateUser(user._id)">Edit</button>
+              <button class="btn btn-primary btn-sm me-3 mb-2" (click)="updateUser(user._id)">Edit</button>
               <button class="btn btn-danger btn-sm" (click)="deleteUser($event,user._id)">Delete</button>
             </td>
           </tr>
