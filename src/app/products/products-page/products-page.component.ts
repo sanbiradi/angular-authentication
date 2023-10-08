@@ -7,30 +7,49 @@ import { ManageProductsService } from '../manage-products.service';
   styleUrls: ['./products-page.component.scss']
 })
 export class ProductsPageComponent {
+
+  selectedLimit: number = 10;
+  selectedCategories:String = 'name';
+  limitOptions: any = [
+    10, 20, 30, 40
+  ]
+  categories:any = [
+    "name","price"
+  ]
+
   
   products: any = [];
   viewedProduct: any;
-  
-  filters: Object = {
-    sortBy: "name",
-    limit: 10,
+
+  filters: any = {
+    sortBy: this.selectedCategories,
+    limit: this.selectedLimit,
     page: 1
   }
 
-  images:any=[];
+  images: any = [];
 
   updateProduct: any;
   noproducts!: boolean;
   message!: String;
   type!: boolean;
-  
+
   constructor(private manageProduct: ManageProductsService) {
 
   }
 
+  onCategoryChange(){
+    this.filters.sortBy = this.selectedCategories;
+    this.loadProducts();
+  }
+  
+  onLimitChange() {
+    this.filters.limit = this.selectedLimit;
+    this.loadProducts();
+  }
+
   ngOnInit() {
     this.loadProducts();
-
   }
 
   loadProducts() {
@@ -69,8 +88,8 @@ export class ProductsPageComponent {
     })
   }
 
-  
 
-  
+
+
 
 }

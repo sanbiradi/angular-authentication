@@ -7,6 +7,32 @@
         </div>
     </div>
     <hr>
+    <div class="row">
+        <div class="col-md-1">
+            <select id="limit" class="form-select" [(ngModel)]="selectedLimit" (change)="onLimitChange()">
+                <option *ngFor="let option of limitOptions" [value]="option">{{ option }}</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label>Category:</label>
+            <div class="row">
+                <div class="col">
+                    <input type="checkbox" class="form-check-input" id="{{ categories[0] }}" [(ngModel)]="categories[0]" (change)="onCategoryChange()">
+                    <label class="form-label" for="{{ categories[0] }}"> {{ categories[0] }}</label>
+                </div>
+                <div class="col">
+                    <input type="checkbox" class="form-check-input" id="{{ categories[1] }}" [(ngModel)]="categories[1]" (change)="onCategoryChange()">
+                    <label class="form-label" for="{{ categories[1] }}">{{ categories[1] }}</label>
+                </div>
+               
+            </div>
+
+        </div>
+
+
+    </div>
+
+
     <app-alert-message [message]="message" [type]="type" *ngIf="message"></app-alert-message>
     <!-- Product Card 1 -->
     <div class="mb-4 row" *ngIf="!noproducts;else loadingTemplate">
@@ -14,7 +40,8 @@
             <div class="card border-0">
                 <img src="{{product.images[0].url}}" class="card-img-top" alt="Product 1" height="300">
                 <div class="card-img-overlay d-flex align-items-start justify-content-end me-2">
-                    <a href="update/{{product._id}}" class="btn btn-primary text-decoration-none text-primary me-2 " data-toggle="tooltip" title="Edit">
+                    <a href="update/{{product._id}}" class="btn btn-primary text-decoration-none text-primary me-2 "
+                        data-toggle="tooltip" title="Edit">
                         <img src="assets/update.svg" alt="" height="20px" width="20px">
                     </a>
                     <button class="btn btn-danger  text-danger " data-toggle="tooltip"
@@ -33,7 +60,7 @@
         </div>
     </div>
 
-  
+
 
     <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true"
         *ngIf="viewedProduct">
