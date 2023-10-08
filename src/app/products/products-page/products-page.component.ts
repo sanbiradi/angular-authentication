@@ -7,17 +7,23 @@ import { ManageProductsService } from '../manage-products.service';
   styleUrls: ['./products-page.component.scss']
 })
 export class ProductsPageComponent {
+  
   products: any = [];
   viewedProduct: any;
+  
   filters: Object = {
     sortBy: "name",
     limit: 10,
     page: 1
   }
-  updateProduct:any; 
+
+  images:any=[];
+
+  updateProduct: any;
   noproducts!: boolean;
   message!: String;
   type!: boolean;
+  
   constructor(private manageProduct: ManageProductsService) {
 
   }
@@ -56,15 +62,15 @@ export class ProductsPageComponent {
   getProductInfo(id: String) {
     this.manageProduct.getProductInfo(id).subscribe(data => {
       this.viewedProduct = data;
-      console.log(this.viewedProduct,data);
-        }, error => {
+
+    }, error => {
       this.message = error;
       this.type = false;
     })
   }
 
-  updateProductDetails(id:String){
+  
 
-  }
+  
 
 }

@@ -4,12 +4,14 @@ import { ProductsPageComponent } from './products-page/products-page.component';
 import { UtilityModule } from '../usablemodules/utility.module';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { FormsModule } from '@angular/forms';
+import { UpdateProductComponent } from './update-product/update-product.component';
 
 
 @NgModule({
   declarations: [
     ProductsPageComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    UpdateProductComponent
   ],
   imports: [
     CommonModule,UtilityModule,

@@ -21,19 +21,14 @@ export class ManageProductsService {
   private handleError(error: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred';
     if (error.error instanceof ErrorEvent) {
-      // Client-side errors
       errorMessage = `${error.error.message}`;
     } else {
-      // Server-side errors
-      // errorMessage =:50:34 `Error Code: ${error.status}\nMessage: ${error.error.message}`;
-      errorMessage = `${error.error.message}`;
+       errorMessage = `${error.error.message}`;
     }
-    // You can customize how you display the error message here (e.g., using a toaster service)
-    // You can also emit an event or update a variable to display the error in a component.
-    // console.log(errorMessage);
     return throwError(errorMessage);
   }
 
+  
   createProduct(body: any): Observable<any> {
     let url = `${this.baseUrl}/products`;
     const options = {
@@ -41,7 +36,7 @@ export class ManageProductsService {
         'Authorization': `Bearer ${this.token}`,
       })
     };
-    console.log(url, options, body);
+    
     return this.http.post<any>(url, body, options).pipe(
       catchError(this.handleError)
     );
@@ -56,7 +51,7 @@ export class ManageProductsService {
       }),
       params
     };
-    console.log(options);
+   
     return this.http.get<any>(url, options).pipe(catchError(this.handleError));
   }
 
@@ -81,8 +76,18 @@ export class ManageProductsService {
   }
 
 
-  updateProductDetails(id:String,body:Object):Observable<any>{
+  updateProductDetails(id:String,body:any):Observable<any>{
     let url = `${this.baseUrl}/products/${id}`;
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`
+      })
+    };
+    return this.http.patch<any>(url,body,options).pipe(catchError(this.handleError));
+  }
+
+  updateProductImages(id:String,body:any):Observable<any>{
+    let url = `${this.baseUrl}/products/images/${id}`;
     const options = {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${this.token}`

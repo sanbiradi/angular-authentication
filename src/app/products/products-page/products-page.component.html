@@ -14,10 +14,9 @@
             <div class="card border-0">
                 <img src="{{product.images[0].url}}" class="card-img-top" alt="Product 1" height="300">
                 <div class="card-img-overlay d-flex align-items-start justify-content-end me-2">
-                    <button class="btn btn-primary text-primary me-2 " data-toggle="tooltip" title="Edit"
-                        (click)="getProductInfo(product._id)" data-bs-toggle="modal" data-bs-target="#updateModal">
+                    <a href="update/{{product._id}}" class="btn btn-primary text-decoration-none text-primary me-2 " data-toggle="tooltip" title="Edit">
                         <img src="assets/update.svg" alt="" height="20px" width="20px">
-                    </button>
+                    </a>
                     <button class="btn btn-danger  text-danger " data-toggle="tooltip"
                         (click)="deleteProduct(product._id)" title="Delete">
                         <img src="assets/delete-icon.svg" alt="" height="20px" width="20px">
@@ -34,39 +33,10 @@
         </div>
     </div>
 
-    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true"
+  
+
+    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true"
         *ngIf="viewedProduct">
-        <div class="modal-dialog">
-            <div class="modal-content p-2">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="updateModalLabel">Update Product</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <app-alert-message [message]="message" [type]="type" *ngIf="message"></app-alert-message>
-                <div class="modal-body">
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true" *ngIf="viewedProduct">
-        <div class="modal-dialog">
-            <div class="modal-content p-2">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="viewModalLabel">Product Details</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <app-alert-message [message]="message" [type]="type" *ngIf="message"></app-alert-message>
-                <div class="modal-body">
-                 <div>
-                    
-                 </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true" *ngIf="viewedProduct">
         <div class="modal-dialog">
             <div class="modal-content p-2">
                 <div class="modal-header">
