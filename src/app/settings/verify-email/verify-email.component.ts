@@ -16,15 +16,14 @@ export class VerifyEmailComponent implements OnInit {
   token!: string;
   ltoken!: string;
   success: boolean = false;
-  isVerified!: any;
+  isVerified:boolean| undefined|null = null;
+  
   constructor(private authService: AuthService, private httpService: HttpService) {
-    this.token = this.authService.getCurrentToken();
-    this.fetchData()
 
   }
   ngOnInit() {
-  
-  
+    this.token = this.authService.getCurrentToken();
+    this.fetchData()
   }
 
   // profile informations fetching 
@@ -35,7 +34,11 @@ export class VerifyEmailComponent implements OnInit {
           .secureGet(`${this.authService.baseUrl}/auth/self`, this.token)
           .subscribe((data) => {
             this.user = data;
-            this.isVerified = this.user?.isEmailVerified;
+            if (this.user?.isEmailVerified)
+              this.isVerified = true;
+            else
+              this.isVerified = false
+
           });
       }
     });

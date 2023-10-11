@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
-import { ProfileComponent } from './home/profile/profile.component';
-import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
 import { UnauthorisedComponent } from './unauthorised/unauthorised.component';
 import { CreateuserComponent } from './user/createuser/createuser.component';
 import { ListUsersComponent } from './user/list-users/list-users.component';
@@ -16,18 +15,16 @@ import { SettingsComponent } from './settings/settings/settings.component';
 import { ChangePasswordComponent } from './settings/change-password/change-password.component';
 import { VerifyEmailComponent } from './settings/verify-email/verify-email.component';
 import { ValidateEmailComponent } from './settings/validate-email/validate-email.component';
+import { ProductsPageComponent } from './products/products-page/products-page.component';
 // import { VisualizerComponent } from './auth/visualizer/visualizer.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: ProductsPageComponent, canActivate:[AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'forgotpassword', component: ForgotpasswordComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'auth/reset-password', component: ResetchangepasswordComponent, canActivate: [ResetPasswordGuard] },
   // after login routes
-  
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-
   {
     path: 'settings', component: SettingsComponent, canActivate: [AuthGuard], children: [
       { path: 'changepassword', component: ChangePasswordComponent, pathMatch: 'full' },
@@ -40,7 +37,7 @@ const routes: Routes = [
   { path: 'create-user', component: CreateuserComponent, canActivate: [AuthGuard] },
   { path: 'auth/verify-email', component: ValidateEmailComponent },
   { path: 'unauthorized', component: UnauthorisedComponent },
-  { path: '**', redirectTo: '/unauthorized' },
+  { path: '*', redirectTo: '/unauthorized' },
 ];
 
 @NgModule({

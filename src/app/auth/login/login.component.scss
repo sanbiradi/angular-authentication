@@ -1,2 +1,5 @@
 /* Hide the reCAPTCHA badge on all pages except the login page */
 /* Hide the reCAPTCHA badge on all pages except those with the .login-page class */
+.show-recaptcha .grecaptcha-badge {
+    display: block !important;
+}

@@ -16,10 +16,8 @@ export class UpdateProductComponent {
   }
 
 
-
+  displaySelectedImg: string | ArrayBuffer | null | undefined = null;
   product!: any;
-
-
   selectedFile!: File;
   imagesIds: any;
 
@@ -30,6 +28,28 @@ export class UpdateProductComponent {
   onFileSelected(event: any): void {
     const fileList: FileList = event.target.files;
     this.product.images = Array.from(fileList);
+
+    const imageInput = event.target as HTMLInputElement;
+    if (imageInput.files && imageInput.files.length > 0) {
+      const file = imageInput.files[0];
+
+      // Check if the selected file is an image (you may want to add more validation)
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.displaySelectedImg = e.target?.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        // Handle cases where a non-image file is selected
+        this.displaySelectedImg = null;
+        alert('Please select an image file.');
+      }
+    } else {
+      this.displaySelectedImg = null;
+    }
+
+
   }
 
   onSubmit(): void {

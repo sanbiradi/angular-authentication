@@ -45,7 +45,7 @@
           <div class="row mt-1">
             <div class="col text-end">
               <!-- <div class="d-flex justify-content-end"> -->
-                <a class="text-muted ms-2" href="/forgotpassword" >Forgot password?</a>
+                <a class="text-muted ms-2" routerLink="/forgotpassword" >Forgot password?</a>
               </div>
               <!-- </div> -->
           </div>
@@ -67,10 +67,13 @@
 
         </div>
        
-        <ngx-invisible-recaptcha #captchaElem
-        [siteKey]="siteKey" 
-        >
-      </ngx-invisible-recaptcha>
+        <div class="show-recaptcha">
+          <ngx-invisible-recaptcha #captchaElem
+          [siteKey]="siteKey" 
+          >
+        </ngx-invisible-recaptcha>
+        </div>
+      
       </form>
     </div>
   </div>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +26,8 @@ import { GoogleLoginProvider,SocialLoginModule, SocialAuthServiceConfig,GoogleSi
     NgxCaptchaModule,
     SocialLoginModule,
     UtilityModule,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
+    RouterModule
   ],
   exports:[
     RegisterComponent,

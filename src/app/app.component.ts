@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnChanges {
   title = 'angular-assignment';
 
   ngOnInit(): void {
+ 
     // console.log(this.LogOut, this.authService.getCurrentUser());
     // if (Object.keys(this.authService.getCurrentUser()).length === 0)
     //   this.LogOut = false;

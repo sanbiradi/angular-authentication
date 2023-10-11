@@ -2,7 +2,7 @@
 <div *ngIf="!success; else showme">
     <div class="container p-5">
         <h1>Email Verification link is expired!</h1>
-        <a href="/login" class="btn btn-link">Go to login</a>
+        <a routerLink="/login" class="btn btn-link">Go to login</a>
     </div>
 </div>
 <ng-template #showme>
@@ -14,7 +14,7 @@
                         <h2 class="card-title">Email Verification Successful</h2>
                         <p class="card-text">Thank you for verifying your email address. You can now access your account.
                         </p>
-                        <a href="/user-profile" class="btn btn-primary">go to profile</a>
+                        <a routerLink="/user-profile" class="btn btn-primary">go to profile</a>
                     </div>
                 </div>
             </div>

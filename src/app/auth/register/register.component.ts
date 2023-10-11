@@ -35,7 +35,6 @@ export class RegisterComponent implements OnInit {
 
     this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
       let registerUrl = `${this.baseUrl}/auth/register`;
-      // add new user to local storage
 
       const body = {
         email: this.email,
@@ -50,7 +49,7 @@ export class RegisterComponent implements OnInit {
         .subscribe((data) => {
           let newdata = this.authService.convertIntoJsObject(data);
           this.storageService.set('u', newdata.token);
-          this.router.navigate(['/manage-user']);
+          this.router.navigate(['/']);
         }, error => {
           this.myerrors = error;
         });

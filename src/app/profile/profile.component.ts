@@ -16,7 +16,7 @@ export class ProfileComponent {
   u: any;
   token?: string = '';
 
-  siteKey!: string
+
 
   // update company profile
   email: string = '';
@@ -28,9 +28,9 @@ export class ProfileComponent {
   myerror: any;
 
 
-  constructor(private reCaptchaV3Service: ReCaptchaV3Service, private authService: AuthService, private router: Router, private httpService: HttpService) {
+  constructor(private authService: AuthService, private router: Router, private httpService: HttpService) {
     this.fetchData();
-    this.siteKey = '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI';
+
   }
   // toggle class
   isActive?: boolean = true;
@@ -51,7 +51,7 @@ export class ProfileComponent {
     this.httpService.updateCompanyInfo(url, userToken, body).subscribe(
       response => {
         // Handle successful response
-        
+
         // console.log('Profile updated successfully:', response);
         this.isActive = true;
         //this.router.navigate(['/manage-user']);
@@ -60,7 +60,7 @@ export class ProfileComponent {
         this.myerror = error;
       }
     );
-  
+
   }
 
 

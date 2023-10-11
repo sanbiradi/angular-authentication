@@ -20,29 +20,33 @@ export class LoginComponent implements OnInit {
   captcha: any;
   user!: SocialUser;
   loggedIn!: boolean;
+  
   constructor(private gauthService: SocialAuthService, private reCaptchaV3Service: ReCaptchaV3Service, private authService: AuthService, private router: Router, private httpService: HttpService, private storageService: StorageService) { }
   ngOnInit(): void {
+
     this.siteKey = '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI';
     this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
 
       this.gauthService.authState.subscribe((user) => {
         this.user = user;
-        let url=`${this.authService.baseUrl}/auth/login/google`;
+        let url = `${this.authService.baseUrl}/auth/login/google`;
         let body = {
-          token:this.user.idToken,
-          captcha:token
+          token: this.user.idToken,
+          captcha: token
         }
 
-        this.httpService.postFetch(url,body).subscribe(data=>{
+        this.httpService.postFetch(url, body).subscribe(data => {
           let newdata = this.authService.convertIntoJsObject(data);
           this.storageService.set('u', newdata.token);
           console.log(newdata);
+    
           this.router.navigate(['/']);
-        },error=>{
-          this.myerror=error;
+        }, error => {
+          this.myerror = error;
         })
       });
     });
+
 
   }
   login() {
@@ -63,6 +67,7 @@ export class LoginComponent implements OnInit {
           let newdata = this.authService.convertIntoJsObject(data);
           this.storageService.set('u', newdata.token);
           console.log(data);
+         
           this.router.navigate(['/']);
         }, error => {
           // console.log(error);

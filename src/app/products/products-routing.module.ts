@@ -8,7 +8,7 @@ import { UpdateProductComponent } from './update-product/update-product.componen
 
 const routes: Routes = [
   { path: "products", component: ProductsPageComponent, canActivate: [AuthGuard]},
-  { path: "new-product", component: CreateProductComponent, canActivate: [AuthGuard]},
+  { path: "products/new-product", component: CreateProductComponent, canActivate: [AuthGuard]},
   { path: "update/:id", component: UpdateProductComponent, canActivate: [AuthGuard] }
 ];
 
