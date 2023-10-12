@@ -11,14 +11,12 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 export class ProductsPageComponent {
   modalRef?: BsModalRef;
-
-
   openModal(template: TemplateRef<any>, id: any) {
     this.modalRef = this.modalService.show(template);
     this.getProductInfo(id);
   }
-
-
+  
+  
   selectedLimit: number = 10;
   selectNameFilter!: string;
   selectPriceFilter!: string;
@@ -44,14 +42,13 @@ export class ProductsPageComponent {
   }
 
   images: any = [];
-
   updateProduct: any;
-  noproducts!: boolean;
+  noproducts: boolean|undefined | null;
   message!: String;
   type!: boolean;
 
   constructor(private renderer: Renderer2, private el: ElementRef, private modalService: BsModalService, private manageProduct: ManageProductsService) {
-
+    
   }
 
   renderPage(event: any) {
@@ -66,29 +63,26 @@ export class ProductsPageComponent {
 
   onLimitChange() {
     this.filters.limit = this.selectedLimit;
-    this.pagination = 1;
     this.loadProducts();
   }
 
   ngOnInit() {
     this.loadProducts();
+    this.pagination = 1;
     this.dom.style.display = 'none';
     this.dom.style.visibility = 'hidden'
   }
 
-  ngAfterViewInit() {
-
-  }
   loadProducts() {
     this.manageProduct.getProducts(this.filters).subscribe(data => {
       this.products = data.results;
-      console.log(data);
       this.totalResults = data.totalResults;
-      if (this.products.length == 0) {
+      if (this.products.length <= 0) {
         this.noproducts = true;
       } else {
         this.noproducts = false;
       }
+      
     }, error => {
       this.message = error;
       this.type = false;
