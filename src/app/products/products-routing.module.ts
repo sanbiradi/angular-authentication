@@ -7,9 +7,9 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { UpdateProductComponent } from './update-product/update-product.component';
 
 const routes: Routes = [
-  { path: "products", component: ProductsPageComponent, canActivate: [AuthGuard]},
-  { path: "products/new-product", component: CreateProductComponent, canActivate: [AuthGuard]},
-  { path: "products/update/:id", component: UpdateProductComponent, canActivate: [AuthGuard] }
+  { path: "products", component: ProductsPageComponent,canActivate: [AuthGuard]},
+  { path: "new-product", component: CreateProductComponent, canActivate: [AuthGuard]},
+  { path: "update/:id", component: UpdateProductComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
