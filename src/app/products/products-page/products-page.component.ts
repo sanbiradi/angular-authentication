@@ -26,14 +26,21 @@ export class ProductsPageComponent {
     10, 20, 30, 40
   ]
 
+  itemsPerPage = this.selectedLimit / 2;
+
+  allProducts: number = this.selectedLimit;
+  pagination: number = 1;
+
+  totalResults!: number;
   selectedCategory!: String;
   products: any = [];
   viewedProduct: any;
   dom = document.querySelector('.grecaptcha-badge') as HTMLElement;
+
   filters: any = {
     sortBy: 'name',
     limit: this.selectedLimit,
-    page: 1
+    page: this.pagination
   }
 
   images: any = [];
@@ -44,26 +51,29 @@ export class ProductsPageComponent {
   type!: boolean;
 
   constructor(private renderer: Renderer2, private el: ElementRef, private modalService: BsModalService, private manageProduct: ManageProductsService) {
-    this.loadProducts();
 
+  }
+
+  renderPage(event: any) {
+    this.pagination = event;
+    this.filters.page = this.pagination
+    this.loadProducts();
   }
 
   onCategoryChange(e: any) {
     console.log(this.selectNameFilter, this.selectPriceFilter)
-    // this.loadProductsFilter(this.selectNameFilter,this.selectPriceFilter);
   }
 
   onLimitChange() {
     this.filters.limit = this.selectedLimit;
+    this.pagination = 1;
     this.loadProducts();
-    // console.log('change')
   }
 
   ngOnInit() {
- 
+    this.loadProducts();
     this.dom.style.display = 'none';
     this.dom.style.visibility = 'hidden'
-
   }
 
   ngAfterViewInit() {
@@ -72,6 +82,8 @@ export class ProductsPageComponent {
   loadProducts() {
     this.manageProduct.getProducts(this.filters).subscribe(data => {
       this.products = data.results;
+      console.log(data);
+      this.totalResults = data.totalResults;
       if (this.products.length == 0) {
         this.noproducts = true;
       } else {

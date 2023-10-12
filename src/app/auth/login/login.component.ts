@@ -37,13 +37,11 @@ export class LoginComponent implements OnInit {
 
         this.httpService.postFetch(url, body).subscribe(data => {
           let newdata = this.authService.convertIntoJsObject(data);
-          this.storageService.set('u', newdata.token);
-          console.log(newdata);
-    
+          this.storageService.set('u', newdata.token);   
           this.router.navigate(['/']);
         }, error => {
           this.myerror = error;
-        })
+        })  
       });
     });
 

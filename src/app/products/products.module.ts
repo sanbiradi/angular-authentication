@@ -7,6 +7,7 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { FormsModule } from '@angular/forms';
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     ProductsPageComponent,
@@ -14,7 +15,7 @@ import { RouterModule } from '@angular/router';
     UpdateProductComponent
   ],
   imports: [
-    CommonModule, UtilityModule, RouterModule,
+    CommonModule, UtilityModule, NgxPaginationModule,RouterModule,
     FormsModule, ModalModule.forRoot()
   ]
 })

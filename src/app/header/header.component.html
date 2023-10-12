@@ -2,10 +2,8 @@
   <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 ">
 
-      <div class="col-md-3 mb-2 mb-md-0">
-        <a  class="d-inline-flex link-body-emphasis text-decoration-none">
-          Mebee
-        </a>
+      <div class="mb-2 mb-md-0">
+        
       </div>
       <div *ngIf="LogIn; else showmenu">
         <ul class="nav col-md-12 col-md-auto mb-2 lh-sm justify-content-center mb-md-0">
@@ -21,10 +19,7 @@
           <li>
             <a routerLink="/settings/changepassword" class="nav-link text-secondary px-2">Settings</a>
           </li>
-         
             <button class="ms-1 pb-1 pt-1 btn btn-danger" (click)="logout()">Logout</button>
-          
-
         </ul>
       </div>
       <ng-template #showmenu>
