@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HttpService } from 'src/app/auth/http.service';
-import { ReCaptchaV3Service } from 'ngx-captcha';
+// import { ReCaptchaV3Service } from 'ngx-captcha';
 
 @Component({
   selector: 'app-my-profile',
@@ -88,22 +88,4 @@ export class ProfileComponent {
   }
 
 
-  // socialLogin() {
-  //   this.reCaptchaV3Service.execute(this.siteKey, 'login', (captcha) => {
-  //     let Loginurl = `${this.baseUrl}/auth/login/google`;
-  //     let tokenLocal = this.authService.getCurrentToken();
-  //     let body = {
-  //       token: tokenLocal,
-  //       captcha: captcha
-  //     };
-  //     console.log(body);
-  //     this.httpService.postFetch(Loginurl, body).subscribe((data) => {
-  //       console.log(data);
-  //     }, error => {
-  //       console.log(error);
-  //     })
-  //   }, {
-  //     useGlobalDomain: false
-  //   });
-  // }
 }

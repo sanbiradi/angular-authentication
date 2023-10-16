@@ -19,63 +19,63 @@ export class LoginComponent implements OnInit {
   baseUrl = `https://shop-api.ngminds.com`;
   captcha: any;
   user!: SocialUser;
+  dom = document.querySelector('.grecaptcha-badge') as HTMLElement;
   loggedIn!: boolean;
-  
-  constructor(private gauthService: SocialAuthService, private reCaptchaV3Service: ReCaptchaV3Service, private authService: AuthService, private router: Router, private httpService: HttpService, private storageService: StorageService) { }
-  ngOnInit(): void {
 
+  constructor(private gauthService: SocialAuthService, private reCaptchaV3Service: ReCaptchaV3Service, private authService: AuthService, private router: Router, private httpService: HttpService, private storageService: StorageService) {
+
+  }
+  ngOnInit(): void {
     this.siteKey = '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI';
     this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
+      this.captcha = token;
+    });
 
-      this.gauthService.authState.subscribe((user) => {
-        this.user = user;
-        let url = `${this.authService.baseUrl}/auth/login/google`;
-        let body = {
-          token: this.user.idToken,
-          captcha: token
-        }
-
+    this.gauthService.authState.subscribe((user) => {
+      console.log(this.user)
+      this.user = user;
+      let url = `${this.authService.baseUrl}/auth/login/google`;
+      let body = {
+        token: this.user.idToken,
+        captcha: this.captcha
+      }
+      if(this.captcha){
         this.httpService.postFetch(url, body).subscribe(data => {
           let newdata = this.authService.convertIntoJsObject(data);
-          this.storageService.set('u', newdata.token);   
+          this.storageService.set('u', newdata.token);
           this.router.navigate(['/']);
+          this.dom.style.display = 'none';
+          this.dom.style.visibility = 'hidden'
         }, error => {
           this.myerror = error;
-        })  
-      });
+        })
+      }
     });
 
 
   }
   login() {
-
-
     if (this.email && this.password) {
+      let Loginurl = `${this.baseUrl}/auth/login`;
+      let body = {
+        email: this.email,
+        password: this.password,
+        captcha: this.captcha
+      };
 
-      this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
+      this.httpService.postFetch(Loginurl, body).subscribe((data: any) => {
 
-        let Loginurl = `${this.baseUrl}/auth/login`;
-        let body = {
-          email: this.email,
-          password: this.password,
-          captcha: token
-        };
-
-        this.httpService.postFetch(Loginurl, body).subscribe((data: any) => {
-          let newdata = this.authService.convertIntoJsObject(data);
-          this.storageService.set('u', newdata.token);
-          console.log(data);
-         
-          this.router.navigate(['/']);
-        }, error => {
-          // console.log(error);
-          this.myerror = error;
-        });
-
-
-      }, {
-        useGlobalDomain: false
+     
+        let newdata = this.authService.convertIntoJsObject(data);
+        this.storageService.set('u', newdata.token);
+        this.router.navigate(['/']);
+        this.dom.style.display = 'none';
+        this.dom.style.visibility = 'hidden'
+      }, error => {
+        // console.log(error);
+        this.myerror = error;
       });
+
     } else {
       this.myerror = 'Email and password is required';
     }

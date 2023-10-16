@@ -18,11 +18,7 @@ export class AppComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
  
-    // console.log(this.LogOut, this.authService.getCurrentUser());
-    // if (Object.keys(this.authService.getCurrentUser()).length === 0)
-    //   this.LogOut = false;
-    // else this.LogOut = true;
-    // console.log(this.LogOut, this.authService.getCurrentUser());
+   
   }
 
  

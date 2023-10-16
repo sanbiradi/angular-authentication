@@ -4,37 +4,40 @@ import { RouterModule } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
-import { VisualizerComponent } from './visualizer/visualizer.component';
+
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { UtilityModule } from '../usablemodules/utility.module';
 import { ResetchangepasswordComponent } from './resetchangepassword/resetchangepassword.component';
-import { GoogleLoginProvider,SocialLoginModule, SocialAuthServiceConfig,GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, SocialLoginModule, SocialAuthServiceConfig, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+
+import { ProfileComponent } from './profile/profile.component';
+import { AuthRoutingModule } from './auth-routing.module';
 
 @NgModule({
   declarations: [
     RegisterComponent,
     LoginComponent,
-    VisualizerComponent,
     ForgotpasswordComponent,
-    ResetchangepasswordComponent
-    
+    ResetchangepasswordComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     NgxCaptchaModule,
     SocialLoginModule,
+    AuthRoutingModule,
     UtilityModule,
     GoogleSigninButtonModule,
     RouterModule
   ],
-  exports:[
+  exports: [
     RegisterComponent,
     LoginComponent,
-
+    ProfileComponent
   ],
-  providers:[
+  providers: [
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -52,6 +55,6 @@ import { GoogleLoginProvider,SocialLoginModule, SocialAuthServiceConfig,GoogleSi
         }
       } as SocialAuthServiceConfig,
     }
-    ]
+  ]
 })
 export class AuthModule { }

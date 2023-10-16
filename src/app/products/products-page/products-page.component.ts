@@ -1,8 +1,7 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { Renderer2, ElementRef } from '@angular/core';
-
 import { ManageProductsService } from '../manage-products.service';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { AuthService } from 'src/app/auth/auth.service';
 @Component({
   selector: 'app-products-page',
   templateUrl: './products-page.component.html',
@@ -10,16 +9,11 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 
 export class ProductsPageComponent {
-  modalRef?: BsModalRef;
-  openModal(template: TemplateRef<any>, id: any) {
-    this.modalRef = this.modalService.show(template);
-    this.getProductInfo(id);
-  }
-  
-  
+
+
   selectedLimit: number = 10;
-  selectNameFilter!: string;
-  selectPriceFilter!: string;
+
+
   limitOptions: any = [
     10, 20, 30, 40
   ]
@@ -28,27 +22,27 @@ export class ProductsPageComponent {
 
   allProducts: number = this.selectedLimit;
   pagination: number = 1;
-
+  categories = ["name", "price"];
   totalResults!: number;
-  selectedCategory!: String;
+
+
+  selectedCategory: String='name';
   products: any = [];
   viewedProduct: any;
-  dom = document.querySelector('.grecaptcha-badge') as HTMLElement;
-
   filters: any = {
-    sortBy: 'name',
+    sortBy: this.selectedCategory,
     limit: this.selectedLimit,
     page: this.pagination
   }
 
   images: any = [];
   updateProduct: any;
-  noproducts: boolean|undefined | null;
+  noproducts: boolean | undefined | null;
   message!: String;
   type!: boolean;
 
-  constructor(private renderer: Renderer2, private el: ElementRef, private modalService: BsModalService, private manageProduct: ManageProductsService) {
-    
+  constructor(private authService: AuthService, private renderer: Renderer2, private el: ElementRef, private manageProduct: ManageProductsService) {
+
   }
 
   renderPage(event: any) {
@@ -58,7 +52,9 @@ export class ProductsPageComponent {
   }
 
   onCategoryChange(e: any) {
-    console.log(this.selectNameFilter, this.selectPriceFilter)
+    this.filters.sortBy = this.selectedCategory;
+    this.loadProducts();
+    
   }
 
   onLimitChange() {
@@ -69,36 +65,40 @@ export class ProductsPageComponent {
   ngOnInit() {
     this.loadProducts();
     this.pagination = 1;
-    this.dom.style.display = 'none';
-    this.dom.style.visibility = 'hidden'
+
   }
 
   loadProducts() {
     this.manageProduct.getProducts(this.filters).subscribe(data => {
       this.products = data.results;
+
       this.totalResults = data.totalResults;
       if (this.products.length <= 0) {
         this.noproducts = true;
       } else {
         this.noproducts = false;
       }
-      
+
     }, error => {
       this.message = error;
       this.type = false;
     })
   }
 
-  deleteProduct(id: String) {
-    this.manageProduct.deleteProduct(id).subscribe(data => {
-      this.message = `Product has been deleted successfully!`;
-      this.type = true;
-      this.loadProducts();
-      this.viewedProduct = false;
-    }, error => {
-      this.message = error;
-      this.type = false;
-    })
+  deleteProduct(id: String, event: any) {
+    let input = confirm("Are you sure you want to delete this product?");
+    if (input == true) {
+      this.manageProduct.deleteProduct(id).subscribe(data => {
+        this.message = `Product has been deleted successfully!`;
+        this.type = true;
+        this.loadProducts();
+        this.viewedProduct = false;
+      }, error => {
+        this.message = error;
+        this.type = false;
+      })
+    }
+
   }
 
   getProductInfo(id: String) {

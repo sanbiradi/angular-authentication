@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ManageProductsService } from '../manage-products.service';
 import { ActivatedRoute } from '@angular/router';
+import { Editor, Toolbar } from 'ngx-editor';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-update-product',
@@ -10,106 +12,115 @@ import { ActivatedRoute } from '@angular/router';
 export class UpdateProductComponent {
 
   productId!: any;
-  constructor(private manageProduct: ManageProductsService, private activatedRoute: ActivatedRoute) {
+  constructor(private modalService: BsModalService, private manageProduct: ManageProductsService, private activatedRoute: ActivatedRoute) {
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
     this.getProductInfo(this.productId);
   }
+ 
 
+  ngOnInit(): void {
+    this.editor = new Editor();
 
-  displaySelectedImg: string | ArrayBuffer | null | undefined = null;
-  product!: any;
-  selectedFile!: File;
-  imagesIds: any;
+    setTimeout(() => {
+      if (this.oldImages.length == 0)
+        this.hoverImage = false;
+    }, 1000)
+  }
 
+  ngOnDestroy(): void {
+    this.editor.destroy();
+  }
+
+  handleUploadEvent(e: any) {
+    if (e) {
+     
+      this.getProductInfo(this.productId);
+    }
+
+  }
+
+  oldImages: any[] = [];
   message!: String;
   type!: boolean;
 
+  imagesIdsToDelete: any = [];
 
-  onFileSelected(event: any): void {
-    const fileList: FileList = event.target.files;
-    this.product.images = Array.from(fileList);
+  product = ({
+    name: '',
+    description: '',
+    price: '',
+  });
 
-    const imageInput = event.target as HTMLInputElement;
-    if (imageInput.files && imageInput.files.length > 0) {
-      const file = imageInput.files[0];
+  hoverImage: any = null;
+  files: File[] = [];
+  imagesIds: any;
 
-      // Check if the selected file is an image (you may want to add more validation)
-      if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.displaySelectedImg = e.target?.result;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        // Handle cases where a non-image file is selected
-        this.displaySelectedImg = null;
-        alert('Please select an image file.');
-      }
-    } else {
-      this.displaySelectedImg = null;
+  imageMouseEnter(e: any) {
+    this.hoverImage = e.target.src;
+    if (!e.target.classList.contains("custom-border")) {
+      e.target.classList.add("border")
+      e.target.classList.add("border-primary")
     }
+  }
 
 
+  removeImageBorder(e: any) {
+    e.target.classList.remove("border")
+    e.target.classList.remove("border-primary")
   }
 
   onSubmit(): void {
     if (this.product.name && this.product.description && this.product.price) {
-      let flag = 0;
+
       //update product details
       let newBody = {
         name: this.product.name,
         description: this.product.description,
         price: this.product.price
       }
-
       this.manageProduct.updateProductDetails(this.productId, newBody).subscribe(data => {
-        flag = 1;
+        this.message = `Product Details are updated successfully!`;
+        this.type = true;
       }, error => {
         this.message = error;
         this.type = false;
       })
-
-      //imageFiles to be updated
-      const imageFiles = new FormData();
-      for (const image of this.product.images) {
-        imageFiles.append('new_images', image, image.name);
-      }
-      for (const id of this.imagesIds) {
-        imageFiles.append('delete', id);
-      }
-
-      //call to update images
-      this.manageProduct.updateProductImages(this.productId, imageFiles).subscribe(data => {
-        this.getProductInfo(this.productId);
-        if (flag == 1) {
-          this.message = `product has been updated successfully`;
-          this.type = true
-        }
-      }, error => {
-        this.message = error;
-        this.type = false
-      })
-
-
-      //make fields empty
-      this.product.description = ''
-      this.product.name = ''
-      this.product.images = ''
-      this.product.price = 0
-
     } else {
       this.message = `Please enter all the require information!`;
       this.type = false;
     }
   }
 
+  oldimageDoubleClick(event: any, index: any) {
+    if (confirm("Are you sure you want to delete this image.")) {
+      this.oldImages.splice(index, 1);
+      let body = {
+        delete: this.imagesIds[index]
+      }
+      this.manageProduct.updateProductImages(this.productId, body).subscribe(data => {
+        this.message = "Product image has been deleted successfully!";
+        this.type = true;
+        if (this.oldImages.length > 0)
+          this.hoverImage = this.oldImages[this.oldImages.length - 1];
+        else {
+          this.hoverImage = false;
+        }
+      }, error => {
+        this.message = error;
+        this.type = false;
+      })
+
+    }
+  }
 
 
   getProductInfo(id: String) {
     this.manageProduct.getProductInfo(id).subscribe(data => {
-      this.product = data
-      console.log(this.product)
+      this.product = data;
+      this.oldImages = data.images.map((e: any) => e.url);
+      this.hoverImage = this.oldImages[0];
       this.imagesIds = data.images.map((e: any) => e.public_id);
+
     }, error => {
       this.message = error;
       this.type = false;
@@ -117,6 +128,20 @@ export class UpdateProductComponent {
   }
 
 
+  editor!: Editor;
+  toolbar: Toolbar = [
+    // default value
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+    ['horizontal_rule', 'format_clear'],
+  ];
 
 
+  colorPresets = ['red', '#FF0000', 'rgb(255, 0, 0)'];
 }

@@ -10,3 +10,6 @@
   .image-container:hover .zoomable-image {
     transform: scale(1.1); /* Adjust the scale factor for the desired zoom level */
   }
+  .custom-border {
+    border-bottom: 2px solid red; /* You can adjust the width and color as needed */
+  } 

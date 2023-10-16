@@ -1,0 +1,36 @@
+<div class="row mb-2">
+    <div class="col-md-12">
+        
+        <div class="image-container">
+            <img class="m-1 object-fit-contain zoomable-image  " [src]="hoverImage" height="450px"
+            *ngIf="this.newImages.length!=0; ">
+        </div>
+        
+        <div class="p-5 d-flex justify-content-center align-items-center" *ngIf="hoverImage==null">
+            <div class="text-success p-5 ">
+                please select product images
+            </div>
+        </div>
+        <div class="row mt-2 " *ngIf="hoverImage!=null">
+            <span class="text-muted">Product images</span>
+            <div id="previewContainer">
+                <img class="img-thumbnail m-1 object-fit-contain" [src]="item"
+                    *ngFor="let item of newImages; let i = index" role="button" style="height: 80px;width: 80px;"
+                    (mouseenter)="imageMouseEnter($event)" (mouseleave)="removeImageBorder($event)">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="p-3">
+            <app-alert-message [type]="type" [message]="message" *ngIf="message" class="mx-2"></app-alert-message>
+            <ngx-dropzone accept="image/jpeg,image/jpg,image/pnG" (change)="onFileSelected($event)" class="mt-3">
+                <ngx-dropzone-label>Drop files here!</ngx-dropzone-label>
+                <ngx-dropzone-preview *ngFor="let f of files;let i=index" [removable]="true" (removed)="onRemove(f,i)">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                </ngx-dropzone-preview>
+            </ngx-dropzone>
+            <button class="btn btn-primary mt-3 float-end" (click)="onUpload()">Upload Images</button>
+        </div>
+    </div>
+
+</div>

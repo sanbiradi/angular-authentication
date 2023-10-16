@@ -109,7 +109,7 @@ export class HttpService {
         'Authorization': `Bearer ${token}`,
       })
     };
-    // console.log('update company profile', url, token, body)
+    
     return this.http.patch(url, body, options).pipe(catchError(this.handleError));
 
   }

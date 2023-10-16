@@ -2,38 +2,28 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { UnauthorisedComponent } from './unauthorised/unauthorised.component';
-import { CreateuserComponent } from './user/createuser/createuser.component';
-import { ListUsersComponent } from './user/list-users/list-users.component';
-import { EditUserinfoComponent } from './user/edit-userinfo/edit-userinfo.component';
-import { UtilityModule } from './usablemodules/utility.module';
-import { SettingsComponent } from './settings/settings/settings.component';
-import { ChangePasswordComponent } from './settings/change-password/change-password.component';
-import { VerifyEmailComponent } from './settings/verify-email/verify-email.component';
-import { ValidateEmailComponent } from './settings/validate-email/validate-email.component';
-import { ProductsRoutingModule } from './products/products-routing.module';
-import { ProductsModule } from './products/products.module';
-import { ProfileComponent } from './profile/profile.component';
+
+// modules
 import { RouterModule } from '@angular/router';
+import { AuthModule } from './auth/auth.module';
+import { SettingsModule } from './settings/settings.module';
+import { UserModule } from './user/user.module';
+import { ProductsModule } from './products/products.module';
 
 
 
 @NgModule({
-  declarations: [AppComponent, UnauthorisedComponent, CreateuserComponent, ListUsersComponent, EditUserinfoComponent, SettingsComponent, ChangePasswordComponent, VerifyEmailComponent, ValidateEmailComponent,ProfileComponent],
+  declarations: [AppComponent, UnauthorisedComponent],
   imports: [
     AuthModule,
-    FormsModule,
+    ProductsModule,
+    SettingsModule,
+    UserModule,
     BrowserModule,
-    ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    UtilityModule,
-    ProductsRoutingModule,
-    ProductsModule,
     AppRoutingModule,
   ],
   providers: [
