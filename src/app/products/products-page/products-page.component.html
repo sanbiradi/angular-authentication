@@ -6,7 +6,6 @@
             <a routerLink="/products/new-product" class="btn btn-primary">New Product</a>
         </div>
     </div>
-
     <div class="row">
         <div class="">
             <div class="dropdown float-end">
@@ -74,8 +73,6 @@
             </div>
         </div>
     </div>
-
-
     <div *ngIf="noproducts">
         <div class="alert alert-success p-4 mt-3 text-center" role="alert">
             There is no products
@@ -84,6 +81,4 @@
     <div class="d-flex justify-content-center mt-5 ">
         <pagination-controls (pageChange)="renderPage($event)"></pagination-controls>
     </div>
-
-
 </div>

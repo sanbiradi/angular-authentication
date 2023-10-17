@@ -40,9 +40,10 @@ export class UpdateImagesComponent {
   onFileSelected(event: any): void {
     this.files.push(...event.addedFiles);
     if (this.files.length != 0) {
-      let item = this.files[this.files.length - 1]
-      this.newImages.push(URL.createObjectURL(item));
-      this.filesData.append('new_images', item);
+      for (let item of this.files) {
+        this.newImages.push(URL.createObjectURL(item));
+        this.filesData.append('images', item);
+      }
       this.hoverImage = this.newImages[0];
     }
   }

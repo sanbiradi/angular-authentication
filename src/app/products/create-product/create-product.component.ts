@@ -23,7 +23,7 @@ export class CreateProductComponent {
   ngOnDestroy(): void {
     this.editor.destroy();
   }
-  
+
 
   images: any[] = [];
 
@@ -44,15 +44,15 @@ export class CreateProductComponent {
 
   files: File[] = [];
   onFileSelect(event: any) {
-
     this.files.push(...event.addedFiles);
     if (this.files.length != 0) {
-      let item = this.files[this.files.length - 1]
-      this.images.push(URL.createObjectURL(item));
-      this.filesData.append('images', item);
+      for (let item of this.files) {
+        this.images.push(URL.createObjectURL(item));
+        this.filesData.append('images', item);
+      }
       this.hoverImage = this.images[0];
     }
-
+    console.log(this.files, this.filesData.get("images"));
   }
 
   imageMouseEnter(e: any) {

@@ -27,30 +27,33 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit(): void {
     this.siteKey = '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI';
-    this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
-      this.captcha = token;
-    });
+    if (this.siteKey)
+      this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
+        this.captcha = token;
+        console.log(this.captcha)
+      });
 
-    this.gauthService.authState.subscribe((user) => {
-      console.log(this.user)
-      this.user = user;
-      let url = `${this.authService.baseUrl}/auth/login/google`;
-      let body = {
-        token: this.user.idToken,
-        captcha: this.captcha
-      }
-      if(this.captcha){
-        this.httpService.postFetch(url, body).subscribe(data => {
-          let newdata = this.authService.convertIntoJsObject(data);
-          this.storageService.set('u', newdata.token);
-          this.router.navigate(['/']);
-          this.dom.style.display = 'none';
-          this.dom.style.visibility = 'hidden'
-        }, error => {
-          this.myerror = error;
-        })
-      }
-    });
+    if (this.siteKey)
+      this.gauthService.authState.subscribe((user) => {
+        console.log(this.user)
+        this.user = user;
+        let url = `${this.authService.baseUrl}/auth/login/google`;
+        let body = {
+          token: this.user.idToken,
+          captcha: this.captcha
+        }
+        if (this.captcha) {
+          this.httpService.postFetch(url, body).subscribe(data => {
+            let newdata = this.authService.convertIntoJsObject(data);
+            this.storageService.set('u', newdata.token);
+            this.router.navigate(['/']);
+            this.dom.style.display = 'none';
+            this.dom.style.visibility = 'hidden'
+          }, error => {
+            this.myerror = error;
+          })
+        }
+      });
 
 
   }
@@ -63,19 +66,22 @@ export class LoginComponent implements OnInit {
         captcha: this.captcha
       };
 
-      this.httpService.postFetch(Loginurl, body).subscribe((data: any) => {
+      console.log(body);
 
-     
+      this.httpService.postFetch(Loginurl, body).subscribe((data: any) => {
         let newdata = this.authService.convertIntoJsObject(data);
         this.storageService.set('u', newdata.token);
         this.router.navigate(['/']);
-        this.dom.style.display = 'none';
-        this.dom.style.visibility = 'hidden'
+        if (this.dom) {
+          this.dom.style.display = 'none';
+          this.dom.style.visibility = 'hidden'
+        }
+
+
       }, error => {
         // console.log(error);
         this.myerror = error;
       });
-
     } else {
       this.myerror = 'Email and password is required';
     }
