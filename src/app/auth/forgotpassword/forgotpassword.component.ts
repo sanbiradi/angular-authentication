@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ReCaptchaV3Service } from 'ngx-captcha';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { HttpService } from '../http.service';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-forgotpassword',

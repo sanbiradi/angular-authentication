@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UnauthorisedComponent } from './unauthorised/unauthorised.component';
-import { AuthGuard } from './auth/auth-guard.service';
+import { AuthGuard } from './services/auth-guard.service';
 import { ProductsPageComponent } from './products/products-page/products-page.component';
 
 

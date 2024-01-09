@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Renderer2, ElementRef } from '@angular/core';
-import { ManageProductsService } from '../manage-products.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import { ManageProductsService } from '../../services/manage-products.service';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-products-page',
   templateUrl: './products-page.component.html',
@@ -12,8 +12,6 @@ export class ProductsPageComponent {
 
 
   selectedLimit: number = 10;
-
-
   limitOptions: any = [
     10, 20, 30, 40
   ]
@@ -54,7 +52,6 @@ export class ProductsPageComponent {
   onCategoryChange(e: any) {
     this.filters.sortBy = this.selectedCategory;
     this.loadProducts();
-    
   }
 
   onLimitChange() {
@@ -71,14 +68,13 @@ export class ProductsPageComponent {
   loadProducts() {
     this.manageProduct.getProducts(this.filters).subscribe(data => {
       this.products = data.results;
-
+      console.log("data",data)
       this.totalResults = data.totalResults;
       if (this.products.length <= 0) {
         this.noproducts = true;
       } else {
         this.noproducts = false;
       }
-
     }, error => {
       this.message = error;
       this.type = false;
@@ -98,13 +94,11 @@ export class ProductsPageComponent {
         this.type = false;
       })
     }
-
   }
 
   getProductInfo(id: String) {
     this.manageProduct.getProductInfo(id).subscribe(data => {
       this.viewedProduct = data;
-
     }, error => {
       this.message = error;
       this.type = false;

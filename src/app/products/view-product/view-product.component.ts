@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ManageProductsService } from '../manage-products.service';
+import { ManageProductsService } from '../../services/manage-products.service';
 
 @Component({
   selector: 'app-view-product',

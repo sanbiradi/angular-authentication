@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './settings/settings.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { AuthGuard } from '../auth/auth-guard.service';
+import { AuthGuard } from '../services/auth-guard.service';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 
 const routes: Routes = [

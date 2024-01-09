@@ -1,8 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, filter, throwError } from 'rxjs';
-import { Product } from './product';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +35,6 @@ export class ManageProductsService {
         'Authorization': `Bearer ${this.token}`,
       })
     };
-    
     return this.http.post<any>(url, body, options).pipe(
       catchError(this.handleError)
     );

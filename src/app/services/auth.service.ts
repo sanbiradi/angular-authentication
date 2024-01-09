@@ -16,6 +16,7 @@ export class AuthService {
     private router: Router
   ) { }
   baseUrl = `https://shop-api.ngminds.com`;
+  
   isLoggedIn(): boolean {
     // check if user is logged in by checking local storage
     if (localStorage.getItem('u')) {

@@ -1,6 +1,5 @@
 1. repair routing modules with respect to component modules
-2. set authguard and login guard
-..
+2. set authguard and login guard.
 3. view product ui with multiple images can view with dialog
 4. update products description and multiple images with feature to 
 delete old images by selecting them

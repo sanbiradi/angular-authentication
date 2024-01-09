@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ManageProductsService } from '../manage-products.service';
+import { ManageProductsService } from '../../services/manage-products.service';
 import { Router } from '@angular/router';
 
 @Component({

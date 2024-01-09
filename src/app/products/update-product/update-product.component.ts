@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ManageProductsService } from '../manage-products.service';
+import { ManageProductsService } from '../../services/manage-products.service';
 import { ActivatedRoute } from '@angular/router';
 import { Editor, Toolbar } from 'ngx-editor';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';

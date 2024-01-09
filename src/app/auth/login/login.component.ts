@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { HttpService } from '../http.service';
-import { StorageService } from '../storage.service';
+import { AuthService } from '../../services/auth.service';
+import { HttpService } from '../../services/http.service';
+import { StorageService } from '../../services/storage.service';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 

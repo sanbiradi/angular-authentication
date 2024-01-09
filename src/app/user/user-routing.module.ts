@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListUsersComponent } from './list-users/list-users.component';
-import { AuthGuard } from '../auth/auth-guard.service';
+import { AuthGuard } from '../services/auth-guard.service';
 import { EditUserinfoComponent } from './edit-userinfo/edit-userinfo.component';
 import { CreateuserComponent } from './createuser/createuser.component';
 import { ValidateEmailComponent } from '../settings/validate-email/validate-email.component';

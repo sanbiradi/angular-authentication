@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ManageProductsService } from './manage-products.service';
+import { ManageProductsService } from '../services/manage-products.service';
 
 describe('ManageProductsService', () => {
   let service: ManageProductsService;

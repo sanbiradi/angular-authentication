@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsPageComponent } from './products-page/products-page.component';
-import { AuthGuard } from '../auth/auth-guard.service';
+import { AuthGuard } from '../services/auth-guard.service';
 import { CreateProductComponent } from './create-product/create-product.component';
 import { UpdateProductComponent } from './update-product/update-product.component';
 import { ViewProductComponent } from './view-product/view-product.component';

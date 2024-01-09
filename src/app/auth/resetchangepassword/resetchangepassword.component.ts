@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as jwt from 'jsonwebtoken';
-import { HttpService } from '../http.service';
-import { AuthService } from '../auth.service';
+import { HttpService } from '../../services/http.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-resetchangepassword',

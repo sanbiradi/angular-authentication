@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ManageProductsService } from '../manage-products.service';
-
+import { ManageProductsService } from '../../services/manage-products.service';
 import { Editor, Toolbar } from 'ngx-editor';
 
 
@@ -10,11 +9,8 @@ import { Editor, Toolbar } from 'ngx-editor';
   styleUrls: ['./create-product.component.scss']
 })
 export class CreateProductComponent {
-
-
   constructor(private manageProduct: ManageProductsService) {
   }
-
 
   ngOnInit(): void {
     this.editor = new Editor();
