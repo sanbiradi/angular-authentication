@@ -1,0 +1,41 @@
+<h5> <span>Personal Information</span><small class="ms-3 text-primary fs-6" (click)="toggleEmailName()"
+        role="button">{{isEmailNameMode?'Edit':'Cancel'}}</small></h5>
+<app-alert-message [message]="message" [type]="type" *ngIf="message">
+    
+</app-alert-message>
+<div class="my-3 d-flex align-items-center">
+
+    <div class="">
+        <img src="{{profilePicture}}" alt="" height="80px" *ngIf="profilePicture">
+    </div>
+
+    <div class="d-flex ms-3" *ngIf="!isEmailNameMode">
+        <div class="">
+            <input class="form-control form-control-sm" id="formFileSm" type="file" name="file" accept="image/*"
+                (change)="onFileSelected($event)">
+        </div>
+        <div class="ms-3">
+            <span class="btn btn-danger btn-sm " (click)="removeProfile()">Remove Profile</span>
+        </div>
+    </div>
+
+</div>
+<form #updateName="ngForm" (ngSubmit)="onSaveNameEmail()">
+    <div class="col-md-10 row">
+        <label for="name" class="form-label">Name</label>
+        <div class="col-md-7">
+            <input type="text" class="form-control" id="name" name="name" value="name" [(ngModel)]="name"
+                [disabled]="isEmailNameMode" required>
+        </div>
+    </div>
+    <div class="my-3 col-md-10 row">
+        <label for="email" class="form-label">Email</label>
+        <div class="col-md-7">
+            <input type="text" class="form-control" id="email" name="email" value="email" [(ngModel)]="email"
+                [disabled]="isEmailNameMode" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary my-2 px-3 " *ngIf="!isEmailNameMode">Save</button>
+</form>
+
+<button type="button" class="btn btn-outline-danger mt-3 btn-sm" (click)="deleteAccountEvent()">Delete my account</button>

@@ -1,0 +1,92 @@
+<app-header [userCheck]="'customer'"></app-header>
+<div class="container col-7 card shadow-lg border-0 p-4 my-3">
+    <h5 class="my-3">Customer Registration Form</h5>
+
+    <form class="form g-4" #myform="ngForm" (ngSubmit)="onSubmit()">
+        <app-alert-message [message]="message" [type]="type" *ngIf="message"></app-alert-message>
+
+
+        <div class="row mb-3">
+            <!-- Name Input -->
+            <div class="col">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="Name" placeholder="Enter your name"
+                    [(ngModel)]="customer.name" required>
+            </div>
+            <!-- Email Input -->
+            <div class=" col">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email"
+                    [(ngModel)]="customer.email" required>
+            </div>
+
+        </div>
+
+        <div class="row mb-4">
+
+            <div class="col">
+                <label for="street" class="form-label">Street</label>
+                <textarea type="text" class="form-control" id="street" name="street" placeholder="Enter your street"
+                    [(ngModel)]="customer.address.street" required></textarea>
+
+            </div>
+            <div class="col">
+                <label for="addressLine2" class="form-label">Address Line 2</label>
+                <textarea type="text" class="form-control" id="addressLine2" name="addressLine2"
+                    placeholder="Enter address line 2" [(ngModel)]="customer.address.addressLine2" required></textarea>
+
+            </div>
+
+        </div>
+
+        <div class="row mb-3">
+            <!-- Password Input -->
+            <div class="col">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password"
+                    placeholder="Enter your password" autocomplete="on" [(ngModel)]="password" required>
+            </div>
+            <div class="col">
+                <label for="city" class="form-label">City</label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city"
+                    [(ngModel)]="customer.address.city" required>
+            </div>
+        </div>
+
+
+        <div class="row mb-4">
+            <!-- Password Input -->
+            <div class="col">
+                <label for="confirm-password" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirm-password" name="confirm-password"
+                    placeholder="Confirm your password" autocomplete="on" [(ngModel)]="confirmPassword" required>
+            </div>
+
+            <div class="col">
+                <label for="state" class="form-label ">State</label>
+                <select class="form-select" aria-label="Default select example" name="state"
+                    [(ngModel)]="customer.address.state">
+                    <option selected>Open this select menu</option>
+                    <option value="{{i.name}}" *ngFor="let i of states">{{i.code}} : {{i.name}}</option>
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="row mb-3">
+            <!-- Address Section -->
+            <div class="col-md-6">
+                <label for="pin" class="form-label">PIN</label>
+                <input type="text" class="form-control" id="pin" name="pin" placeholder="Enter your PIN"
+                    [(ngModel)]="customer.address.pin" required>
+            </div>
+        </div>
+        <!-- Submit Button -->
+        <div>
+            <button type="submit" class="btn btn-primary">Create Account</button>
+        </div>
+        <ngx-invisible-recaptcha #captchaElem [siteKey]="siteKey">
+        </ngx-invisible-recaptcha>
+    </form>
+</div>

@@ -1,0 +1,28 @@
+<app-header [userCheck]="'customer'"></app-header>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-3 ">
+            <div class="container">
+                <ul class="list-unstyled fs-6 small ">
+                    <li class="mb-2 rounded" [routerLinkActive]="'border'">
+                        <a routerLink="update-profile" class="text-decoration-none d-block btn ">Profile Information</a>
+                    </li>
+                    <li class="mb-2 rounded" [routerLinkActive]="'border'">
+                        <a routerLink="manage-addresses" class="text-decoration-none d-block btn ">Manage Addresses</a>
+                    </li>
+                    <li class="mb-2 rounded" [routerLinkActive]="'border'">
+                        <a routerLink="account-settings" class="text-decoration-none d-block btn ">Account Settings</a>
+                    </li>
+                    <li class="mb-2 rounded" [routerLinkActive]="'border'">
+                        <a routerLink="#" class="text-decoration-none d-block btn ">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col border rounded">
+            <div class="container p-4">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

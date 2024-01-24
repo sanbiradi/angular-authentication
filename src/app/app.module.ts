@@ -1,30 +1,21 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
+import { SellerModule } from './seller/seller.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
-import { UnauthorisedComponent } from './unauthorised/unauthorised.component';
-
-// modules
-import { RouterModule } from '@angular/router';
-import { AuthModule } from './auth/auth.module';
-import { SettingsModule } from './settings/settings.module';
-import { UserModule } from './user/user.module';
-import { ProductsModule } from './products/products.module';
-
-
+import { CommonModule } from '@angular/common';
+import { AppRoutingModule } from './app-routing.module';
+import { ShopModule } from './shop/shop.module';
+import { CustomCurrencyPipe } from './pip/custom-currency.pipe';
 
 @NgModule({
-  declarations: [AppComponent, UnauthorisedComponent],
+  declarations: [
+    AppComponent,
+    CustomCurrencyPipe,
+  ],
   imports: [
-    AuthModule,
-    ProductsModule,
-    SettingsModule,
-    UserModule,
-    BrowserModule,
-    HttpClientModule,
-    RouterModule,
+    CommonModule,
     AppRoutingModule,
+    ShopModule,
+    SellerModule
   ],
   providers: [
   ],

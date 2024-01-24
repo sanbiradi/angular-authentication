@@ -1,6 +1,6 @@
 <div class="shadow-sm">
   <div class="container">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 ">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 " *ngIf="userCheck=='seller'">
 
       <div class="mb-2 mb-md-0">
         
@@ -26,7 +26,31 @@
         <div class="col-md-3 text-end me-5">
           <a routerLink="/login" class="btn btn-outline-primary me-2 ">Login</a>
           <a routerLink="/register" class="btn btn-primary ">Sign-up</a>
+        </div>
+      </ng-template>
+    </header>
+    <header class="d-flex justify-content-center justify-content-md-between py-3 " *ngIf="userCheck=='customer'">
+      <div class="mb-2 mb-md-0">
+        
+      </div>
+      <div *ngIf="(userLogined); else showmenu" role="button" class="dropdown ms-auto me-3 ">
+        <div class="d-flex justify-content-between align-items-center  dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi bi-person-circle fs-4 me-2" ></i>
+          <span>Profile</span>
+        </div>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" routerLink="profile/update-profile">Profile</a></li>
+          <li><a class="dropdown-item" routerLink="#">Orders</a></li>
+          <li><a class="dropdown-item" routerLink="#">Whishlist</a></li>
+          <li><a class="dropdown-item" (click)="logoutCustomer()">Logout</a></li>
+        </ul>       
+      </div>
 
+
+      <ng-template #showmenu>
+        <div class="col-md-3 text-end me-5">
+          <a routerLink="/customer/login" class="btn btn-outline-primary me-2 ">Login</a>
+          <a routerLink="/customer/register" class="btn btn-primary ">Sign-up</a>
         </div>
       </ng-template>
     </header>
