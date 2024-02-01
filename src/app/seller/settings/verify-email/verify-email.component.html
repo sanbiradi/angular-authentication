@@ -1,20 +1,19 @@
-<div *ngIf="success===true">
-    <p class="text-primary ">Email verification link send to your relevant email! please check your inbox or spam folder
-    </p>
+<div *ngIf="success==true">
+    <p class="text-primary ">Email verification link send to your relevant email! please check your inbox or spam folder</p>
 </div>
-<div *ngIf="isVerified===true; else showme">
+<div *ngIf="isVerified===true;">
     <div class="alert alert-success text-center">
         <span>Your account is already verified</span>
     </div>
 </div>
 
-<div *ngIf="isVerified===false">
+<div *ngIf="isVerified==false">
     <h4>Account Verification</h4>
     <app-alert-message [message]="message" [type]="type" *ngIf="message"></app-alert-message>
     <button class="btn btn-primary mt-2" (click)="sendVerification()">Send Verification</button>
 </div>
 
-
+<div class="" *ngIf="isVerified==!null; else showme"></div>
 <ng-template #showme>
     <div class="container text-center">
         <p class="text-dark">Loading...</p>

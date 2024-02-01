@@ -8,7 +8,7 @@
       <div *ngIf="LogIn; else showmenu">
         <ul class="nav col-md-12 col-md-auto mb-2 lh-sm justify-content-center mb-md-0">
           <li>
-            <a routerLink="/" class="nav-link text-secondary px-2">Products</a>
+            <a routerLink="/products" class="nav-link text-secondary px-2">Products</a>
           </li>
           <li>
             <a routerLink="/manage-user" class="nav-link text-secondary px-2">Users</a>
@@ -33,18 +33,29 @@
       <div class="mb-2 mb-md-0">
         
       </div>
-      <div *ngIf="(userLogined); else showmenu" role="button" class="dropdown ms-auto me-3 ">
-        <div class="d-flex justify-content-between align-items-center  dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-person-circle fs-4 me-2" ></i>
-          <span>Profile</span>
+      <div class="d-flex ms-auto align-items-center me-3 ">
+        <button type="button" class="border-0 bg-none position-relative me-4" style="background-color: transparent;">
+          <i class="bi bi-cart fs-4"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            0
+          </span>
+        </button>
+        
+        <div *ngIf="(userLogined); else showmenu" role="button" class="dropdown ">
+          <div class="d-flex justify-content-between align-items-center  dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle fs-4 me-2" ></i>
+            <span>Profile</span>
+          </div>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" routerLink="/shop/profile/update-profile">Profile</a></li>
+            <li><a class="dropdown-item" routerLink="#">Orders</a></li>
+            <li><a class="dropdown-item" routerLink="#">Whishlist</a></li>
+            <li><a class="dropdown-item" (click)="logoutCustomer()">Logout</a></li>
+          </ul>       
         </div>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" routerLink="profile/update-profile">Profile</a></li>
-          <li><a class="dropdown-item" routerLink="#">Orders</a></li>
-          <li><a class="dropdown-item" routerLink="#">Whishlist</a></li>
-          <li><a class="dropdown-item" (click)="logoutCustomer()">Logout</a></li>
-        </ul>       
       </div>
+   
+      
 
 
       <ng-template #showmenu>

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ShophttpService } from '../../services/shophttp/shophttp.service';
-
+import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-manage-addresses',
   templateUrl: './manage-addresses.component.html',
@@ -183,8 +184,8 @@ export class ManageAddressesComponent {
     }
   ];
 
-
-  constructor(private shophttp: ShophttpService) {
+ 
+  constructor(private toastr:ToastrService,private shophttp: ShophttpService) {
 
   }
 
@@ -197,8 +198,11 @@ export class ManageAddressesComponent {
     this.shophttp.getAddresses().subscribe(data => {
       this.savedAddress = data;
     }, error => {
-      this.message = error;
-      this.type = true;
+      // this.message = error;
+      // this.type = true;
+      this.toastr.error(error,"Error",{
+        timeOut:3000
+      })
     })
   }
 
@@ -223,13 +227,17 @@ export class ManageAddressesComponent {
   addNewAddressSubmit() {
     if (this.address.addressLine2 && this.address.city && this.address.pin && this.address.state && this.address.street) {
       this.shophttp.addNewAddress(this.address).subscribe(data => {
-        this.message = `New address is added successfully!`;
-        this.type = true;
+        // this.message = `New address is added successfully!`;
+        // this.type = true;
+        this.toastr.success("New address is added successfully!","Error",{
+          timeOut:3000
+        })
         this.getUserAddresses();
         this.isFormEnabled = false;
       }, error => {
-        this.message = error;
-        this.type = false;
+        this.toastr.error(error,"Error",{
+          timeOut:3000
+        })
       })
     }
   }
@@ -252,30 +260,53 @@ export class ManageAddressesComponent {
       pin: ''
     }
   }
+  showSweetAlert(): Promise<boolean> {
+    return Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to delete this address.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    }).then((result) => {
+      return result.isConfirmed;
+    });
+  }
 
-  deleteOnAddress(id: any) {
-    if (confirm("Do you want to delete this address?"))
+  async deleteOnAddress(id: any) {
+    const isConfirmed = await this.showSweetAlert();
+    if (isConfirmed)
       this.shophttp.deleteAddressRequest(id).subscribe(data => {
         this.getUserAddresses();
-        this.message = `Address has been deleted successfully!`;
-        this.type = true;
+        // this.message = `Address has been deleted successfully!`;
+        // this.type = true;
+        this.toastr.success("","Address has been deleted successfully!",{
+          timeOut:3000
+        })
+        Swal.fire("Deleted successfully!","success");
       }, error => {
-        this.message = error;
-        this.type = true;
+        this.toastr.error(error,"Error",{
+          timeOut:3000
+        })
+        Swal.fire(error,"error");
       })
   }
 
   UpdateAddressSubmit() {
     if (this.isUpdateFormEnabled && this.isFormEnabled == false && this.address) {
       this.shophttp.udpateAddressRequest(this.address, this.updateObjectId).subscribe(data => {
-        this.message = 'Address Updated Successfully!';
-        this.type = true;
+        // this.message = 'Address Updated Successfully!';
+        // this.type = true;
+        this.toastr.success("","Address Updated Successfully!",{
+          timeOut:3000
+        })
         this.isUpdateFormEnabled = false;
         this.getUserAddresses();
       },
         error => {
-          this.message = error;
-          this.type = false;
+          this.toastr.error(error,"Error",{
+            timeOut:3000
+          })
         })
     }
   }

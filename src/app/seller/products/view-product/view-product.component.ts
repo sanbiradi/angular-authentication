@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ManageProductsService } from '../../services/manage-products.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-product',
@@ -12,13 +13,13 @@ export class ViewProductComponent {
   product!: any;
   errorMessage: any;
   hoverImage: any = null;
-  constructor(private activatedRoute: ActivatedRoute, private manageProducts: ManageProductsService) {
+  constructor(private toastr: ToastrService, private activatedRoute: ActivatedRoute, private manageProducts: ManageProductsService) {
   }
   removeImageBorder(e: any) {
     e.target.classList.remove("border")
     e.target.classList.remove("border-primary")
   }
-  
+
   imageMouseEnter(e: any) {
     this.hoverImage = e.target.src;
     if (!e.target.classList.contains("custom-border")) {
@@ -32,7 +33,7 @@ export class ViewProductComponent {
     // this.hoverImage = this.product.images[0].url;
     this.productId = this.activatedRoute.snapshot.paramMap.get("id");
     this.getProductInfo(this.productId)
-    
+
   }
 
   getProductInfo(id: any) {
@@ -40,7 +41,9 @@ export class ViewProductComponent {
       this.product = data;
       this.hoverImage = this.product.images[0].url;
     }, error => {
-      error = this.errorMessage;
+      this.toastr.error("", error, {
+        timeOut: 3000
+      })
     });
   }
 

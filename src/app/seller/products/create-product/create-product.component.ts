@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ManageProductsService } from '../../services/manage-products.service';
 import { Editor, Toolbar } from 'ngx-editor';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,7 +11,7 @@ import { Editor, Toolbar } from 'ngx-editor';
   styleUrls: ['./create-product.component.scss']
 })
 export class CreateProductComponent {
-  constructor(private manageProduct: ManageProductsService) {
+  constructor(private toastr: ToastrService, private router: Router, private manageProduct: ManageProductsService) {
   }
 
   ngOnInit(): void {
@@ -48,7 +50,6 @@ export class CreateProductComponent {
       }
       this.hoverImage = this.images[0];
     }
-    console.log(this.files, this.filesData.get("images"));
   }
 
   imageMouseEnter(e: any) {
@@ -71,18 +72,24 @@ export class CreateProductComponent {
 
 
   onSubmit(): void {
-    console.log(this.product, this.images, this.files, this.filesData)
+
     if (this.product.name && this.product.description && this.product.price && this.images) {
       this.filesData.append('name', this.product.name);
       this.filesData.append('description', this.product.description);
       this.filesData.append('price', String(this.product.price));
       this.manageProduct.createProduct(this.filesData).subscribe(data => {
-        this.message = `Product : ${this.product.name} has been created successfully.`;
-        this.type = true;
-        alert("Product Added successfully!")
+        // this.message = `Product : ${this.product.name} has been created successfully.`;
+        // this.type = true;
+        this.toastr.success("", `Product has been created successfully.`, {
+          timeOut: 3000
+        })
+        this.router.navigate(["/products"]);
       }, error => {
-        this.message = error;
-        this.type = false;
+        // this.message = error;
+        // this.type = false;
+        this.toastr.error("", error, {
+          timeOut: 3000
+        })
       })
       this.product.description = ''
       this.product.name = ''

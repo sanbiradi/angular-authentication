@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { HttpService } from '../../services/http.service';
 import { User } from '../../user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-verify-email',
@@ -11,21 +12,27 @@ import { User } from '../../user';
 export class VerifyEmailComponent implements OnInit {
 
   user!: any;
+
   message!: string;
   type!: boolean;
+  
   token!: string;
   ltoken!: string;
-  success: boolean = false;
-  isVerified:boolean| undefined|null = null;
   
-  constructor(private authService: AuthService, private httpService: HttpService) {
+  success: boolean = false;
+  isVerified: boolean | undefined | null = null;
+
+  constructor(private toastr:ToastrService,private authService: AuthService, private httpService: HttpService) {
 
   }
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit() {
     this.token = this.authService.getCurrentToken();
     this.fetchData()
   }
-
   // profile informations fetching 
   fetchData() {
     setTimeout(() => {
@@ -38,7 +45,10 @@ export class VerifyEmailComponent implements OnInit {
               this.isVerified = true;
             else
               this.isVerified = false
-
+          },error=>{
+            this.toastr.error("",error,{
+              timeOut:3000
+            })
           });
       }
     });
@@ -51,10 +61,11 @@ export class VerifyEmailComponent implements OnInit {
       this.httpService.postWithToken(url, this.token).subscribe((data) => {
         this.type = true;
         this.message = data;
-        this.success = true
+        this.success = true;
       }, error => {
-        this.message = error;
-        this.type = false;
+        this.toastr.error("",error,{
+          timeOut:3000
+        })
       })
     }
   }

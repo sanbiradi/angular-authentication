@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { HttpService } from '../../services/http.service';
+import { ToastrService } from 'ngx-toastr';
 // import { ReCaptchaV3Service } from 'ngx-captcha';
 
 @Component({
@@ -28,9 +29,8 @@ export class ProfileComponent {
   myerror: any;
 
 
-  constructor(private authService: AuthService, private router: Router, private httpService: HttpService) {
+  constructor(private toastr: ToastrService, private authService: AuthService, private router: Router, private httpService: HttpService) {
     this.fetchData();
-
   }
   // toggle class
   isActive?: boolean = true;
@@ -50,14 +50,16 @@ export class ProfileComponent {
 
     this.httpService.updateCompanyInfo(url, userToken, body).subscribe(
       response => {
-        // Handle successful response
-
-        // console.log('Profile updated successfully:', response);
         this.isActive = true;
-        //this.router.navigate(['/manage-user']);
+        this.toastr.success("", "Company information is updated successfully!", {
+          timeOut: 3000
+        })
       },
       error => {
         this.myerror = error;
+        this.toastr.error("", error, {
+          timeOut: 3000
+        })
       }
     );
 

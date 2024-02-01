@@ -12,11 +12,11 @@ export class ValidateEmailComponent implements OnInit {
 token!:string;
 message!:string;
   constructor(private authService:AuthService,private httpService:HttpService, private activateedRoute:ActivatedRoute){
-    this.token = this.activateedRoute.snapshot.queryParams['token'];
-    console.log(this.token)
+
   }
   success!:boolean;
-  ngOnInit(){
+  ngAfterViewInit(){
+    this.token = this.activateedRoute.snapshot.queryParams['token'];
     let url = `${this.authService.baseUrl}/auth/verify-email`;
     this.httpService.verifyAccount(url,this.token).subscribe(data=>{
       this.message = data;
@@ -24,5 +24,8 @@ message!:string;
     },error=>{
       this.message = error;
     })
+  }
+  ngOnInit(){
+    
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { HttpService } from '../../services/http.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class CreateuserComponent implements OnInit {
   role: string = '';
   myerrors?: any;
   baseUrl = `https://shop-api.ngminds.com`;
-  constructor(private authService: AuthService, private httpService: HttpService, private router: Router) {
+  constructor(private toastr:ToastrService,private authService: AuthService, private httpService: HttpService, private router: Router) {
 
   }
   ngOnInit() {
@@ -28,7 +29,7 @@ export class CreateuserComponent implements OnInit {
 
 
     let url = `${this.baseUrl}/users`;
-    console.log("api call")
+    // console.log("api call")
     let userInfo = {
       email: this.email,
       password: this.password,
@@ -38,8 +39,13 @@ export class CreateuserComponent implements OnInit {
     let token = this.authService.getCurrentToken();
     this.httpService.createUserRequest(url, userInfo, token).subscribe((response: any) => {
       this.router.navigate(["/manage-user"]);
+      this.toastr.success("","User has been created successffuly!",{
+        timeOut:3000
+      })
     }, (error: any) => {
-      this.myerrors = error;
+      this.toastr.error("",error,{
+        timeOut:3000
+      })
     });
 
 

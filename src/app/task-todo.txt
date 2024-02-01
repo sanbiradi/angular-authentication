@@ -6,3 +6,36 @@ delete old images by selecting them
 5. filter name and price with dropdown menu at the top of product list
 6. design product list properly only one row must contained 3 products only with big size
 7. lazy loading for the modules which will be require for late
+
+
+{
+    "order": {
+        "items": [
+            {
+                "productId": "62dc3744305fe3040d7f4b31",
+                "name": "taFirst Product",
+                "price": 7466,
+                "qty": 1,
+                "subTotal": 1,
+                "_id": "65bb2efbe5823a58e769d1f8"
+            }
+        ],
+        "deliveryFee": 12,
+        "total": 7479,
+        "address": {
+            "street": "px",
+            "addressLine2": "px",
+            "city": "pune",
+            "state": "Maharashtra",
+            "pin": "411223"
+        },
+        "paymentStatus": "Pending",
+        "status": "Pending",
+        "createdBy": "65bb2cdae5823a58e769d1e5",
+        "deleted": false,
+        "_id": "65bb2efbe5823a58e769d1f7",
+        "createdAt": "2024-02-01T05:41:15.203Z",
+        "updatedAt": "2024-02-01T05:41:15.203Z",
+        "__v": 0
+    }
+}

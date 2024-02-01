@@ -21,11 +21,9 @@ export class HeaderComponent implements OnInit{
   }
   
   ngOnInit(): void {
-    // this.LogIn = this.authService.isLoggedIn();   
-    this.userLogined = this.storageService.checkUserLogined("userLogined");
-  
   }
   ngAfterViewInit(): void {
+    this.LogIn = this.authService.isLoggedIn();     
     // Hide reCAPTCHA badge after the component has been loaded
     this.userLogined = this.storageService.checkUserLogined("userLogined");
   }

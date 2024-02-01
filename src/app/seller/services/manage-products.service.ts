@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Injectable } from '@angular/core';
 import { Observable, catchError, filter, throwError } from 'rxjs';
 import { AuthService } from './auth.service';
-
+import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
@@ -38,6 +38,19 @@ export class ManageProductsService {
     return this.http.post<any>(url, body, options).pipe(
       catchError(this.handleError)
     );
+  }
+
+  showSweetAlert(message:string): Promise<boolean> {
+    return Swal.fire({
+      title: 'Are you sure?',
+      text: `${message}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    }).then((result) => {
+      return result.isConfirmed;
+    });
   }
 
   getProducts(filters: any): Observable<any> {

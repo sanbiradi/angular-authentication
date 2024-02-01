@@ -12,6 +12,7 @@ import { CustomerLoginComponent } from './customer-login/customer-login.componen
 import { ProfileInformationComponent } from './profile-information/profile-information.component';
 
 import { ProfileInformationModule } from './profile-information/profile-information.module';
+
 @NgModule({
   declarations: [
     ShopComponent,
@@ -19,7 +20,6 @@ import { ProfileInformationModule } from './profile-information/profile-informat
     CustomerRegistrationComponent,
     CustomerLoginComponent,
     ProfileInformationComponent,
-   
   ],
   imports: [
     UtilityModule,

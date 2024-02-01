@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { HttpService } from '../../services/http.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-change-password',
@@ -14,7 +15,7 @@ export class ChangePasswordComponent {
   message: any;
   type: any;
 
-  constructor(private httpService: HttpService, private authService: AuthService) {
+  constructor(private toastr:ToastrService,private httpService: HttpService, private authService: AuthService) {
 
   }
   changepassword() {
@@ -28,12 +29,16 @@ export class ChangePasswordComponent {
       let token = this.authService.getCurrentToken();
 
       this.httpService.createPostRequest(url, body, token).subscribe(data => {
-        this.message = `Your password successfully changed.`;
-        this.type = true;
-        console.log(data);
+        // this.message = `Your password successfully changed.`;
+        // this.type = true;
+        this.toastr.success("",`Your password successfully changed.`,{
+          timeOut:3000
+        })
+        
       },error=>{
-        this.message = error;
-        this.type = false;
+        this.toastr.error("",error,{
+          timeOut:3000
+        })
       })
 
     } else {

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ManageProductsService } from '../../services/manage-products.service';
 import { ActivatedRoute } from '@angular/router';
 import { Editor, Toolbar } from 'ngx-editor';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -13,7 +14,7 @@ import { Editor, Toolbar } from 'ngx-editor';
 export class UpdateProductComponent {
 
   productId!: any;
-  constructor(private manageProduct: ManageProductsService, private activatedRoute: ActivatedRoute) {
+  constructor(private toastr:ToastrService,private manageProduct: ManageProductsService, private activatedRoute: ActivatedRoute) {
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
     this.getProductInfo(this.productId);
   }
@@ -127,19 +128,26 @@ export class UpdateProductComponent {
       this.manageProduct.updateProductDetails(this.productId, newBody).subscribe(data => {
 
         this.manageProduct.updateProductImages(this.productId, this.filesData).subscribe(data => {
-          this.message = `Product Details are updated successfully!`;
-          this.type = true;
+          // this.message = `Product Details are updated successfully!`;
+          // this.type = true;
+          this.toastr.success("",`Product Details are updated successfully!`,{
+            timeOut:3000
+          })
           this.files = [];
           
           this.imagesIdsToDelete = [];
         }, error => {
-          this.message = error;
-          this.type = true;
+          // this.message = error;
+          // this.type = true;
+          this.toastr.error("",error,{
+            timeOut:3000
+          })
         })
 
       }, error => {
-        this.message = error;
-        this.type = false;
+        this.toastr.error("",error,{
+          timeOut:3000
+        })
       })
     } else {
       this.message = `Please enter all the require information!`;
@@ -147,12 +155,15 @@ export class UpdateProductComponent {
     }
   }
 
-  imageDoubleClickDelete(event: any, index: any, typedata: any) {
-    if (confirm("Are you sure you want to delete this image.")) {
+ async imageDoubleClickDelete(event: any, index: any, typedata: any) {
+    const isConfirm = await this.manageProduct.showSweetAlert('You want to delete this image');
+    if (isConfirm) {
       if (typedata == 'oldimages') {
         this.imagesIdsToDelete.push(this.imagesIds[index])
         this.oldImages.splice(index, 1);
-        console.log(this.imagesIdsToDelete);
+        this.toastr.success("","Image has been deleted!",{
+          timeOut:3000
+        })
         if (this.newImages.length > 0)
           this.hoverImage = this.newImages[0];
       } else if (typedata == 'newimages') {
@@ -172,8 +183,9 @@ export class UpdateProductComponent {
       this.hoverImage = this.oldImages[0];
       this.imagesIds = data.images.map((e: any) => e.public_id);
     }, error => {
-      this.message = error;
-      this.type = false;
+    this.toastr.error("",error,{
+      timeOut:3000
+    })
     })
   }
 

@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { HttpService } from '../../services/http.service';
-
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
@@ -22,6 +23,7 @@ export class ListUsersComponent {
     private authService: AuthService,
     private router: Router,
     private httpService: HttpService,
+    private toastr: ToastrService
   ) {
     this.fetchData();
   }
@@ -32,6 +34,18 @@ export class ListUsersComponent {
   }
 
 
+  showSweetAlert(): Promise<boolean> {
+    return Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to delete the user.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    }).then((result) => {
+      return result.isConfirmed;
+    });
+  }
 
   // profile informations fetching 
   fetchData() {
@@ -43,8 +57,10 @@ export class ListUsersComponent {
           .secureGet(`${this.baseUrl}/users`, this.token)
           .subscribe((data: any) => {
             this.users.push(data);
-            // console.log(data)
-            // console.log(this.users);
+          }, error => {
+            this.toastr.error("", error, {
+              timeOut: 3000
+            })
           });
       }
 
@@ -52,9 +68,9 @@ export class ListUsersComponent {
   }
 
   // delete profile
-  deleteUser(event: any, id: any): any {
-
-    if (confirm('Are you sure you want to delete this data.')) {
+  async deleteUser(event: any, id: any) {
+    const isConfirmed = await this.showSweetAlert();
+    if (isConfirmed) {
       event.target.innerText = `Deleting...`;
       this.authService.deleteUser(id);
       event.target.innerText = `Deleted`;

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as jwt from 'jsonwebtoken';
 import { HttpService } from '../../services/http.service';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-resetchangepassword',
@@ -17,7 +18,7 @@ export class ResetchangepasswordComponent implements OnInit {
   message!: string;
   type!: boolean
 
-  constructor(private router:Router,private activatedRoute: ActivatedRoute, private httpService: HttpService, private authService: AuthService) {
+  constructor(private toastr: ToastrService, private router: Router, private activatedRoute: ActivatedRoute, private httpService: HttpService, private authService: AuthService) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.token = params['token'];
     });
@@ -25,7 +26,7 @@ export class ResetchangepasswordComponent implements OnInit {
   ngOnInit() {
   }
 
-  
+
   resetPassword() {
     if (this.password && this.confirmPassword) {
       let url = `${this.authService.baseUrl}/auth/reset-password`;
@@ -33,15 +34,18 @@ export class ResetchangepasswordComponent implements OnInit {
         password: this.confirmPassword
       }
       this.httpService.resetPassword(url, this.token, body).subscribe((data) => {
-        this.message = `Password has been changed successfully..`
-        this.type = true;
-        setTimeout(() => {
-          
-          this.router.navigate(["/login"]);
-        }, 3000);
+        // this.message = `Password has been changed successfully..`
+        // this.type = true;
+        this.toastr.success("", "Password has been changed successfully..", {
+          timeOut: 3000
+        });
+        this.router.navigate(["/login"]);
       }, error => {
         this.message = error;
         this.type = false;
+        this.toastr.error("", error, {
+          timeOut: 3000
+        })
       });
     }
   }

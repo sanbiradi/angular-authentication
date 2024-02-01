@@ -5,7 +5,7 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
 import { ManageAddressesComponent } from './manage-addresses/manage-addresses.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { customerLoginGuard } from 'src/app/guard/customer-login.guard';
-import { UnauthorisedComponent } from 'src/app/unauthorised/unauthorised.component';
+
 const routes: Routes = [
   {
     path: 'shop/profile',
@@ -25,14 +25,6 @@ const routes: Routes = [
         component: ChangePasswordComponent
       }
     ]
-  },
-  {
-    path: '**',
-    redirectTo: "unauthorized"
-  },
-  {
-    path: "unauthorized",
-    component: UnauthorisedComponent
   }
 ];
 

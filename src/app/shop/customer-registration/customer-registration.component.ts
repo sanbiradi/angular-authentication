@@ -2,6 +2,9 @@ import { Component, Renderer2 } from '@angular/core';
 import customer from '../customer';
 import { ShophttpService } from '../services/shophttp/shophttp.service';
 import { ReCaptchaV3Service } from 'ngx-captcha';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { StorageHandlerService } from '../services/storage-handler/storage-handler.service';
 
 @Component({
   selector: 'app-customer-registration',
@@ -178,7 +181,7 @@ export class CustomerRegistrationComponent {
   ];
 
   siteKey: any;
-  constructor(private renderer: Renderer2,private shophttp: ShophttpService, private reCaptchaV3Service: ReCaptchaV3Service) {
+  constructor(private storageService:StorageHandlerService,private router:Router,private toastr: ToastrService, private renderer: Renderer2, private shophttp: ShophttpService, private reCaptchaV3Service: ReCaptchaV3Service) {
     this.siteKey = '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI';
   }
 
@@ -189,23 +192,23 @@ export class CustomerRegistrationComponent {
     }
   }
 
-  
+
   onSubmit() {
     if (this.password === this.confirmPassword) {
-  
       this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
         this.customer.captcha = token;
         this.customer.password = this.confirmPassword;
         this.shophttp.registerCustomerRequest(this.customer).subscribe(data => {
-      
           this.hideRecaptchaBadge();
-          this.message = true;
-          this.message = "You account has been created! ";
-          this.type = true;
-
+          this.toastr.success("Account Has been created", "success", {
+            timeOut: 3000
+          })
+          this.storageService.set("userLogined", data.token);
+          this.router.navigate(['/']);
         }, error => {
-          this.message = error;
-          this.type = false;
+          this.toastr.error(error, "Error", {
+            timeOut: 3000
+          })
         })
       }, {
         useGlobalDomain: false
@@ -215,6 +218,5 @@ export class CustomerRegistrationComponent {
       this.message = "please confirm your password";
       this.type = false;
     }
-
   }
 }

@@ -5,7 +5,7 @@ import { HttpService } from '../../services/http.service';
 import { StorageService } from '../../services/storage.service';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,20 +24,22 @@ export class LoginComponent implements OnInit {
   dom = document.querySelector('.grecaptcha-badge') as HTMLElement;
   loggedIn!: boolean;
 
-  constructor(private gauthService: SocialAuthService, private reCaptchaV3Service: ReCaptchaV3Service, private authService: AuthService, private router: Router, private httpService: HttpService, private storageService: StorageService) {
+  constructor(private toastr:ToastrService,private gauthService: SocialAuthService, private reCaptchaV3Service: ReCaptchaV3Service, private authService: AuthService, private router: Router, private httpService: HttpService, private storageService: StorageService) {
 
   }
+
+
   ngOnInit(): void {
     this.siteKey = '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI';
     if (this.siteKey)
       this.reCaptchaV3Service.execute(this.siteKey, 'login', (token) => {
         this.captcha = token;
-        console.log(this.captcha)
+    
       });
 
     if (this.siteKey)
       this.gauthService.authState.subscribe((user) => {
-        console.log(this.user)
+        
         this.user = user;
         let url = `${this.authService.baseUrl}/auth/login/google`;
         let body = {
@@ -50,9 +52,15 @@ export class LoginComponent implements OnInit {
             this.storageService.set('u', newdata.token);
             this.router.navigate(['/products']);
             this.dom.style.display = 'none';
-            this.dom.style.visibility = 'hidden'
+            this.dom.style.visibility = 'hidden';
+            this.toastr.success("","You are logined successfully!",{
+              timeOut:3000
+            });
           }, error => {
             this.myerror = error;
+            this.toastr.error("",error,{
+              timeOut:3000
+            });
           })
         }
       });
@@ -77,8 +85,14 @@ export class LoginComponent implements OnInit {
           this.dom.style.display = 'none';
           this.dom.style.visibility = 'hidden'
         }
+        this.toastr.success("","You are logined successfully!",{
+          timeOut:3000
+        });
       }, error => {
         // console.log(error);
+        this.toastr.error("",error,{
+          timeOut:3000
+        });
         this.myerror = error;
       });
     } else {

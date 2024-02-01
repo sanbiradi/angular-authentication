@@ -1,7 +1,7 @@
 <h5> <span>Personal Information</span><small class="ms-3 text-primary fs-6" (click)="toggleEmailName()"
         role="button">{{isEmailNameMode?'Edit':'Cancel'}}</small></h5>
 <app-alert-message [message]="message" [type]="type" *ngIf="message">
-    
+
 </app-alert-message>
 <div class="my-3 d-flex align-items-center">
 
@@ -11,15 +11,32 @@
 
     <div class="d-flex ms-3" *ngIf="!isEmailNameMode">
         <div class="">
-            <input class="form-control form-control-sm" id="formFileSm" type="file" name="file" accept="image/*"
-                (change)="onFileSelected($event)">
+            <input class="form-control form-control-sm" id="formFileSm" type="file" name="Profile Photo" accept="image/*" (change)="onFileSelected($event)">
         </div>
         <div class="ms-3">
             <span class="btn btn-danger btn-sm " (click)="removeProfile()">Remove Profile</span>
         </div>
     </div>
-
 </div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Update Profile</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 3"
+            format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)"
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+
+        <button type="button" class="btn btn-primary" (click)="uploadProfileImg()">
+            Update Profile
+        </button>
+    </div>
+</ng-template>
+
 <form #updateName="ngForm" (ngSubmit)="onSaveNameEmail()">
     <div class="col-md-10 row">
         <label for="name" class="form-label">Name</label>
@@ -38,4 +55,5 @@
     <button type="submit" class="btn btn-primary my-2 px-3 " *ngIf="!isEmailNameMode">Save</button>
 </form>
 
-<button type="button" class="btn btn-outline-danger mt-3 btn-sm" (click)="deleteAccountEvent()">Delete my account</button>
+<button type="button" class="btn btn-outline-danger mt-3 btn-sm" (click)="deleteAccountEvent()">Delete my
+    account</button>

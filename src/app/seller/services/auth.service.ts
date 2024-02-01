@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { HttpService } from './http.service';
 import { StorageService } from './storage.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 
 export class AuthService {
   constructor(
+    private toastr:ToastrService,
     private httpService: HttpService,
     private storageService: StorageService,
     private router: Router
@@ -54,6 +56,10 @@ export class AuthService {
     if (userToken) {
       this.httpService.secureGet(profileUrl, userToken).subscribe((data) => {
         this.userdata = data;
+      },error=>{
+        this.toastr.error("",error,{
+          timeOut:3000
+        })
       });
     } else {
       return false;
@@ -78,8 +84,13 @@ export class AuthService {
     this.httpService.deleteRequest(url, token).subscribe(response => {
       this.router.navigate(["/login"]);
       this.router.navigate(["/manage-user"]);
+      this.toastr.success("","user deleted successfully!",{
+        timeOut:3000
+      });
     }, error => {
-      // console.log(error)
+      this.toastr.error("",error,{
+        timeOut:3000
+      })
     });
   }
 

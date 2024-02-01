@@ -2,6 +2,7 @@ import { Component, Input, Renderer2 } from '@angular/core';
 // import ShopProduct from '../shopproduct';
 import { ShophttpService } from '../services/shophttp/shophttp.service';
 import ShopProduct from '../shopproduct';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
@@ -21,7 +22,7 @@ export class ListProductsComponent {
   itemsPerPage: any = this.selectedLimit / 2;
   totalResults!: number;
 
-  constructor(private shophttp: ShophttpService,private renderer: Renderer2) {
+  constructor(private toastr: ToastrService, private shophttp: ShophttpService, private renderer: Renderer2) {
 
   }
 
@@ -53,7 +54,9 @@ export class ListProductsComponent {
       this.productsList = data.results;
       this.totalResults = data.totalResults;
     }, error => {
-      console.log(error);
+      this.toastr.error(error, "error", {
+        timeOut: 3000
+      })
     });
   }
 

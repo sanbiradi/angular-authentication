@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { HttpService } from '../../services/http.service';
 import { StorageService } from '../../services/storage.service';
 import { ReCaptchaV3Service } from 'ngx-captcha';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -23,10 +24,14 @@ export class RegisterComponent implements OnInit {
   myerrors?: any;
   siteKey!: any;
   baseUrl = `https://shop-api.ngminds.com`;
-  constructor(private authService: AuthService, private storageService: StorageService, private router: Router, private httpService: HttpService, private reCaptchaV3Service: ReCaptchaV3Service) {
+
+  constructor(private toastr: ToastrService, private authService: AuthService, private storageService: StorageService, private router: Router, private httpService: HttpService, private reCaptchaV3Service: ReCaptchaV3Service) {
+
 
 
   }
+
+
   ngOnInit(): void {
     this.siteKey = '6LevmbQZAAAAAMSCjcpJmuCr4eIgmjxEI7bvbmRI';
   }
@@ -41,15 +46,21 @@ export class RegisterComponent implements OnInit {
         company: this.companyName,
         captcha: token
       };
-      
+
       this.httpService
         .postFetch(registerUrl, body)
         .subscribe((data) => {
           let newdata = this.authService.convertIntoJsObject(data);
           this.storageService.set('u', newdata.token);
           this.router.navigate(['/products']);
+          this.toastr.success("", "You registered successfully!", {
+            timeOut: 3000
+          })
         }, error => {
           this.myerrors = error;
+          this.toastr.error("", error, {
+            timeOut: 3000
+          })
         });
 
     }, {
