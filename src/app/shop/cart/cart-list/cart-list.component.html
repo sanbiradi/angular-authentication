@@ -1,0 +1,98 @@
+
+<div class="container-fluid p-0">
+    <div class="accordion" id="accordionExample">
+        <!-- Cart Items -->
+        <div class="accordion-item">
+            <h2 class="border-0 accordion-header" id="headingOne">
+                <button class=" border-0 accordion-button fs-6" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Cart Items
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                
+
+                    <div class="accordion-body list-group list-group-flush overflow-y-auto" style="max-height: 65vh" *ngIf="(outputproducts$|async)">
+
+                        <li class="list-group-item" *ngFor="let item of outputproducts$ | async">
+                            <div class="row">
+                                <div class="col-9">
+                                    <h6 class="mb-1">{{ item.name }}</h6>
+                                    <span class="d-flex align-items-center">
+                                        Price:
+                                        <p [class]="item.deal ? 'mb-1 ms-1 text-decoration-line-through' : 'mb-1 ms-1'">
+                                            {{ item.price | currency:'INR' }}
+                                        </p>
+                                        <p *ngIf="item.deal" class="ms-2">
+                                            {{ item.deal.price }}
+                                            ({{ item.deal.discount }} Discount)
+                                        </p>
+                                    </span>
+                                </div>
+                                <div class="col-3 d-flex align-items-center">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-outline-success btn-sm"
+                                            (click)="dec(item.productId,item.qty)">
+                                            <i class="bi bi-dash-lg"></i>
+                                        </button>
+                                        <a class="btn btn-success btn-sm">{{ item.qty }}</a>
+                                        <button type="button" class="btn btn-outline-success btn-sm"
+                                            (click)="inc(item.productId)">
+                                            <i class="bi bi-plus-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+           
+
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div class=" accordion-item">
+            <h2 class="border-0 accordion-header" id="headingTwo">
+                <button class="border-0 accordion-button  fs-6  collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Address
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body" *ngIf="!loginflag">
+                    <h6>You are not logged in!</h6>
+                </div>
+                <div class="accordion-body" *ngIf="loginflag">
+
+                    <div *ngIf="!(address | async)" class="py-4 text-center">
+                        <h6 class="text-primary">No Address present</h6>
+                    </div>
+                    <div class="w-100" *ngIf="address | async">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item" *ngFor="let item of address | async; index as i">
+                                <input class="form-check-input me-1" type="radio" name="listGroupRadio" [value]="i"
+                                    [id]="i">
+                                <label class="form-check-label ps-2" [for]="i">
+                                    <address>
+                                        <i>
+                                            {{ item.street }} <br>
+                                            {{ item.addressLine2 }} <br>
+                                            {{ item.city }} <br>
+                                            {{ item.state }}-{{ item.pin }}
+                                        </i>
+                                    </address>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="pt-3 w-100 d-flex justify-content-end">
+                        <button class="btn btn-dark btn-sm" routerLink="/shop/profile/manage-addresses">Add
+                            Address</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

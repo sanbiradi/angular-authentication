@@ -1,0 +1,27 @@
+<div class="container mt-5">
+
+    <!-- Loop through each order -->
+    <div *ngFor="let order of orders.results" class="card mb-4 order-card">
+        <div class="order-header">
+            <h5 class="card-title">Order ID: {{ order._id }}</h5>
+        </div>
+        <div class="order-details">
+            <p>Total Amount: <span class="subtotal">{{ order.total | currency:'INR' }}</span></p>
+            <p>Delivery Fee: <span class="text-info">{{ order.deliveryFee | currency:'INR' }}</span></p>
+            <p>Payment Status: <span class="text-warning">{{ order.paymentStatus }}</span></p>
+            <p>Status: <span class="text-secondary">{{ order.status }}</span></p>
+
+            <!-- Display items in the order -->
+            <ul class="item-list">
+                <li *ngFor="let item of order.items" class="item">
+                    <div class="item-info">
+                        <h6 class="text-primary">{{ item.name }}</h6>
+                        <p class="text-muted">Price: {{ item.price | currency:'INR' }}</p>
+                        <p class="text-muted">Quantity: {{ item.qty }}</p>
+                    </div>
+                    <p class="subtotal">Subtotal: {{ item.subTotal | currency:'INR' }}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

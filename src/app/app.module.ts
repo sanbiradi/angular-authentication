@@ -4,15 +4,15 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { ShopModule } from './shop/shop.module';
-import { CustomCurrencyPipe } from './pip/custom-currency.pipe';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomCurrencyPipe,
   ],
   imports: [
     CommonModule,
@@ -21,6 +21,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ToastrModule.forRoot(),
     SweetAlert2Module.forRoot(),
     ShopModule,
+    StoreModule.forRoot({}),
     SellerModule,
   ],
   providers: [

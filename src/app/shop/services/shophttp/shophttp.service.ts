@@ -43,7 +43,7 @@ export class ShophttpService {
   }
 
 
-  public updateUserProfile(payload:any): Observable<any> {
+  public updateUserProfile(payload: any): Observable<any> {
     // Retrieve the token from localStorage directly
     let userLogined: any = localStorage.getItem("userLogined");
     let token = JSON.parse(userLogined);
@@ -152,8 +152,7 @@ export class ShophttpService {
 
 
   // manage addresses
-
- public getAddresses(): Observable<any> {
+  public getAddresses(): Observable<any> {
     // Retrieve the token from localStorage directly
     let userLogined: any = localStorage.getItem("userLogined");
     let token = JSON.parse(userLogined);
@@ -205,10 +204,10 @@ export class ShophttpService {
     );
   }
 
-// delete address
-  
+  // delete address
 
- public deleteAddressRequest(id:any): Observable<any> {
+
+  public deleteAddressRequest(id: any): Observable<any> {
     // Retrieve the token from localStorage directly
     let userLogined: any = localStorage.getItem("userLogined");
     let token = JSON.parse(userLogined);
@@ -237,7 +236,7 @@ export class ShophttpService {
 
 
   // update address
-  public udpateAddressRequest(payload:any,id:any): Observable<any> {
+  public udpateAddressRequest(payload: any, id: any): Observable<any> {
     // Retrieve the token from localStorage directly
     let userLogined: any = localStorage.getItem("userLogined");
     let token = JSON.parse(userLogined);
@@ -257,7 +256,7 @@ export class ShophttpService {
 
     let url = `${this.BASE_URL}/customers/address/${id}`;
     // Make the HTTP GET request
-    return this.http.put<any>(url,payload, options).pipe(
+    return this.http.put<any>(url, payload, options).pipe(
       catchError(this.handleError)
     );
   }
@@ -265,7 +264,7 @@ export class ShophttpService {
 
   // change password
 
- public changePasswordRequest(payload: any): Observable<any> {
+  public changePasswordRequest(payload: any): Observable<any> {
     // Retrieve the token from localStorage directly
     let userLogined: any = localStorage.getItem("userLogined");
     let token = JSON.parse(userLogined);
@@ -292,32 +291,64 @@ export class ShophttpService {
   }
 
 
- public deleteMyAccount(): Observable<any> {
-  // Retrieve the token from localStorage directly
-  let userLogined: any = localStorage.getItem("userLogined");
-  let token = JSON.parse(userLogined);
-  if (!userLogined) {
-    // Handle the case where the token is not available
-    // You may want to redirect to the login page or handle it as needed
-    return throwError("User token not found");
+  public deleteMyAccount(): Observable<any> {
+    // Retrieve the token from localStorage directly
+    let userLogined: any = localStorage.getItem("userLogined");
+    let token = JSON.parse(userLogined);
+    if (!userLogined) {
+      // Handle the case where the token is not available
+      // You may want to redirect to the login page or handle it as needed
+      return throwError("User token not found");
+    }
+
+    // Set up the HTTP headers with the token
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`, // Use the retrieved token directly
+      })
+    };
+
+
+    let url = `${this.BASE_URL}/customers/account`;
+    // Make the HTTP GET request
+    return this.http.delete<any>(url, options).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  // Set up the HTTP headers with the token
-  const options = {
-    headers: new HttpHeaders({
-      'Authorization': `Bearer ${token}`, // Use the retrieved token directly
-    })
-  };
+
+  public getSingleProduct(id: any): Observable<any> {
+    let url = `${this.BASE_URL}/shop/products/${id}`;
+    // Make the HTTP GET request
+    return this.http.get<any>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
 
 
-  let url = `${this.BASE_URL}/customers/account`;
-  // Make the HTTP GET request
-  return this.http.delete<any>(url, options).pipe(
-    catchError(this.handleError)
-  );
-}
+  //manage orders
+  public getCustomersOrders(){
+    // Retrieve the token from localStorage directly
+    let userLogined: any = localStorage.getItem("userLogined");
+    let token = JSON.parse(userLogined);
+    if (!userLogined) {
+      // Handle the case where the token is not available
+      // You may want to redirect to the login page or handle it as needed
+      return throwError("User token not found");
+    }
+
+    // Set up the HTTP headers with the token
+    const options = {
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`, // Use the retrieved token directly
+      })
+    };
 
 
-
-  
+    let url = `${this.BASE_URL}/shop/orders`;
+    // Make the HTTP GET request
+    return this.http.get<any>(url, options).pipe(
+      catchError(this.handleError)
+    );
+  }
 }

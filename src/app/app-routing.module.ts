@@ -11,10 +11,6 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'shop',
-    component: ListProductsComponent,
-  },
-  {
     path: 'customer/register',
     component: CustomerRegistrationComponent
   },

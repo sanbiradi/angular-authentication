@@ -10,7 +10,7 @@ export class CustomerGuard implements CanActivate {
   constructor(private router: Router) { }
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.flag(localStorage.getItem('loginedUser')||'');
+    return this.flag(localStorage.getItem('userLogined')||'');
   }
 
   flag(str:string) {

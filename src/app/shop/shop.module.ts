@@ -8,10 +8,15 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomerRegistrationComponent } from './customer-registration/customer-registration.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
+
 import { CustomerLoginComponent } from './customer-login/customer-login.component';
 import { ProfileInformationComponent } from './profile-information/profile-information.component';
 
 import { ProfileInformationModule } from './profile-information/profile-information.module';
+import { CartComponent } from './cart/cart.component';
+import { CartModule } from './cart/cart.module';
+import { SingleProductComponent } from './single-product/single-product.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -20,16 +25,20 @@ import { ProfileInformationModule } from './profile-information/profile-informat
     CustomerRegistrationComponent,
     CustomerLoginComponent,
     ProfileInformationComponent,
+    SingleProductComponent,
+    OrdersComponent
   ],
   imports: [
     UtilityModule,
     NgxCaptchaModule,
-    NgxPaginationModule, 
+    NgxPaginationModule,
     ProfileInformationModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     ShopRoutingModule,
+    CartModule,
+   
   ]
 })
 export class ShopModule { }

@@ -1,0 +1,84 @@
+<div class="container d-flex align-items-center" style="min-height: 90vh;">
+    <div class="container row">
+        <div class="col d-flex justify-content-end">
+            <div class="card border-0 px-4 py-3 shadow-md rounded w-75 h-70 my-auto bg-light">
+                <div class="card-header bg-transparent border-0 w-100 d-flex justify-content-between">
+                    <h3 class="fw-bolder text-primary">MyBank</h3>
+                    <span class="badge bg-success">Credit</span>
+                </div>
+                <div class="card-body">
+                    <h4 class="text-dark">{{ card.cardNumber }}</h4>
+                    <div class="d-flex justify-content-between">
+                        <small class="text-muted">VALID THRU</small>
+                        <small class="text-muted" *ngIf="card.expiry">{{ card.expiry }}</small>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <small class="text-muted">CVV</small>
+                        <small class="text-muted">{{ card.cvv }}</small>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <h4 class="text-dark">{{ card.nameOnCard }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col">
+            <form #paymentForm="ngForm" class="shadow rounded w-50 p-4" (ngSubmit)="placeorder()">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Card"
+                        [(ngModel)]="card.nameOnCard" name="Card" required="">
+                    <label for="floatingInput">Name on Card</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingPassword" placeholder="Number"
+                        [(ngModel)]="card.cardNumber" name="Number" maxlength="16" minlength="16" required="">
+                    <label for="floatingPassword">Card Number</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="month" class="form-control" id="floatingDate" placeholder="Date"
+                        [(ngModel)]="expirydate" name="Date" required="">
+                    <label for="floatingDate">Expiry Date</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" maxlength="3" minlength="3" class="form-control" id="floatingCVV"
+                        placeholder="CVV" [(ngModel)]="card.cvv" name="CVV" required="">
+                    <label for="floatingCVV">CVV</label>
+                </div>
+                <button [disabled]="paymentForm.invalid" type="submit" class="btn btn-dark w-100">Place Order</button>
+            </form>
+        </div> -->
+        <div class="col">
+            <form #paymentForm="ngForm" class="shadow rounded p-4" (ngSubmit)="placeorder()" style="max-width: 400px; margin: 0 auto;">
+                <h4 class="text-center mb-4">Payment Details</h4>
+                
+                <div class="mb-3">
+                    <label for="nameOnCard" class="form-label">Name on Card</label>
+                    <input type="text" class="form-control" id="nameOnCard" placeholder="eg. master card" 
+                           [(ngModel)]="card.nameOnCard" name="nameOnCard" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="cardNumber" class="form-label">Card Number</label>
+                    <input type="text" class="form-control" id="cardNumber" placeholder="**** **** **** ****" 
+                           [(ngModel)]="card.cardNumber" name="cardNumber" maxlength="16" minlength="16" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="expiryDate" class="form-label">Expiry Date</label>
+                    <input type="month" class="form-control" id="expiryDate" 
+                           [(ngModel)]="expirydate" name="expiryDate" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="cvv" class="form-label">CVV</label>
+                    <input type="text" class="form-control" id="cvv" placeholder="***" 
+                           [(ngModel)]="card.cvv" name="cvv" maxlength="3" minlength="3" required>
+                </div>
+                
+                <button [disabled]="paymentForm.invalid" type="submit" class="btn btn-dark w-100">Place Order</button>
+            </form>
+        </div>
+        
+    </div>
+</div>

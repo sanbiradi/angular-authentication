@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-md-6 p-3">
+
+        <div class="row image-container border">
+            <img class="m-1 object-fit-contain zoomable-image" [src]="hoverImage" height="450px"
+                *ngIf="this.product?.images?.length>0;else showloading ">
+            <div class="p-5 d-flex justify-content-center align-items-center" *ngIf="hoverImage==false">
+                <div class="text-success p-5 ">
+                    No Product Images
+                </div>
+            </div>
+            <ng-template #showloading>
+                <p *ngIf="hoverImage==null">loading...</p>
+            </ng-template>
+        </div>
+        <div class="row mt-2" *ngIf="product?.images?.length!=0">
+
+            <div id="previewContainer">
+                <img class="img-thumbnail m-1 object-fit-contain" [src]="item.url"
+                    *ngFor="let item of product?.images; let i = index" role="button" style="height: 80px;width: 80px;"
+                    (mouseenter)="imageMouseEnter($event)" (mouseleave)="removeImageBorder($event)">
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6 p-3">
+        <div class="row">
+            <h4 class="mb-1">{{product?.name | uppercase}}</h4>
+        </div>
+        
+        <span class="fs-3">Rs. {{product?.price}}</span>
+        <div class="row mt-2">
+            <p class="text-secondary mb-1">Description</p>
+            <p [innerHTML]="product?.description" class=""></p>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="d-flex justify-content-left">
+                    <button class="btn btn-outline-primary py-2 px-5 me-2" (click)="add()">Add to cart</button>
+                    <button class="btn btn-primary py-2 px-5" [routerLink]="'/shop/cart'">
+                        Go to cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
