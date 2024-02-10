@@ -1,3 +1,6 @@
+<app-header [userCheck]="'seller'">
+
+</app-header>
 <div class="container mt-5">
     <table class="table table-borderless table-hover custom-table">
         <thead>
@@ -12,23 +15,26 @@
         </thead>
         <tbody>
             <!-- Loop through each order -->
-            <ng-container *ngFor="let order of orders?.results | paginate : { itemsPerPage: selectedLimit,currentPage: pagination,totalItems: totalResults }; let i = index;">
-                <tr *ngIf="i === 0 || i > 0 && order._id !== orders.results[i - 1]._id" class="border custom-tr" >
+            <ng-container
+                *ngFor="let order of orders?.results | paginate : { itemsPerPage: selectedLimit,currentPage: pagination,totalItems: totalResults }; let i = index;">
+                <tr *ngIf="i === 0 || i > 0 && order._id !== orders.results[i - 1]._id" class="border custom-tr">
                     <td [width]="100" class="text-primary" role="button" routerLink="{{order._id}}">
-                       
-                            {{ order._id }}
+
+                        {{ order._id }}
                     </td>
                     <td [width]="300"><span class="text-dark">
-                        {{order.address.street}} {{order.address.addressLine2}} {{order.address.city}} {{order.address.state}} {{order.address.pin}}
-                    </span></td>
+                            {{order.address.street}} {{order.address.addressLine2}} {{order.address.city}}
+                            {{order.address.state}} {{order.address.pin}}
+                        </span></td>
                     <td>{{ order.total | currency:'INR' }}</td>
                     <td><span class="text-warning">{{ order.paymentStatus }}</span></td>
                     <td><span class="text-secondary">{{ order.status }}</span></td>
                     <td class="">
                         <div role="button" class="dropdown" *ngIf="order.status!=='Cancelled'">
-                            <i class="bi bi-three-dots-vertical" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <i class="bi bi-three-dots-vertical" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                aria-expanded="false"></i>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" (click)="cancelOrder(order._id)">Cancel</a></li>
+                                <li><a class="dropdown-item" (click)="cancelOrder(order._id,'cancel')">Cancel</a></li>
                                 <li><a class="dropdown-item" routerLink="{{order._id}}">View Details</a></li>
                             </ul>
                         </div>

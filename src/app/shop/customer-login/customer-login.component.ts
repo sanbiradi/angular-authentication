@@ -45,8 +45,9 @@ export class CustomerLoginComponent {
           captcha: token
         }
         this.shophttp.loginCustomerRequest(payload).subscribe(data => {
-          this.dom.style.display = 'none';
-          this.dom.style.visibility = 'hidden'
+          // this.dom.style.display = 'none';
+          this.hideRecaptchaBadge();
+          // this.dom.style.visibility = 'hidden'
           this.storageService.set("userLogined", data.token);
           this.toastr.success("Account Has been login","success",{
             timeOut:3000

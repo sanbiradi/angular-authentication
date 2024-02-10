@@ -9,10 +9,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { StoreModule } from '@ngrx/store';
+import { DatePipe } from './pip/date.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    DatePipe,
   ],
   imports: [
     CommonModule,

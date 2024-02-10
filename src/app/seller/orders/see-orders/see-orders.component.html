@@ -1,0 +1,91 @@
+<app-header [userCheck]="'seller'"></app-header>
+<div class="p-4 mx-auto" *ngIf="order">
+    <div class="d-flex mt-4 align-items-center">
+        <h3 class="m-0 p-2">Order Number <span class="text-danger">#{{ order._id }}</span></h3>
+        <div role="button" class="float-end ms-3 dropdown">
+            <i class="bi bi-three-dots-vertical" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                aria-expanded="false"></i>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" (click)="orderAction(order._id,'dispatch')">Dispatch</a></li>
+                <li><a class="dropdown-item" (click)="orderAction(order._id,'deliver')">Deliver</a></li>
+                <li><a class="dropdown-item" (click)="orderAction(order._id,'cancel')">Cancel</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm p-4 mt-4">
+                <table class="table">
+                    <tr>
+                        <th>Item summary</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total Price</th>
+                    </tr>
+                    <tr *ngFor="let item of order.items" class="py-3">
+                        <td class="py-2">{{ item.name }}</td>
+                        <td class="py-2">{{ item.qty }}</td>
+                        <td class="py-2">{{ item.price | currency:'INR' }}</td>
+                        <td class="py-2">{{ item.subTotal | currency:'INR' }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card shadow-sm p-4 mt-4">
+                <h5 class="text-dark">Customer details</h5>
+                <h6 class="text-secondary-emphasis mt-2">Address</h6>
+                <p>
+                    {{Address}}
+                </p>
+            </div>
+            <div class="mt-4 alert alert-warning alert-dismissible fade show" role="alert"
+                *ngIf="confirmedCheck || order.status=='pending'">
+                Your order is not confirmed yet. Please complete your payment to confirm your order.
+                <div>
+                    <a class="text-success fw-bold" routerLink="/shop/cart/confirm/{{order._id}}"
+                        data-bs-toggle="tooltip" data-bs-title="confirm order">Confirm Payment</a>
+                </div>
+            </div>
+            <div class="mt-2 float-end">
+                <a class="btn btn-outline-secondary px-3" routerLink="/orders">Back</a>
+                <a class="btn btn-outline-danger ms-3" (click)="orderAction(order._id,'cancel')"
+                    *ngIf="order.status!=='Cancelled'">Cancel order</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 mt-4 ">
+                <h5 class="text-dark">Order Summary</h5>
+                <div class="row order-summary">
+                    <div class="col fw-bold">
+                        <div class="mt-2">Order Created: </div>
+                        <div>Order updated:</div>
+                        <div>Status:</div>
+                        <div>Total Items:</div>
+                        <div>Delivery fee:</div>
+                    </div>
+                    <div class="col text-end">
+                        <div class="mt-2">{{order.createdAt | date:'short'}} </div>
+                        <div> {{order.updatedAt | date:'short'}} </div>
+                        <div>{{order.status }} </div>
+                        <div *ngIf="order.items">{{order.items.length }} </div>
+                        <div>{{order.deliveryFee | currency:'INR'}} </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="card shadow-sm p-4 mt-4">
+                <div class="row">
+                    <div class="col fw-bold">
+                        <h5 class="text-dark">Total</h5>
+                    </div>
+                    <div class="col text-end">
+                        <h5 class="text-dark fw-normal">{{order.total | currency:'INR'}}</h5>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -18,7 +18,7 @@ export class SingleProductComponent {
   errorMessage: any;
   hoverImage: any = null;
   constructor(private renderer:Renderer2 ,private store: Store<{ cart: { product: Product[] } }>, private toastr: ToastrService, private activatedRoute: ActivatedRoute, private manageProducts: ShophttpService) {
-    
+    this.hideRecaptchaBadge()
   }
 
   
@@ -28,6 +28,8 @@ export class SingleProductComponent {
       this.renderer.setStyle(badge, 'display', 'none');
     }
   }
+
+  
   add() {
     let p: Product;
     if (this.item.deal) {

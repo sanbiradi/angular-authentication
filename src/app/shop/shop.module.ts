@@ -17,6 +17,8 @@ import { CartComponent } from './cart/cart.component';
 import { CartModule } from './cart/cart.module';
 import { SingleProductComponent } from './single-product/single-product.component';
 import { OrdersComponent } from './orders/orders.component';
+import { ViewOrdersComponent } from './view-orders/view-orders.component';
+import { OrdersModule } from '../seller/orders/orders/orders.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { OrdersComponent } from './orders/orders.component';
     CustomerLoginComponent,
     ProfileInformationComponent,
     SingleProductComponent,
-    OrdersComponent
+    OrdersComponent,
+    ViewOrdersComponent
   ],
   imports: [
     UtilityModule,
@@ -37,8 +40,7 @@ import { OrdersComponent } from './orders/orders.component';
     FormsModule,
     ReactiveFormsModule,
     ShopRoutingModule,
-    CartModule,
-   
+    CartModule
   ]
 })
 export class ShopModule { }

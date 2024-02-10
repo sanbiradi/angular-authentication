@@ -6,6 +6,7 @@ import { Observable, pluck } from 'rxjs';
 
 import { CartService } from '../../services/cart/cart.service';
 import { ShophttpService } from '../../services/shophttp/shophttp.service';
+import { selectProductCount } from '../store/cart.selectors';
 
 @Component({
   selector: 'app-cart-list',
@@ -21,17 +22,22 @@ export class CartListComponent implements OnInit {
   storelogin: Observable<any> = this.store.select('cart').pipe(pluck('login'));
   address: any;
 
+  productCount$ = this.store.select(selectProductCount);
   i = 0;
   id: any;
-  loginflag: boolean = true;
+  loginflag!: boolean;
+  userLogined: any = localStorage.getItem("userLogined");
+  token = JSON.parse(this.userLogined);
   ngOnInit(): void {
     if (localStorage.getItem('userLogined')) {
-      this.cartservice.login.next(true);
+      this.cartservice.login.next(true);  
     }
-
+  
     this.cartservice.login.subscribe(res => {
+      if(res==true){
+        this.address = this.service.getAddresses();
+      }
       this.loginflag = res;
-      this.address = this.service.getAddresses();
     });
   }
 

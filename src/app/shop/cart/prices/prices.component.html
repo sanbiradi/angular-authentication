@@ -1,28 +1,27 @@
 <div class="w-100 p-2 shadow-sm rounded">
     <h6 class="px-3 py-2 border-dark-subtle text-dark-emphasis">Order Summary</h6>
-    
+
     <div class="p-3">
         <div class="d-flex w-100 justify-content-between">
             <h6>MRP</h6>
             <h6>{{ storeprice | async | currency:'INR' }}</h6>
         </div>
-        
+
         <div class="d-flex w-100 justify-content-between">
             <h6>Delivery Fee</h6>
             <h6>{{ deliveryFee | currency:'INR' }}</h6>
         </div>
     </div>
-    
-    <div class="d-flex w-100 justify-content-between p-2 border-top border-bottom border-dark-subtle text-dark-emphasis">
+
+    <div
+        class="d-flex w-100 justify-content-between p-2 border-top border-bottom border-dark-subtle text-dark-emphasis">
         <h5 class="fw-bolder m-0">Total Price</h5>
         <h5>{{ (storeprice | async) + deliveryFee | currency:'INR' }}</h5>
     </div>
 
     <div class="p-3 d-flex justify-content-center">
-        <button class="btn btn-md btn-success w-75 d-block fw-bolder fs-5" data-bs-toggle="modal" data-bs-target="#loginform"
-                *ngIf="!(storelogin | async)">Checkout</button>
-        
-        <button class="btn btn-md btn-outline-success w-75 d-block fw-bolder fs-5" (click)="placeorder()"
-                *ngIf="storelogin | async">Checkout</button>
+        <button class="btn btn-md btn-outline-success w-75 d-block fw-bolder fs-5"
+            (click)="placeorder()">Checkout</button>
+
     </div>
 </div>

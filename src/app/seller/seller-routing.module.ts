@@ -8,6 +8,7 @@ import { ProductsPageComponent } from './products/products-page/products-page.co
 const routes: Routes = [
   // lazy loaded modules
   { path: '', component: ProductsPageComponent, canActivate: [AuthGuard] },
+  
   // { path: '**', redirectTo: '/unauthorized' },
   // { path: 'unauthorized', component: UnauthorisedComponent },
 ];

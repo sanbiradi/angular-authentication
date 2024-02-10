@@ -1,4 +1,3 @@
-
 <div class="container-fluid p-0">
     <div class="accordion" id="accordionExample">
         <!-- Cart Items -->
@@ -11,42 +10,45 @@
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample">
-                
-
-                    <div class="accordion-body list-group list-group-flush overflow-y-auto" style="max-height: 65vh" *ngIf="(outputproducts$|async)">
-
-                        <li class="list-group-item" *ngFor="let item of outputproducts$ | async">
-                            <div class="row">
-                                <div class="col-9">
-                                    <h6 class="mb-1">{{ item.name }}</h6>
-                                    <span class="d-flex align-items-center">
-                                        Price:
-                                        <p [class]="item.deal ? 'mb-1 ms-1 text-decoration-line-through' : 'mb-1 ms-1'">
-                                            {{ item.price | currency:'INR' }}
-                                        </p>
-                                        <p *ngIf="item.deal" class="ms-2">
-                                            {{ item.deal.price }}
-                                            ({{ item.deal.discount }} Discount)
-                                        </p>
-                                    </span>
-                                </div>
-                                <div class="col-3 d-flex align-items-center">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-outline-success btn-sm"
-                                            (click)="dec(item.productId,item.qty)">
-                                            <i class="bi bi-dash-lg"></i>
-                                        </button>
-                                        <a class="btn btn-success btn-sm">{{ item.qty }}</a>
-                                        <button type="button" class="btn btn-outline-success btn-sm"
-                                            (click)="inc(item.productId)">
-                                            <i class="bi bi-plus-lg"></i>
-                                        </button>
-                                    </div>
+                <div class="accordian-body list-group list-group-flush overflow-y-auto"  *ngIf="(productCount$|async)==0">
+                    
+                    <li class="list-group-item"><h5>No products</h5>
+                        <a routerLink="/">See products</a></li>
+                </div>
+                <div class="accordion-body list-group list-group-flush overflow-y-auto" style="max-height: 65vh"
+                    *ngIf="(outputproducts$|async)">
+                    <li class="list-group-item" *ngFor="let item of outputproducts$ | async">
+                        <div class="row">
+                            <div class="col-9">
+                                <h6 class="mb-1">{{ item.name }}</h6>
+                                <span class="d-flex align-items-center">
+                                    Price:
+                                    <p [class]="item.deal ? 'mb-1 ms-1 text-decoration-line-through' : 'mb-1 ms-1'">
+                                        {{ item.price | currency:'INR' }}
+                                    </p>
+                                    <p *ngIf="item.deal" class="ms-2">
+                                        {{ item.deal.price }}
+                                        ({{ item.deal.discount }} Discount)
+                                    </p>
+                                </span>
+                            </div>
+                            <div class="col-3 d-flex align-items-center">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-outline-success btn-sm"
+                                        (click)="dec(item.productId,item.qty)">
+                                        <i class="bi bi-dash-lg"></i>
+                                    </button>
+                                    <a class="btn btn-success btn-sm">{{ item.qty }}</a>
+                                    <button type="button" class="btn btn-outline-success btn-sm"
+                                        (click)="inc(item.productId)">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
                                 </div>
                             </div>
-                        </li>
-                    </div>
-           
+                        </div>
+                    </li>
+                </div>
+
 
             </div>
         </div>
@@ -61,10 +63,10 @@
             </h2>
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                 data-bs-parent="#accordionExample">
-                <div class="accordion-body" *ngIf="!loginflag">
+                <div class="accordion-body" *ngIf="!token">
                     <h6>You are not logged in!</h6>
                 </div>
-                <div class="accordion-body" *ngIf="loginflag">
+                <div class="accordion-body" *ngIf="token">
 
                     <div *ngIf="!(address | async)" class="py-4 text-center">
                         <h6 class="text-primary">No Address present</h6>

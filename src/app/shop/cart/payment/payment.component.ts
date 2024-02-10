@@ -14,6 +14,7 @@ export class PaymentComponent {
   constructor(private service: CartService, private router: Router, private activated: ActivatedRoute) { }
   userLogined: any = localStorage.getItem("userLogined");
   token = JSON.parse(this.userLogined);
+  
   Toast = Swal.mixin({
     toast: true,
     position: 'top-end',

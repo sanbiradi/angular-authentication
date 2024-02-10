@@ -324,31 +324,4 @@ export class ShophttpService {
       catchError(this.handleError)
     );
   }
-
-
-  //manage orders
-  public getCustomersOrders(){
-    // Retrieve the token from localStorage directly
-    let userLogined: any = localStorage.getItem("userLogined");
-    let token = JSON.parse(userLogined);
-    if (!userLogined) {
-      // Handle the case where the token is not available
-      // You may want to redirect to the login page or handle it as needed
-      return throwError("User token not found");
-    }
-
-    // Set up the HTTP headers with the token
-    const options = {
-      headers: new HttpHeaders({
-        'Authorization': `Bearer ${token}`, // Use the retrieved token directly
-      })
-    };
-
-
-    let url = `${this.BASE_URL}/shop/orders`;
-    // Make the HTTP GET request
-    return this.http.get<any>(url, options).pipe(
-      catchError(this.handleError)
-    );
-  }
 }

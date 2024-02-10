@@ -30,8 +30,8 @@ export class PricesComponent implements OnInit {
     }
   });
 
-  
-  
+
+
 
   userLogined: any = localStorage.getItem("userLogined");
   token = JSON.parse(this.userLogined);
@@ -44,50 +44,55 @@ export class PricesComponent implements OnInit {
   addressid: any = null;
 
   ngOnInit(): void {
-    
-
     this.flag = localStorage.getItem('userLogined') ? true : false;
   }
 
   placeorder() {
-    let payload = {
-      items: [],
-      deliveryFee: this.deliveryFee,
-      total: 0,
-      address: {}
-    }
-
-    document.querySelectorAll('input[name=listGroupRadio]').forEach((item: any) => {
-      if (item.checked) {
-        this.addressid = item.value;
+    if (this.userLogined) {
+      let payload = {
+        items: [],
+        deliveryFee: this.deliveryFee,
+        total: 0,
+        address: {}
       }
-    });
-    if (this.addressid) {
-      this.storeproducts.subscribe(res => {
-        payload.total = res?.price || 0;
-        payload.items = res?.products || [];
+
+      document.querySelectorAll('input[name=listGroupRadio]').forEach((item: any) => {
+        if (item.checked) {
+          this.addressid = item.value;
+        }
       });
-      this.customerservice.getAddresses().subscribe((data: any) => {
-        console.log(data);
-        const { _id, ...newaddress } = data!.at(this.addressid) || {};
-        payload.address = newaddress;
-        this.cartservice.creat(this.token, payload).subscribe(
-          res => {
-            // console.log(res);
-            this.store.dispatch(emptycart());
-            this.store.select('cart').subscribe(data => localStorage.setItem('cart', JSON.stringify(data)));
-            this.router.navigate(['shop', 'cart', 'confirm', res?.order?._id]);
-          },
-          err => {
-            console.log(err);
-          }
-        );
-      });
-    }
-    else {
+      if (this.addressid) {
+        this.storeproducts.subscribe(res => {
+          payload.total = res?.price || 0;
+          payload.items = res?.products || [];
+        });
+        this.customerservice.getAddresses().subscribe((data: any) => {
+          console.log(data);
+          const { _id, ...newaddress } = data!.at(this.addressid) || {};
+          payload.address = newaddress;
+          this.cartservice.creat(this.token, payload).subscribe(
+            res => {
+              // console.log(res);
+              this.router.navigate(['shop', 'cart', 'confirm', res?.order?._id]);
+              this.store.dispatch(emptycart());
+              this.store.select('cart').subscribe(data => localStorage.setItem('cart', JSON.stringify(data)));
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        });
+      }
+      else {
+        this.Toast.fire({
+          icon: 'error',
+          title: 'Please select an address to proceed'
+        })
+      }
+    }else{
       this.Toast.fire({
         icon: 'error',
-        title: 'Please select an address to proceed'
+        title: 'You need to logined to checkout your products!'
       })
     }
   }
