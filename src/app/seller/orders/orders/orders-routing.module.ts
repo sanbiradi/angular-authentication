@@ -5,9 +5,7 @@ import { SeeOrdersComponent } from '../see-orders/see-orders.component';
 
 const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
-  {
-    path: 'orders/:id', component: SeeOrdersComponent
-  }
+  { path: 'orders/:id', component: SeeOrdersComponent }
 ];
 
 @NgModule({

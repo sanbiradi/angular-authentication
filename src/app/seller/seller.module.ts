@@ -17,20 +17,21 @@ import { OrdersComponent } from './orders/orders.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
-  declarations: [UnauthorisedComponent, SellerComponent,OrdersComponent, ],
+  declarations: [UnauthorisedComponent, SellerComponent],
   imports: [
-    CommonModule,
-    RouterModule,
     AuthModule,
     OrdersModule,
-    NgxPaginationModule,
     UtilityModule,
+    SellerRoutingModule,
     ProductsModule,
     SettingsModule,
     UserModule,
+    
+    RouterModule,
+    NgxPaginationModule,
+    CommonModule,
     BrowserModule,
     HttpClientModule,
-    SellerRoutingModule,
   ],
   providers: [
   ],

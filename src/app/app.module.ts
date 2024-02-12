@@ -22,9 +22,9 @@ import { DatePipe } from './pip/date.pipe';
     AppRoutingModule,
     ToastrModule.forRoot(),
     SweetAlert2Module.forRoot(),
-    ShopModule,
     StoreModule.forRoot({}),
     SellerModule,
+    ShopModule
   ],
   providers: [
   ],

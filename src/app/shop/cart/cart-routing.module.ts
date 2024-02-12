@@ -4,7 +4,6 @@ import { PaymentComponent } from './payment/payment.component';
 import { CartComponent } from './cart.component';
 import { CustomerGuard } from '../guards/customer.guard';
 const routes: Routes = [
-
   { path: '', component: CartComponent },
   { path: 'confirm/:id', component: PaymentComponent, canActivate: [CustomerGuard] }
 ];

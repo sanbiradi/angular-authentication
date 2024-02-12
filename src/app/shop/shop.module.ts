@@ -40,7 +40,7 @@ import { OrdersModule } from '../seller/orders/orders/orders.module';
     FormsModule,
     ReactiveFormsModule,
     ShopRoutingModule,
-    CartModule
+    CartModule,
   ]
 })
 export class ShopModule { }
